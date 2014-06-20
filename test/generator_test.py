@@ -18,16 +18,21 @@ class GeneratorTest(unittest.TestCase):
 		self.assertTrue(os.path.exists(expected_root_gyp_path))
 
 		expected_contents = {
-			'includes': [
-				'Win32Project1/Win32Project1.gypi',
+			'targets': [
+				{
+					'target_name': 'All',
+					'type': 'none',
+					'dependencies': [
+						'Win32Project1/Win32Project1.gyp:Win32Project1',
+					]
+				}
 			]
-			#TODO:
 		}
 		actual_contents = json.loads(open(expected_root_gyp_path).read())
 		self.assertEqual(expected_contents, actual_contents)
 
 		# dependent gypi file, correspoinding to 'Win32Project1/Win32Project1.vcxproj'
-		expected_depend_gyp_path = os.path.join(abs_sln_dir, 'Win32Project1/Win32Project1.gypi')
+		expected_depend_gyp_path = os.path.join(abs_sln_dir, 'Win32Project1/Win32Project1.gyp')
 		self.assertTrue(os.path.exists(expected_depend_gyp_path))
 
 		expected_contents = {

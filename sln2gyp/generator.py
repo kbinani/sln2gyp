@@ -16,27 +16,32 @@ class Generator:
 		abs_gyp_path, _ = os.path.splitext(solution.solution_file())
 		abs_gyp_path = abs_gyp_path + '.gyp'
 
-		gyp = {}
-
-		# generate 'includes' section
-		gyp['includes'] = self._generate_sln_inclues(solution)
+		gyp = {
+			'targets': [
+				{
+					'target_name': 'All',
+					'type': 'none',
+					'dependencies': self._generate_dependencies(solution)
+				}
+			]
+		}
 
 		f = open(abs_gyp_path, 'w')
 		f.write(json.dumps(gyp, indent = 4))
 
-	def _generate_sln_inclues(self, solution):
+	def _generate_dependencies(self, solution):
 		includes = []
 		for p in solution.projects():
 			abs_project_file = p.project_file()
 			abs_gyp_file, _ = os.path.splitext(abs_project_file)
-			abs_gyp_file = abs_gyp_file + '.gypi'
+			abs_gyp_file = abs_gyp_file + '.gyp:' + p.name()
 			relative_path_to_sln = util.normpath(os.path.relpath(abs_gyp_file, solution.solution_dir()))
 			includes.append(relative_path_to_sln)
 		return includes
 
 	def _generate_proj_gyp(self, solution, project):
 		abs_gyp_path, _ = os.path.splitext(project.project_file())
-		abs_gyp_path = abs_gyp_path + '.gypi'
+		abs_gyp_path = abs_gyp_path + '.gyp'
 
 		target = {
 			'target_name': project.name(),
