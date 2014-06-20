@@ -42,3 +42,19 @@ class Property:
 
 	def set_default(self, default_value):
 		self._default = default_value
+
+	def get_common_value_for_configurations(self, configurations, getter = None):
+		value = None
+		for config in configurations:
+			v = None
+			if getter == None:
+				v = self.get(config)
+			else:
+				v = getter(self.get(config))
+
+			if value == None:
+				value = v
+			else:
+				if v != value:
+					return None
+		return value
