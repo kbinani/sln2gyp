@@ -13,10 +13,13 @@ class Solution:
 		class Stack:
 			def __init__(self):
 				self._storage = []
+
 			def push(self, o):
 				self._storage.append(o)
+
 			def pop(self):
 				return self._storage.pop()
+
 			def peek(self):
 				size = len(self._storage)
 				if size > 0:

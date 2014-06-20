@@ -4,7 +4,7 @@ from project import Project
 
 class Generator:
 	def __init__(self):
-		''
+		pass
 
 	def generate_gyp(self, solution):
 		self._generate_sln_gyp(solution)

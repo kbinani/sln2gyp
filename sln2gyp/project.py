@@ -6,7 +6,7 @@ from configuration import Configuration, Property
 class Project:
 	class ParserFactory:
 		def __init__(self):
-			''
+			pass
 
 		def create_by_version(self, tools_version):
 			if tools_version == '4.0':
@@ -19,7 +19,7 @@ class Project:
 			self._tools_version = tools_version
 
 		def parse(self, xmldom, project):
-			''
+			pass
 
 	class VC2012ProjectParser(Parser):
 		def parse(self, xmldom, project):
