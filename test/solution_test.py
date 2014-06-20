@@ -40,6 +40,18 @@ class SolutionTestCase(unittest.TestCase):
 				self.assertEqual('Win32Project1', project.name())
 				self.assertEqual('{D5FE8C9E-25D9-43C1-A4E8-DE7ECBF2F02F}', project.guid())
 				self.assertEqual('4.0', project.tools_version())
+
+				def assert_link_options_debug():
+					debug = sln2gyp.Configuration.create_from_string('Debug|Win32')
+					link_options = project.link_options.get(debug)
+					self.assertEqual(sln2gyp.Project.LinkOptions.SubSystem.Windows, link_options.subsystem)
+				assert_link_options_debug()
+
+				def assert_link_options_release():
+					release = sln2gyp.Configuration.create_from_string('Release|Win32')
+					link_options = project.link_options.get(release)
+					self.assertEqual(sln2gyp.Project.LinkOptions.SubSystem.Windows, link_options.subsystem)
+				assert_link_options_release()
 			assert_project()
 
 			def assert_sources():

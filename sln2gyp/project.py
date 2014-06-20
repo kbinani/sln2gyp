@@ -27,6 +27,7 @@ class Project:
 			self._extract_source_files(xmldom, project)
 			self._extract_configurations(xmldom, project)
 			self._parse_configuration_property_group(xmldom, project)
+			self._parse_item_definition_group(xmldom, project)
 
 		def _extract_source_files(self, xmldom, project):
 			comp = xmldom.getElementsByTagName('ClCompile')
@@ -75,6 +76,42 @@ class Project:
 					project._type.set_default(value)
 			#TODO: parse other sections: <UseDebugLibraries>, <PlatformToolset>, <WholeProgramOptimization>, and <CharacterSet>
 
+		def _parse_item_definition_group(self, xmldom, project):
+			node_list = xmldom.getElementsByTagName('ItemDefinitionGroup')
+			for node in node_list:
+				condition = node.getAttribute('Condition')
+				definition = util.xml2obj(node)
+
+				link_options = Project.LinkOptions()
+				if 'Link' in definition:
+					if 'SubSystem' in definition['Link']:
+						link_options.subsystem = self._get_subsystem(definition['Link']['SubSystem'])
+
+				for config in project.configurations():
+					if config.is_match(condition):
+						project._link_options.set(config, link_options)
+
+		def _get_subsystem(self, subsystem_string):
+			if subsystem_string == 'Windows':
+				return Project.LinkOptions.SubSystem.Windows
+			else:
+				return 0
+
+
+	class LinkOptions:
+		class SubSystem:
+			Console = 1
+			Windows = 2
+			Native = 3
+			EFIApplication = 4
+			EFIBootServiceDriver = 5
+			EFIROM = 6
+			EFIRuntimeDriver = 7
+			WindowsCE = 8
+
+		def __init__(self):
+			self.subsystem = 0
+
 	def __init__(self, file, name, guid):
 		self._file = file
 		self._guid = guid
@@ -83,6 +120,7 @@ class Project:
 		self._configurations = []
 		self._type = Property('Application')
 		self._dependencies = []
+		self._link_options = Property(self.LinkOptions())
 		dom = xml.dom.minidom.parse(file)
 		version = self._detect_project_version(dom)
 
@@ -128,3 +166,7 @@ class Project:
 
 	def dependencies(self):
 		return self._dependencies
+
+	@property
+	def link_options(self):
+		return self._link_options
