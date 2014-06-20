@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Win32Project1", "Win32Project1\Win32Project1.vcxproj", "{5479BFB8-0A65-4D96-8FFB-ED79FED3C3E4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{94404046-7E10-A2E6-846D-DB84A5BA6982} = {94404046-7E10-A2E6-846D-DB84A5BA6982}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "depend", "depend\depend.vcxproj", "{94404046-7E10-A2E6-846D-DB84A5BA6982}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5479BFB8-0A65-4D96-8FFB-ED79FED3C3E4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5479BFB8-0A65-4D96-8FFB-ED79FED3C3E4}.Debug|Win32.Build.0 = Debug|Win32
+		{5479BFB8-0A65-4D96-8FFB-ED79FED3C3E4}.Release|Win32.ActiveCfg = Release|Win32
+		{5479BFB8-0A65-4D96-8FFB-ED79FED3C3E4}.Release|Win32.Build.0 = Release|Win32
+		{94404046-7E10-A2E6-846D-DB84A5BA6982}.Debug|Win32.ActiveCfg = Debug|Win32
+		{94404046-7E10-A2E6-846D-DB84A5BA6982}.Debug|Win32.Build.0 = Debug|Win32
+		{94404046-7E10-A2E6-846D-DB84A5BA6982}.Release|Win32.ActiveCfg = Release|Win32
+		{94404046-7E10-A2E6-846D-DB84A5BA6982}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
