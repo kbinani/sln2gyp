@@ -1,6 +1,7 @@
 import os.path
 import json
 from project import Project
+import util
 
 class Generator:
 	def __init__(self):
@@ -29,7 +30,7 @@ class Generator:
 			abs_project_file = p.project_file()
 			abs_gyp_file, _ = os.path.splitext(abs_project_file)
 			abs_gyp_file = abs_gyp_file + '.gypi'
-			relative_path_to_sln = os.path.relpath(abs_gyp_file, solution.solution_dir())
+			relative_path_to_sln = util.normpath(os.path.relpath(abs_gyp_file, solution.solution_dir()))
 			includes.append(relative_path_to_sln)
 		return includes
 
