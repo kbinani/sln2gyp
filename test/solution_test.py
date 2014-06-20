@@ -86,3 +86,18 @@ class SolutionTestCase(unittest.TestCase):
 
 		project = self._solution.get_by_guid('')
 		self.assertTrue(project == None)
+
+class SolutionWithDependencyTestCase(unittest.TestCase):
+	def setUp(self):
+		self._sln_file = 'test/fixtures/vs2012/dependency/Win32Project1/Win32Project1.sln'
+		self._solution = sln2gyp.Solution(self._sln_file)
+
+	def test(self):
+		self.assertEqual(2, len(self._solution.projects()))
+		win32project = self._solution.projects()[0]
+		depend = self._solution.projects()[1]
+
+		self.assertEqual(1, len(win32project.dependencies()))
+		self.assertEqual(0, len(depend.dependencies()))
+
+		self.assertEqual(depend.guid(), win32project.dependencies()[0])

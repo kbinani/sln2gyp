@@ -29,7 +29,17 @@ class ConfigurationTest(unittest.TestCase):
 class PropertyTest(unittest.TestCase):
 	def test_init(self):
 		prop = sln2gyp.Property('A')
+
 		a_b = sln2gyp.Configuration('a', 'b')
+		unknown = sln2gyp.Configuration('x', 'y')
+
 		self.assertEqual('A', prop.get(a_b))
+		self.assertEqual('A', prop.get(unknown))
+
 		prop.set(a_b, 'B')
 		self.assertEqual('B', prop.get(a_b))
+		self.assertEqual('A', prop.get(unknown))
+
+		prop.set_default('C')
+		self.assertEqual('B', prop.get(a_b))
+		self.assertEqual('C', prop.get(unknown))

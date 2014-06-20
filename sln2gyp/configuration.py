@@ -39,3 +39,6 @@ class Property:
 			if platform in self._storage[name]:
 				return self._storage[name][platform]
 		return self._default
+
+	def set_default(self, default_value):
+		self._default = default_value

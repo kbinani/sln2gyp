@@ -65,11 +65,14 @@ class Project:
 					node_list.append(node)
 
 			for node in node_list:
-			 	condition = node.getAttribute('Condition')
-			 	for config in project.configurations():
-			 		if config.is_match(condition):
-			 			value = node.getElementsByTagName('ConfigurationType').item(0).firstChild.nodeValue
-			 			project._type.set(config, value)
+	 			value = node.getElementsByTagName('ConfigurationType').item(0).firstChild.nodeValue
+				if node.hasAttribute('Condition'):
+				 	condition = node.getAttribute('Condition')
+				 	for config in project.configurations():
+				 		if config.is_match(condition):
+				 			project._type.set(config, value)
+				else:
+					project._type.set_default(value)
 			#TODO: parse other sections: <UseDebugLibraries>, <PlatformToolset>, <WholeProgramOptimization>, and <CharacterSet>
 
 	def __init__(self, file, name, guid):
@@ -79,6 +82,7 @@ class Project:
 		self._sources = []
 		self._configurations = []
 		self._type = Property('Application')
+		self._dependencies = []
 		dom = xml.dom.minidom.parse(file)
 		version = self._detect_project_version(dom)
 
@@ -121,3 +125,6 @@ class Project:
 
 	def type(self):
 		return self._type
+
+	def dependencies(self):
+		return self._dependencies

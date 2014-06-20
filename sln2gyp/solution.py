@@ -6,9 +6,23 @@ from configuration import Configuration
 
 class Solution:
 	class Parser:
-		class Status:
+		class StatusType:
 			kUnknown = 0
-			kConfigurationPlatforms = 1
+			kGlobalSection = 1
+			kProject = 2
+			kProjectSection = 3
+			kRoot = 4
+
+		class Status:
+			def __init__(self, status_type, name = None):
+				self._status_type = status_type
+				self._name = name
+
+			def status_type(self):
+				return self._status_type
+
+			def name(self):
+				return self._name
 
 		class Stack:
 			def __init__(self):
@@ -33,9 +47,12 @@ class Solution:
 			self._re_endproject = re.compile('^\s*EndProject\s*(#.*)?$')
 			self._re_globalsection = re.compile('^\s*GlobalSection\s*\(\s*(?P<section_name>[^)]*)\s*\)\s*=\s*[^#]*(#.*)?$')
 			self._re_endglobalsection = re.compile('^\s*EndGlobalSection\s*(#.*)?$')
+			self._re_projectsection = re.compile('^\s*ProjectSection\((?P<section_name>[^)]*)\)\s*=\s*[^#]*(#.*)?$')
+			self._re_endprojectsection = re.compile('^\s*EndProjectSection\s*(#.*)?$')
 
 			self._project = None
 			self._status = Solution.Parser.Stack()
+			self._status.push(Solution.Parser.Status(Solution.Parser.StatusType.kRoot))
 
 		def parse(self, file):
 			self._solution._file = util.normpath(os.path.abspath(file))
@@ -46,35 +63,67 @@ class Solution:
 			m = self._re_project.search(line)
 			if not m == None:
 				file = util.normpath(self._solution.solution_dir() + '/' + m.group('project_file'))
-				classid = m.group('project_classid')
+				classid = m.group('classid')
+				guid = m.group('project_classid')
 				name = m.group('project_name')
-				self._project = Project(file, name, classid)
+				self._project = Project(file, name, guid)
+				status = Solution.Parser.Status(Solution.Parser.StatusType.kProject, classid)
+				self._status.push(status)
 				return
 
 			m = self._re_endproject.search(line)
 			if not m == None:
 				self._solution._projects.append(self._project)
 				self._project = None
+				if self._status.peek().status_type() != Solution.Parser.StatusType.kProject:
+					raise "Invalid .sln format"
+				self._status.pop()
 				return
 
 			m = self._re_globalsection.search(line)
 			if not m == None:
 				section_name = m.group('section_name')
-				if section_name == 'SolutionConfigurationPlatforms':
-					self._status.push(Solution.Parser.Status.kConfigurationPlatforms)
-				else:
-					self._status.push(Solution.Parser.Status.kUnknown)
+				status = Solution.Parser.Status(Solution.Parser.StatusType.kGlobalSection, section_name)
+				self._status.push(status)
 				return
 
 			m = self._re_endglobalsection.search(line)
 			if not m == None:
+				if self._status.peek().status_type() != Solution.Parser.StatusType.kGlobalSection:
+					raise "Invalid .sln format"
 				self._status.pop()
 				return
 
-			if self._status.peek() == Solution.Parser.Status.kConfigurationPlatforms:
-				rhs, lhs = line.split('=')
-				configuration = Configuration.create_from_string(lhs.strip())
-				self._solution._configurations.append(configuration)
+			m = self._re_projectsection.search(line)
+			if m != None:
+				section_name = m.group('section_name')
+				status = Solution.Parser.Status(Solution.Parser.StatusType.kProjectSection, section_name)
+				self._status.push(status)
+				return
+
+			m = self._re_endprojectsection.search(line)
+			if m != None:
+				if self._status.peek().status_type() != Solution.Parser.StatusType.kProjectSection:
+					raise "Invalid .sln format"
+				self._status.pop()
+				return
+
+			current_status = self._status.peek()
+			if current_status == None:
+				#TODO: error handling. self._status hould have 'root' status
+				return
+
+			if current_status.status_type() == Solution.Parser.StatusType.kGlobalSection:
+				if current_status.name() == 'SolutionConfigurationPlatforms':
+					rhs, lhs = line.split('=')
+					configuration = Configuration.create_from_string(lhs.strip())
+					self._solution._configurations.append(configuration)
+			elif current_status.status_type() == Solution.Parser.StatusType.kProjectSection:
+				if current_status.name() == 'ProjectDependencies':
+					rhs, lhs = line.split('=')
+					guid = self._project.guid()
+					depends = lhs.strip()
+					self._project._dependencies.append(depends)
 
 	def __init__(self, file):
 		self._projects = []

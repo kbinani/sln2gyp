@@ -49,11 +49,30 @@ class Generator:
 			'sources': self._generate_proj_sources(project),
 			'configurations': self._generate_proj_configurations(project),
 		}
+
+		dependencies = self._generate_proj_dependencies(solution, project)
+		if len(dependencies) > 0:
+			target['dependencies'] = dependencies
+
 		gyp = {}
 		gyp['targets'] = [target]
 
 		f = open(abs_gyp_path, 'w')
 		f.write(json.dumps(gyp, indent = 4))
+
+	def _generate_proj_dependencies(self, solution, project):
+		dependencies = []
+		for dep_guid in project.dependencies():
+			for p in solution.projects():
+				if p.guid() == project.guid():
+					continue
+				if p.guid() == dep_guid:
+					dep_proj_path = p.project_file()
+					dep_gyp_name, ext = os.path.splitext(dep_proj_path)
+					dep_gyp_path = dep_gyp_name + '.gyp'
+					rel_gyp_path = os.path.relpath(dep_gyp_path, project.project_dir())
+					dependencies.append(rel_gyp_path + ":" + p.name())
+		return dependencies
 
 	def _generate_proj_sources(self, project):
 		sources = []
