@@ -110,7 +110,7 @@ class Project:
 			WindowsCE = 8
 
 		def __init__(self):
-			self.subsystem = 0
+			self.subsystem = None
 
 	def __init__(self, file, name, guid):
 		self._file = file

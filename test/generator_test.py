@@ -58,6 +58,11 @@ class GeneratorTest(unittest.TestCase):
 							},
 							'Release': {
 							},
+						},
+						'msvs_settings': {
+							'VCLinkerTool': {
+								'SubSystem': 2,
+							}
 						}
 					}
 				]

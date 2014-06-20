@@ -53,6 +53,9 @@ class Generator:
 		dependencies = self._generate_proj_dependencies(solution, project)
 		if len(dependencies) > 0:
 			target['dependencies'] = dependencies
+		msvs_settings = self._generate_proj_common_msvs_settings(solution, project)
+		if len(msvs_settings) > 0:
+			target['msvs_settings'] = msvs_settings
 
 		gyp = {}
 		gyp['targets'] = [target]
@@ -73,6 +76,16 @@ class Generator:
 					rel_gyp_path = os.path.relpath(dep_gyp_path, project.project_dir())
 					dependencies.append(rel_gyp_path + ":" + p.name())
 		return dependencies
+
+	def _generate_proj_common_msvs_settings(self, solution, project):
+		msvs_settings = {}
+		subsystem = project.link_options.get_common_value_for_configurations(project.configurations(), lambda prop: prop.subsystem)
+		if subsystem != None:
+			if not 'VCLinkerTool' in msvs_settings:
+				msvs_settings['VCLinkerTool'] = {}
+			msvs_settings['VCLinkerTool']['SubSystem'] = subsystem
+
+		return msvs_settings
 
 	def _generate_proj_sources(self, project):
 		sources = []
