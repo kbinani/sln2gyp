@@ -60,6 +60,9 @@ class Generator:
 		common_msvs_precompiled_source = self._generate_proj_msvs_precompiled_source(project, project.configurations())
 		if common_msvs_precompiled_source != None:
 			target['msvs_precompiled_source'] = common_msvs_precompiled_source
+		common_msbuild_toolset = self._generate_proj_msbuild_toolset(project, project.configurations())
+		if common_msbuild_toolset != None:
+			target['msbuild_toolset'] = common_msbuild_toolset
 
 		for config in project.configurations():
 			config_msvs_settings = self._generate_proj_msvs_settings(project, [config])
@@ -68,7 +71,10 @@ class Generator:
 				target['configurations'][config.configuration()]['msvs_settings'] = extracted_msvs_settings
 			config_msvs_precompiled_source = self._generate_proj_msvs_precompiled_source(project, [config])
 			if config_msvs_precompiled_source != None and config_msvs_precompiled_source != common_msvs_precompiled_source:
-				target['configurations'][config.configurations()]['msvs_precompiled_source'] = config_msvs_precompiled_source
+				target['configurations'][config.configuration()]['msvs_precompiled_source'] = config_msvs_precompiled_source
+			config_msbuild_toolset = self._generate_proj_msbuild_toolset(project, [config])
+			if config_msbuild_toolset != None and config_msbuild_toolset != common_msbuild_toolset:
+				target['configurations'][config.configuration()]['msbuild_toolset'] = config_msbuild_toolset
 
 		gyp = {}
 		gyp['targets'] = [target]
@@ -89,6 +95,20 @@ class Generator:
 					rel_gyp_path = os.path.relpath(dep_gyp_path, project.project_dir())
 					dependencies.append(rel_gyp_path + ":" + p.name())
 		return dependencies
+
+	def _generate_proj_msbuild_toolset(self, project, configurations):
+		is_first = True
+		msbuild_toolset = None
+		for config in configurations:
+			project_options = project.project_options.get(config)
+			if 'PlatformToolset' in project_options:
+				toolset = project_options['PlatformToolset']
+				if is_first:
+					msbuild_toolset = toolset
+				else:
+					if toolset != msbuild_toolset:
+						return None
+		return msbuild_toolset
 
 	def _generate_proj_msvs_precompiled_source(self, project, configurations):
 		is_first = True

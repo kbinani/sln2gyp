@@ -95,6 +95,7 @@ class GeneratorTest(unittest.TestCase):
 							}
 						},
 						'msvs_precompiled_source': 'stdafx.cpp',
+						'msbuild_toolset': 'v110',
 					}
 				]
 			}
@@ -128,7 +129,7 @@ class GeneratorTest(unittest.TestCase):
 									'%(AdditionalDependencies)',
 								],
 							}
-						}
+						},
 					}
 				]
 			}

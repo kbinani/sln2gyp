@@ -46,11 +46,16 @@ class SolutionTestCase(unittest.TestCase):
 
 					link_options = project.link_options.get(debug)
 					compile_options = project.compile_options.get(debug)
+					project_options = project.project_options.get(debug)
 
 					self.assertEqual('Windows', link_options['SubSystem'])
+
 					self.assertEqual('Disabled', compile_options['Optimization'])
 					self.assertEqual('WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)', compile_options['PreprocessorDefinitions'])
 					self.assertEqual('false', compile_options['SDLCheck'])
+
+					self.assertEqual('v110', project_options['PlatformToolset'])
+
 					self.assertEqual('stdafx.cpp', project.precompiled_source(debug))
 				assert_options_debug()
 
@@ -59,11 +64,15 @@ class SolutionTestCase(unittest.TestCase):
 
 					link_options = project.link_options.get(release)
 					compile_options = project.compile_options.get(release)
+					project_options = project.project_options.get(release)
 
 					self.assertEqual('Windows', link_options['SubSystem'])
+
 					self.assertEqual('MaxSpeed', compile_options['Optimization'])
 					self.assertEqual('WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)', compile_options['PreprocessorDefinitions'])
 					self.assertEqual('true', compile_options['SDLCheck'])
+
+					self.assertEqual('v110', project_options['PlatformToolset'])
 
 					self.assertEqual('stdafx.cpp', project.precompiled_source(release))
 				assert_options_release()
