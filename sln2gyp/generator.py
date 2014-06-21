@@ -145,6 +145,10 @@ class Generator:
 			if optimization != None:
 				section['Optimization'] = self._get_optimization(optimization)
 
+			preprocessor_defines = compile_options.get_common_value_for_configurations(configurations, 'PreprocessorDefinitions')
+			if preprocessor_defines != None:
+				section['PreprocessorDefinitions'] = self._getPreprocessor_defines(preprocessor_defines)
+
 			return section
 
 		vcclcompilertool = generate_vcclcompilertool_section()
@@ -152,6 +156,13 @@ class Generator:
 			msvs_settings['VCCLCompilerTool'] = vcclcompilertool
 
 		return msvs_settings
+
+	def _getPreprocessor_defines(self, preprocessor_defines_string):
+		token_list = preprocessor_defines_string.split(';')
+		if len(token_list) > 0:
+			return token_list
+		else:
+			return None
 
 	def _get_optimization(self, optimization_string):
 		if optimization_string == 'Disabled':

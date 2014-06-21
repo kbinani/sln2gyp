@@ -58,6 +58,12 @@ class GeneratorTest(unittest.TestCase):
 								'msvs_settings': {
 									'VCCLCompilerTool': {
 										'Optimization': 0,
+										'PreprocessorDefinitions': [
+											'WIN32',
+											'_DEBUG',
+											'_WINDOWS',
+											'%(PreprocessorDefinitions)',
+										]
 									},
 								},
 							},
@@ -66,6 +72,12 @@ class GeneratorTest(unittest.TestCase):
 									'VCCLCompilerTool': {
 										'WholeProgramOptimization': 'true',
 										'Optimization': 2,
+										'PreprocessorDefinitions': [
+											'WIN32',
+											'NDEBUG',
+											'_WINDOWS',
+											'%(PreprocessorDefinitions)',
+										],
 									}
 								},
 							},

@@ -49,6 +49,7 @@ class SolutionTestCase(unittest.TestCase):
 
 					self.assertEqual('Windows', link_options['SubSystem'])
 					self.assertEqual('Disabled', compile_options['Optimization'])
+					self.assertEqual('WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)', compile_options['PreprocessorDefinitions'])
 
 					self.assertEqual('stdafx.cpp', project.precompiled_source(debug))
 				assert_options_debug()
@@ -61,6 +62,7 @@ class SolutionTestCase(unittest.TestCase):
 
 					self.assertEqual('Windows', link_options['SubSystem'])
 					self.assertEqual('MaxSpeed', compile_options['Optimization'])
+					self.assertEqual('WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)', compile_options['PreprocessorDefinitions'])
 
 					self.assertEqual('stdafx.cpp', project.precompiled_source(release))
 				assert_options_release()
