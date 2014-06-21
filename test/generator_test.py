@@ -65,6 +65,9 @@ class GeneratorTest(unittest.TestCase):
 											'%(PreprocessorDefinitions)',
 										]
 									},
+									'VCLinkerTool': {
+										'GenerateDebugInformation': 'true',
+									},
 								},
 							},
 							'Release': {
@@ -78,7 +81,10 @@ class GeneratorTest(unittest.TestCase):
 											'_WINDOWS',
 											'%(PreprocessorDefinitions)',
 										],
-									}
+									},
+									'VCLinkerTool': {
+										'GenerateDebugInformation': 'false',
+									},
 								},
 							},
 						},

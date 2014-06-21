@@ -129,6 +129,7 @@ class Generator:
 		def generate_vclinkertool_section():
 			section = {}
 			link_options = project.link_options
+			project_options = project.project_options
 
 			# SubSystem
 			subsystem = link_options.get_common_value_for_configurations(configurations, 'SubSystem')
@@ -137,6 +138,10 @@ class Generator:
 
 			# AdditionalDependencies
 			section['AdditionalDependencies'] = ['%(AdditionalDependencies)']
+
+			use_debug_libraries = project_options.get_common_value_for_configurations(configurations, 'UseDebugLibraries')
+			if use_debug_libraries != None:
+				section['GenerateDebugInformation'] = use_debug_libraries
 
 			return section
 

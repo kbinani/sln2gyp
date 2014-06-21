@@ -55,6 +55,7 @@ class SolutionTestCase(unittest.TestCase):
 					self.assertEqual('false', compile_options['SDLCheck'])
 
 					self.assertEqual('v110', project_options['PlatformToolset'])
+					self.assertEqual('true', project_options['UseDebugLibraries'])
 
 					self.assertEqual('stdafx.cpp', project.precompiled_source(debug))
 				assert_options_debug()
@@ -73,6 +74,7 @@ class SolutionTestCase(unittest.TestCase):
 					self.assertEqual('true', compile_options['SDLCheck'])
 
 					self.assertEqual('v110', project_options['PlatformToolset'])
+					self.assertEqual('false', project_options['UseDebugLibraries'])
 
 					self.assertEqual('stdafx.cpp', project.precompiled_source(release))
 				assert_options_release()
