@@ -55,11 +55,17 @@ class GeneratorTest(unittest.TestCase):
 						],
 						'configurations': {
 							'Debug': {
+								'msvs_settings': {
+									'VCCLCompilerTool': {
+										'Optimization': 0,
+									},
+								},
 							},
 							'Release': {
 								'msvs_settings': {
 									'VCCLCompilerTool': {
-										'WholeProgramOptimization': 'true'
+										'WholeProgramOptimization': 'true',
+										'Optimization': 2,
 									}
 								},
 							},

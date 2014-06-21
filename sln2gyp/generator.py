@@ -141,6 +141,10 @@ class Generator:
 			if whole_program_optimization != None:
 				section['WholeProgramOptimization'] = whole_program_optimization
 
+			optimization = compile_options.get_common_value_for_configurations(configurations, 'Optimization')
+			if optimization != None:
+				section['Optimization'] = self._get_optimization(optimization)
+
 			return section
 
 		vcclcompilertool = generate_vcclcompilertool_section()
@@ -148,6 +152,18 @@ class Generator:
 			msvs_settings['VCCLCompilerTool'] = vcclcompilertool
 
 		return msvs_settings
+
+	def _get_optimization(self, optimization_string):
+		if optimization_string == 'Disabled':
+			return 0
+		elif optimization_string == 'MinSpace':
+			return 1
+		elif optimization_string == 'MaxSpeed':
+			return 2
+		elif optimization_string == 'Full':
+			return 3
+		else:
+			return None
 
 	def _get_subsystem(self, subsystem_string):
 		if subsystem_string == 'Windows':
