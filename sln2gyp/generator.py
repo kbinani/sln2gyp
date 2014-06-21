@@ -1,5 +1,6 @@
 import os.path
 import json
+import re
 from project import Project
 import util
 
@@ -53,9 +54,15 @@ class Generator:
 		dependencies = self._generate_proj_dependencies(solution, project)
 		if len(dependencies) > 0:
 			target['dependencies'] = dependencies
-		msvs_settings = self._generate_proj_common_msvs_settings(solution, project)
-		if len(msvs_settings) > 0:
-			target['msvs_settings'] = msvs_settings
+		common_msvs_settings = self._generate_proj_common_msvs_settings(project)
+		if len(common_msvs_settings) > 0:
+			target['msvs_settings'] = common_msvs_settings
+
+		for config in project.configurations():
+			config_msvs_settings = self._generate_proj_msvs_settings(project, [config])
+			extracted_msvs_settings = util.extract_hash_diff(common_msvs_settings, config_msvs_settings)
+			if len(extracted_msvs_settings) > 0:
+				target['configurations'][config.configuration()]['msvs_settings'] = extracted_msvs_settings
 
 		gyp = {}
 		gyp['targets'] = [target]
@@ -77,15 +84,90 @@ class Generator:
 					dependencies.append(rel_gyp_path + ":" + p.name())
 		return dependencies
 
-	def _generate_proj_common_msvs_settings(self, solution, project):
+	def _generate_proj_common_msvs_settings(self, project):
+		return self._generate_proj_msvs_settings(project, project.configurations())
+
+	def _generate_proj_msvs_settings(self, project, configurations):
 		msvs_settings = {}
-		subsystem = project.link_options.get_common_value_for_configurations(project.configurations(), lambda prop: prop.subsystem)
-		if subsystem != None:
-			if not 'VCLinkerTool' in msvs_settings:
-				msvs_settings['VCLinkerTool'] = {}
-			msvs_settings['VCLinkerTool']['SubSystem'] = subsystem
+
+		# VCLinkerTool
+		def generate_vclinkertool_section():
+			section = {}
+			link_options = project.link_options
+
+			# SubSystem
+			subsystem = link_options.get_common_value_for_configurations(configurations, 'SubSystem')
+			if subsystem != None:
+				section['SubSystem'] = self._get_subsystem(subsystem)
+
+			# AdditionalDependencies
+			section['AdditionalDependencies'] = ['%(AdditionalDependencies)']
+
+			return section
+
+		vclinkertool = generate_vclinkertool_section()
+		if len(vclinkertool) > 0:
+			msvs_settings['VCLinkerTool'] = vclinkertool
+
+		# VCCLCompilerTool
+		def generate_vcclcompilertool_section():
+			section = {}
+			compile_options = project.compile_options
+
+			use_precompiled_header = compile_options.get_common_value_for_configurations(configurations, 'PrecompiledHeader')
+			if use_precompiled_header != None:
+				section['UsePrecompiledHeader'] = self._get_use_precompiled_header(use_precompiled_header)
+
+			warning_level = compile_options.get_common_value_for_configurations(configurations, 'WarningLevel')
+			if warning_level != None:
+				section['WarningLevel'] = self._get_warning_level(warning_level)
+
+			whole_program_optimization = project.project_options.get_common_value_for_configurations(configurations, 'WholeProgramOptimization')
+			if whole_program_optimization != None:
+				section['WholeProgramOptimization'] = whole_program_optimization
+
+			return section
+
+		vcclcompilertool = generate_vcclcompilertool_section()
+		if len(vcclcompilertool) > 0:
+			msvs_settings['VCCLCompilerTool'] = vcclcompilertool
 
 		return msvs_settings
+
+	def _get_subsystem(self, subsystem_string):
+		if subsystem_string == 'Windows':
+			return 2
+		elif subsystem_string == 'Console':
+			return 1
+		elif subsystem_string == 'Native':
+			return 3
+		elif subsystem_string == 'EFI Application':
+			return 4
+		elif subsystem_string == 'EFI Boot Service Driver':
+			return 5
+		elif subsystem_string == 'EFI ROM':
+			return 6
+		elif subsystem_string == 'EFI Runtime':
+			return 7
+		elif subsystem_string == 'POSIX':
+			#TODO(kbinani): gyp does not support 'POSIX' subsystem type
+			return 0
+		else:
+			return 0
+
+	def _get_use_precompiled_header(self, precompiled_header_string):
+		if precompiled_header_string == 'Use':
+			return 2
+		elif precompiled_header_string == 'Create':
+			return 1
+		elif precompiled_header_string == 'NotUsing':
+			return 0
+		else:
+			return None
+
+	def _get_warning_level(self, warning_level):
+		m = re.compile('Level(?P<level>[0-9]*)').search(warning_level)
+		return int(m.group('level'))
 
 	def _generate_proj_sources(self, project):
 		sources = []
@@ -94,17 +176,7 @@ class Generator:
 		return sources
 
 	def _get_project_type(self, project):
-		"""
-		Get project type, if all configurations have same types.
-		"""
-		value = None
-		for config in project.configurations():
-			v = project.type().get(config)
-			if value == None:
-				value = v
-			else:
-				if value != v:
-					return 'none'
+		value = project.project_options.get_common_value_for_configurations(project.configurations(), 'ConfigurationType')
 		if value == None:
 			return 'none'
 		else:
@@ -115,6 +187,8 @@ class Generator:
 			return 'executable'
 		elif vs_configuration_type == 'StaticLibrary':
 			return 'static_library'
+		elif vs_configuration_type == 'DynamicLibrary':
+			return 'dynamic_library'
 		else:
 			return 'none'
 

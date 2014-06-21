@@ -66,15 +66,14 @@ class Project:
 					node_list.append(node)
 
 			for node in node_list:
-	 			value = node.getElementsByTagName('ConfigurationType').item(0).firstChild.nodeValue
+	 			value = util.xml2obj(node)
 				if node.hasAttribute('Condition'):
 				 	condition = node.getAttribute('Condition')
 				 	for config in project.configurations():
 				 		if config.is_match(condition):
-				 			project._type.set(config, value)
+				 			project._project_options.set(config, value)
 				else:
-					project._type.set_default(value)
-			#TODO: parse other sections: <UseDebugLibraries>, <PlatformToolset>, <WholeProgramOptimization>, and <CharacterSet>
+					project._project_options.set_default(value)
 
 		def _parse_item_definition_group(self, xmldom, project):
 			node_list = xmldom.getElementsByTagName('ItemDefinitionGroup')
@@ -82,35 +81,18 @@ class Project:
 				condition = node.getAttribute('Condition')
 				definition = util.xml2obj(node)
 
-				link_options = Project.LinkOptions()
+				link_options = {}
 				if 'Link' in definition:
-					if 'SubSystem' in definition['Link']:
-						link_options.subsystem = self._get_subsystem(definition['Link']['SubSystem'])
+					link_options = definition['Link']
+
+				compile_options = {}
+				if 'ClCompile' in definition:
+					compile_options = definition['ClCompile']
 
 				for config in project.configurations():
 					if config.is_match(condition):
 						project._link_options.set(config, link_options)
-
-		def _get_subsystem(self, subsystem_string):
-			if subsystem_string == 'Windows':
-				return Project.LinkOptions.SubSystem.Windows
-			else:
-				return 0
-
-
-	class LinkOptions:
-		class SubSystem:
-			Console = 1
-			Windows = 2
-			Native = 3
-			EFIApplication = 4
-			EFIBootServiceDriver = 5
-			EFIROM = 6
-			EFIRuntimeDriver = 7
-			WindowsCE = 8
-
-		def __init__(self):
-			self.subsystem = None
+						project._compile_options.set(config, compile_options)
 
 	def __init__(self, file, name, guid):
 		self._file = file
@@ -118,9 +100,18 @@ class Project:
 		self._name = name
 		self._sources = []
 		self._configurations = []
-		self._type = Property('Application')
+
+		# represents the <PropertyGroup Label="Configuartion"> section
+		self._project_options = Property({})
+
 		self._dependencies = []
-		self._link_options = Property(self.LinkOptions())
+
+		# represents the <Link> section under <ItemDefinitionGroup> section
+		self._link_options = Property({})
+
+		# represents the <ClCompile> section under <ItemDefinitionGroup> section
+		self._compile_options = Property({})
+
 		dom = xml.dom.minidom.parse(file)
 		version = self._detect_project_version(dom)
 
@@ -161,8 +152,9 @@ class Project:
 	def configurations(self):
 		return self._configurations
 
-	def type(self):
-		return self._type
+	@property
+	def project_options(self):
+		return self._project_options
 
 	def dependencies(self):
 		return self._dependencies
@@ -170,3 +162,8 @@ class Project:
 	@property
 	def link_options(self):
 		return self._link_options
+
+	@property
+	def compile_options(self):
+		return self._compile_options
+		

@@ -16,3 +16,47 @@ class UtilTestCase(unittest.TestCase):
 			}
 		}
 		self.assertEqual(expected, actual)
+
+	def test_extract_hash_diff(self):
+		base = {
+			'a': {
+				'trivial': 'value_trivial',
+				'common': {
+					'c': 'value_c',
+				}
+			},
+			'e': {
+			}
+		}
+		special = {
+			'a': {
+				'trivial': 'value_trivial',
+				'common': {
+					'c': 'value_c',				
+				},
+				'special': {
+					'd': 'value_d',
+				}
+			},
+			'b': {
+				'awsome': 'value_awsome',
+			},
+			'e': {
+				'f': 'value_f',
+			}
+		}
+		actual = sln2gyp.extract_hash_diff(base, special)
+		expected = {
+			'a': {
+				'special': {
+					'd': 'value_d',
+				}
+			},
+			'b': {
+				'awsome': 'value_awsome',
+			},
+			'e': {
+				'f': 'value_f',
+			}
+		}
+		self.assertEqual(expected, actual)

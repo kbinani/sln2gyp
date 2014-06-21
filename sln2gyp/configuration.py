@@ -43,17 +43,20 @@ class Property:
 	def set_default(self, default_value):
 		self._default = default_value
 
-	def get_common_value_for_configurations(self, configurations, getter = None):
+	def get_common_value_for_configurations(self, configurations, key = None):
+		is_first = True
 		value = None
 		for config in configurations:
 			v = None
-			if getter == None:
+			if key == None:
 				v = self.get(config)
 			else:
-				v = getter(self.get(config))
+				if key in self.get(config):
+					v = self.get(config)[key]
 
-			if value == None:
+			if is_first:
 				value = v
+				is_first = False
 			else:
 				if v != value:
 					return None

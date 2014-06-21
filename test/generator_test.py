@@ -57,11 +57,23 @@ class GeneratorTest(unittest.TestCase):
 							'Debug': {
 							},
 							'Release': {
+								'msvs_settings': {
+									'VCCLCompilerTool': {
+										'WholeProgramOptimization': 'true'
+									}
+								},
 							},
 						},
 						'msvs_settings': {
 							'VCLinkerTool': {
 								'SubSystem': 2,
+								'AdditionalDependencies': [
+									'%(AdditionalDependencies)',
+								],
+							},
+							'VCCLCompilerTool': {
+								'UsePrecompiledHeader': 2,
+								'WarningLevel': 3,
 							}
 						}
 					}
@@ -90,6 +102,13 @@ class GeneratorTest(unittest.TestCase):
 							},
 							'Release': {
 							},
+						},
+						'msvs_settings': {
+							'VCLinkerTool': {
+								'AdditionalDependencies': [
+									'%(AdditionalDependencies)',
+								],
+							}
 						}
 					}
 				]

@@ -44,13 +44,13 @@ class SolutionTestCase(unittest.TestCase):
 				def assert_link_options_debug():
 					debug = sln2gyp.Configuration.create_from_string('Debug|Win32')
 					link_options = project.link_options.get(debug)
-					self.assertEqual(sln2gyp.Project.LinkOptions.SubSystem.Windows, link_options.subsystem)
+					self.assertEqual('Windows', link_options['SubSystem'])
 				assert_link_options_debug()
 
 				def assert_link_options_release():
 					release = sln2gyp.Configuration.create_from_string('Release|Win32')
 					link_options = project.link_options.get(release)
-					self.assertEqual(sln2gyp.Project.LinkOptions.SubSystem.Windows, link_options.subsystem)
+					self.assertEqual('Windows', link_options['SubSystem'])
 				assert_link_options_release()
 			assert_project()
 
@@ -80,13 +80,13 @@ class SolutionTestCase(unittest.TestCase):
 			assert_configurations()
 
 			def assert_type():
-				type = project.type()
+				options = project.project_options
 
 				debug = sln2gyp.Configuration('Debug', 'Win32')
-				self.assertEqual('Application', type.get(debug))
+				self.assertEqual('Application', options.get(debug)['ConfigurationType'])
 
 				release = sln2gyp.Configuration('Release', 'Win32')
-				self.assertEqual('Application', type.get(release))
+				self.assertEqual('Application', options.get(release)['ConfigurationType'])
 			assert_type()
 		assert_projects()
 
