@@ -4,7 +4,7 @@ import sln2gyp
 
 class UtilTestCase(unittest.TestCase):
 	def test_xml2obj(self):
-		text = '<a><b>value_b</b><c><d>value_d</d></c></a>'
+		text = '<a><b>value_b</b><c><d>value_d</d><e/></c></a>'
 		dom = xml.dom.minidom.parseString(text)
 		actual = sln2gyp.xml2obj(dom)
 		expected = {
@@ -12,6 +12,7 @@ class UtilTestCase(unittest.TestCase):
 				'b': 'value_b',
 				'c': {
 					'd': 'value_d',
+					'e': '',
 				}
 			}
 		}

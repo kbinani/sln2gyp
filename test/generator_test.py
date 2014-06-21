@@ -94,6 +94,7 @@ class GeneratorTest(unittest.TestCase):
 							'VCLinkerTool': {
 								'SubSystem': 2,
 								'AdditionalDependencies': [
+									'winmm.lib',
 									'%(AdditionalDependencies)',
 								],
 							},
@@ -136,13 +137,6 @@ class GeneratorTest(unittest.TestCase):
 							},
 							'Release': {
 							},
-						},
-						'msvs_settings': {
-							'VCLinkerTool': {
-								'AdditionalDependencies': [
-									'%(AdditionalDependencies)',
-								],
-							}
 						},
 					}
 				]

@@ -15,7 +15,11 @@ def xml2obj(xml_node):
 				obj[name] = xml2obj(node)
 		return obj
 	else:
-		return xml_node.nodeValue
+		draft = xml_node.nodeValue
+		if draft == None:
+			return ''
+		else:
+			return draft
 
 def extract_hash_diff(base, special):
 	if base == None or special == None:

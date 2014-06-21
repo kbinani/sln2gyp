@@ -35,9 +35,8 @@ class Generator:
 		for p in solution.projects():
 			abs_project_file = p.project_file()
 			abs_gyp_file, _ = os.path.splitext(abs_project_file)
-			abs_gyp_file = abs_gyp_file + '.gyp:' + p.name()
 			relative_path_to_sln = util.normpath(os.path.relpath(abs_gyp_file, solution.solution_dir()))
-			includes.append(relative_path_to_sln)
+			includes.append(relative_path_to_sln + ".gyp:" + p.name())
 		return includes
 
 	def _generate_proj_gyp(self, solution, project):
@@ -109,7 +108,7 @@ class Generator:
 					dep_proj_path = p.project_file()
 					dep_gyp_name, ext = os.path.splitext(dep_proj_path)
 					dep_gyp_path = dep_gyp_name + '.gyp'
-					rel_gyp_path = os.path.relpath(dep_gyp_path, project.project_dir())
+					rel_gyp_path = util.normpath(os.path.relpath(dep_gyp_path, project.project_dir()))
 					dependencies.append(rel_gyp_path + ":" + p.name())
 		return dependencies
 
@@ -177,7 +176,11 @@ class Generator:
 				section['SubSystem'] = self._get_subsystem(subsystem)
 
 			# AdditionalDependencies
-			section['AdditionalDependencies'] = ['%(AdditionalDependencies)']
+			additional_dependencies = link_options.get_common_value_for_configurations(configurations, 'AdditionalDependencies')
+			if additional_dependencies == None:
+				section['AdditionalDependencies'] = ['%(AdditionalDependencies)']
+			elif len(additional_dependencies) > 0:
+				section['AdditionalDependencies'] = additional_dependencies
 
 			use_debug_libraries = project_options.get_common_value_for_configurations(configurations, 'UseDebugLibraries')
 			if use_debug_libraries != None:
@@ -227,7 +230,7 @@ class Generator:
 		if len(msvs_settings) > 0:
 			return msvs_settings
 		else:
-			return None
+			return {}
 
 	def _get_link_incremental(self, link_incremental_string):
 		if link_incremental_string == 'false':

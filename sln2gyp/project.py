@@ -111,7 +111,7 @@ class Project:
 
 				link_options = {}
 				if 'Link' in definition:
-					link_options = definition['Link']
+					link_options = self._transform_link_dict_style(definition['Link'])
 
 				compile_options = {}
 				if 'ClCompile' in definition:
@@ -122,16 +122,28 @@ class Project:
 						project._link_options.set(config, link_options)
 						project._compile_options.set(config, compile_options)
 
+		def _transform_link_dict_style(self, link_dict):
+			split_with_semicollon = [
+				'AdditionalDependencies',
+			]
+			return self._split_semicollon_separated_string_into_list_in_a_dict(link_dict, split_with_semicollon)
+
 		def _transform_clcompile_dict_style(self, clcompile_dict):
 			split_with_semicollon = [
 				'PreprocessorDefinitions',
 				'AdditionalIncludeDirectories'
 			]
-			for key in split_with_semicollon:
-				if key in clcompile_dict:
-					value = clcompile_dict[key]
-					clcompile_dict[key] = value.split(';')
-			return clcompile_dict
+			return self._split_semicollon_separated_string_into_list_in_a_dict(clcompile_dict, split_with_semicollon)
+
+		def _split_semicollon_separated_string_into_list_in_a_dict(self, dictionary, key_names_to_split):
+			for key in key_names_to_split:
+				if key in dictionary:
+					value = dictionary[key].strip()
+					if value == '':
+						dictionary[key] = []
+					else:
+						dictionary[key] = value.split(';')
+			return dictionary
 
 	def __init__(self, file, name, guid):
 		self._file = file

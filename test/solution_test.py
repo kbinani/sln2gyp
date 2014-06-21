@@ -5,13 +5,13 @@ import sln2gyp
 class SolutionTestCase(unittest.TestCase):
 	def setUp(self):
 		self._sln_file = 'test/fixtures/simple2012/Win32Project1/Win32Project1.sln'
-		self._abs_sln_file = os.path.abspath(self._sln_file)
-		self._abs_sln_dir = os.path.dirname(self._abs_sln_file)
+		self._abs_sln_file = sln2gyp.normpath(os.path.abspath(self._sln_file))
+		self._abs_sln_dir = sln2gyp.normpath(os.path.dirname(self._abs_sln_file))
 
 		self._solution = sln2gyp.Solution(self._sln_file)
 
 	def test_parse_vs2012_project_test(self):
-		self.assertEqual(os.path.dirname(self._abs_sln_file), self._solution.solution_dir())
+		self.assertEqual(sln2gyp.normpath(os.path.dirname(self._abs_sln_file)), sln2gyp.normpath(self._solution.solution_dir()))
 		self.assertEqual(self._abs_sln_file, self._solution.solution_file())
 
 		# assert Solution#configurations
