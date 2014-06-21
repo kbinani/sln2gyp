@@ -52,8 +52,9 @@ class SolutionTestCase(unittest.TestCase):
 					self.assertEqual('Windows', link_options['SubSystem'])
 
 					self.assertEqual('Disabled', compile_options['Optimization'])
-					self.assertEqual('WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)', compile_options['PreprocessorDefinitions'])
+					self.assertEqual(['WIN32', '_DEBUG', '_WINDOWS', '%(PreprocessorDefinitions)'], compile_options['PreprocessorDefinitions'])
 					self.assertEqual('false', compile_options['SDLCheck'])
+					self.assertEqual(['..\depend'], compile_options['AdditionalIncludeDirectories'])
 
 					self.assertEqual('v110', project_options['PlatformToolset'])
 					self.assertEqual('true', project_options['UseDebugLibraries'])
@@ -75,8 +76,9 @@ class SolutionTestCase(unittest.TestCase):
 					self.assertEqual('Windows', link_options['SubSystem'])
 
 					self.assertEqual('MaxSpeed', compile_options['Optimization'])
-					self.assertEqual('WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)', compile_options['PreprocessorDefinitions'])
+					self.assertEqual(['WIN32', 'NDEBUG', '_WINDOWS', '%(PreprocessorDefinitions)'], compile_options['PreprocessorDefinitions'])
 					self.assertEqual('true', compile_options['SDLCheck'])
+					self.assertEqual(['..\depend'], compile_options['AdditionalIncludeDirectories'])
 
 					self.assertEqual('v110', project_options['PlatformToolset'])
 					self.assertEqual('false', project_options['UseDebugLibraries'])

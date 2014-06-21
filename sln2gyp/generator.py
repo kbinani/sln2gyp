@@ -66,6 +66,9 @@ class Generator:
 		common_msvs_configuration_attributes = self._generate_proj_msvs_configuration_attributes(project, project.configurations())
 		if common_msvs_configuration_attributes != None:
 			target['msvs_configuration_attributes'] = common_msvs_configuration_attributes
+		common_include_dirs = self._generate_proj_include_dirs(project, project.configurations())
+		if common_include_dirs != None:
+			target['include_dirs'] = common_include_dirs
 
 		for config in project.configurations():
 			config_msvs_settings = self._generate_proj_msvs_settings(project, [config])
@@ -86,6 +89,10 @@ class Generator:
 			if len(extracted_msvs_configuration_attributes) > 0:
 				target['configurations'][config.configuration()]['msvs_configuration_attributes'] = extracted_msvs_configuration_attributes
 
+			config_include_dirs = self._generate_proj_include_dirs(project, [config])
+			if config_include_dirs != None and config_include_dirs != common_include_dirs:
+				target['configurations'][config.configuration()]['include_dirs'] = config_include_dirs
+
 		gyp = {}
 		gyp['targets'] = [target]
 
@@ -105,6 +112,16 @@ class Generator:
 					rel_gyp_path = os.path.relpath(dep_gyp_path, project.project_dir())
 					dependencies.append(rel_gyp_path + ":" + p.name())
 		return dependencies
+
+	def _generate_proj_include_dirs(self, project, configurations):
+		include_dirs = project.compile_options.get_common_value_for_configurations(configurations, 'AdditionalIncludeDirectories')
+		if include_dirs != None:
+			if len(include_dirs) > 0:
+				result = []
+				for d in include_dirs:
+					result.append(util.normpath(d))
+				return result
+		return None
 
 	def _generate_proj_msvs_configuration_attributes(self, project, configurations):
 		msvs_configuration_attributes = {}
@@ -199,7 +216,7 @@ class Generator:
 
 			preprocessor_defines = compile_options.get_common_value_for_configurations(configurations, 'PreprocessorDefinitions')
 			if preprocessor_defines != None:
-				section['PreprocessorDefinitions'] = self._get_preprocessor_defines(preprocessor_defines)
+				section['PreprocessorDefinitions'] = preprocessor_defines
 
 			return section
 
@@ -225,13 +242,6 @@ class Generator:
 			return 1
 		elif character_set_string == 'MultiByte':
 			return 2
-		else:
-			return None
-
-	def _get_preprocessor_defines(self, preprocessor_defines_string):
-		token_list = preprocessor_defines_string.split(';')
-		if len(token_list) > 0:
-			return token_list
 		else:
 			return None
 

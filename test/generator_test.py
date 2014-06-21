@@ -107,6 +107,9 @@ class GeneratorTest(unittest.TestCase):
 						'msvs_configuration_attributes': {
 							'CharacterSet': 1,
 						},
+						'include_dirs': [
+							'../depend',
+						],
 					}
 				]
 			}

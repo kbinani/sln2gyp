@@ -115,12 +115,23 @@ class Project:
 
 				compile_options = {}
 				if 'ClCompile' in definition:
-					compile_options = definition['ClCompile']
+					compile_options = self._transform_clcompile_dict_style(definition['ClCompile'])
 
 				for config in project.configurations():
 					if config.is_match(condition):
 						project._link_options.set(config, link_options)
 						project._compile_options.set(config, compile_options)
+
+		def _transform_clcompile_dict_style(self, clcompile_dict):
+			split_with_semicollon = [
+				'PreprocessorDefinitions',
+				'AdditionalIncludeDirectories'
+			]
+			for key in split_with_semicollon:
+				if key in clcompile_dict:
+					value = clcompile_dict[key]
+					clcompile_dict[key] = value.split(';')
+			return clcompile_dict
 
 	def __init__(self, file, name, guid):
 		self._file = file
