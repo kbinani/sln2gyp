@@ -67,6 +67,7 @@ class GeneratorTest(unittest.TestCase):
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',
+										'LinkIncremental': 2,
 									},
 								},
 							},
@@ -84,6 +85,7 @@ class GeneratorTest(unittest.TestCase):
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'false',
+										'LinkIncremental': 1,
 									},
 								},
 							},

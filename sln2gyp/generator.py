@@ -152,6 +152,7 @@ class Generator:
 			section = {}
 			link_options = project.link_options
 			project_options = project.project_options
+			properties = project.properties
 
 			# SubSystem
 			subsystem = link_options.get_common_value_for_configurations(configurations, 'SubSystem')
@@ -164,6 +165,10 @@ class Generator:
 			use_debug_libraries = project_options.get_common_value_for_configurations(configurations, 'UseDebugLibraries')
 			if use_debug_libraries != None:
 				section['GenerateDebugInformation'] = use_debug_libraries
+
+			link_incremental = properties.get_common_value_for_configurations(configurations, 'LinkIncremental')
+			if link_incremental != None:
+				section['LinkIncremental'] = self._get_link_incremental(link_incremental)
 
 			return section
 
@@ -204,6 +209,14 @@ class Generator:
 
 		if len(msvs_settings) > 0:
 			return msvs_settings
+		else:
+			return None
+
+	def _get_link_incremental(self, link_incremental_string):
+		if link_incremental_string == 'false':
+			return 1
+		elif link_incremental_string == 'true':
+			return 2
 		else:
 			return None
 

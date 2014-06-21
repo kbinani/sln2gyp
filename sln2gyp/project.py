@@ -72,12 +72,18 @@ class Project:
 
 		def _parse_configuration_property_group(self, xmldom, project):
 			all_node_list = xmldom.getElementsByTagName('PropertyGroup')
-			node_list = []
-			for node in all_node_list:
-				if node.getAttribute('Label') == 'Configuration':
-					node_list.append(node)
 
-			for node in node_list:
+			configuration_node_list = []
+			bare_node_list = []
+			for node in all_node_list:
+				if node.hasAttribute('Label'):
+					label = node.getAttribute('Label')
+					if label == 'Configuration':
+						configuration_node_list.append(node)
+				else:
+					bare_node_list.append(node)
+
+			for node in configuration_node_list:
 	 			value = util.xml2obj(node)
 				if node.hasAttribute('Condition'):
 				 	condition = node.getAttribute('Condition')
@@ -86,6 +92,16 @@ class Project:
 				 			project._project_options.set(config, value)
 				else:
 					project._project_options.set_default(value)
+
+			for node in bare_node_list:
+				value = util.xml2obj(node)
+				if node.hasAttribute('Condition'):
+					condition = node.getAttribute('Condition')
+					for config in project.configurations():
+						if config.is_match(condition):
+							project._properties.set(config, value)
+				else:
+					project._properties.set_default(value)
 
 		def _parse_item_definition_group(self, xmldom, project):
 			node_list = xmldom.getElementsByTagName('ItemDefinitionGroup')
@@ -125,6 +141,9 @@ class Project:
 		self._compile_options = Property({})
 
 		self._precompiled_source = Property(None)
+
+		# represents the <Property Group> section
+		self._properties = Property({})
 
 		dom = xml.dom.minidom.parse(file)
 		version = self._detect_project_version(dom)
@@ -183,3 +202,7 @@ class Project:
 	
 	def precompiled_source(self, configuration):
 		return self._precompiled_source.get(configuration)
+
+	@property
+	def properties(self):
+		return self._properties

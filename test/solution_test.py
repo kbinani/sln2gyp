@@ -47,6 +47,7 @@ class SolutionTestCase(unittest.TestCase):
 					link_options = project.link_options.get(debug)
 					compile_options = project.compile_options.get(debug)
 					project_options = project.project_options.get(debug)
+					properties = project.properties.get(debug)
 
 					self.assertEqual('Windows', link_options['SubSystem'])
 
@@ -58,6 +59,8 @@ class SolutionTestCase(unittest.TestCase):
 					self.assertEqual('true', project_options['UseDebugLibraries'])
 					self.assertEqual('Unicode', project_options['CharacterSet'])
 
+					self.assertEqual('true', properties['LinkIncremental'])
+
 					self.assertEqual('stdafx.cpp', project.precompiled_source(debug))
 				assert_options_debug()
 
@@ -67,6 +70,7 @@ class SolutionTestCase(unittest.TestCase):
 					link_options = project.link_options.get(release)
 					compile_options = project.compile_options.get(release)
 					project_options = project.project_options.get(release)
+					properties = project.properties.get(release)
 
 					self.assertEqual('Windows', link_options['SubSystem'])
 
@@ -77,6 +81,8 @@ class SolutionTestCase(unittest.TestCase):
 					self.assertEqual('v110', project_options['PlatformToolset'])
 					self.assertEqual('false', project_options['UseDebugLibraries'])
 					self.assertEqual('Unicode', project_options['CharacterSet'])
+
+					self.assertEqual('false', properties['LinkIncremental'])
 
 					self.assertEqual('stdafx.cpp', project.precompiled_source(release))
 				assert_options_release()
