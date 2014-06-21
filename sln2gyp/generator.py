@@ -54,15 +54,21 @@ class Generator:
 		dependencies = self._generate_proj_dependencies(solution, project)
 		if len(dependencies) > 0:
 			target['dependencies'] = dependencies
-		common_msvs_settings = self._generate_proj_common_msvs_settings(project)
+		common_msvs_settings = self._generate_proj_msvs_settings(project, project.configurations())
 		if len(common_msvs_settings) > 0:
 			target['msvs_settings'] = common_msvs_settings
+		common_msvs_precompiled_source = self._generate_proj_msvs_precompiled_source(project, project.configurations())
+		if common_msvs_precompiled_source != None:
+			target['msvs_precompiled_source'] = common_msvs_precompiled_source
 
 		for config in project.configurations():
 			config_msvs_settings = self._generate_proj_msvs_settings(project, [config])
 			extracted_msvs_settings = util.extract_hash_diff(common_msvs_settings, config_msvs_settings)
 			if len(extracted_msvs_settings) > 0:
 				target['configurations'][config.configuration()]['msvs_settings'] = extracted_msvs_settings
+			config_msvs_precompiled_source = self._generate_proj_msvs_precompiled_source(project, [config])
+			if config_msvs_precompiled_source != None and config_msvs_precompiled_source != common_msvs_precompiled_source:
+				target['configurations'][config.configurations()]['msvs_precompiled_source'] = config_msvs_precompiled_source
 
 		gyp = {}
 		gyp['targets'] = [target]
@@ -84,8 +90,17 @@ class Generator:
 					dependencies.append(rel_gyp_path + ":" + p.name())
 		return dependencies
 
-	def _generate_proj_common_msvs_settings(self, project):
-		return self._generate_proj_msvs_settings(project, project.configurations())
+	def _generate_proj_msvs_precompiled_source(self, project, configurations):
+		is_first = True
+		precompiled_source = None
+		for config in configurations:
+			source = project.precompiled_source(config)
+			if is_first:
+				precompiled_source = source
+			else:
+				if source != precompiled_source:
+					return None
+		return precompiled_source
 
 	def _generate_proj_msvs_settings(self, project, configurations):
 		msvs_settings = {}

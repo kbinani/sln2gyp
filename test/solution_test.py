@@ -41,17 +41,20 @@ class SolutionTestCase(unittest.TestCase):
 				self.assertEqual('{D5FE8C9E-25D9-43C1-A4E8-DE7ECBF2F02F}', project.guid())
 				self.assertEqual('4.0', project.tools_version())
 
+				debug = sln2gyp.Configuration.create_from_string('Debug|Win32')
+				release = sln2gyp.Configuration.create_from_string('Release|Win32')
 				def assert_link_options_debug():
-					debug = sln2gyp.Configuration.create_from_string('Debug|Win32')
 					link_options = project.link_options.get(debug)
 					self.assertEqual('Windows', link_options['SubSystem'])
 				assert_link_options_debug()
 
 				def assert_link_options_release():
-					release = sln2gyp.Configuration.create_from_string('Release|Win32')
 					link_options = project.link_options.get(release)
 					self.assertEqual('Windows', link_options['SubSystem'])
 				assert_link_options_release()
+
+				self.assertEqual('stdafx.cpp', project.precompiled_source(debug))
+				self.assertEqual('stdafx.cpp', project.precompiled_source(release))
 			assert_project()
 
 			def assert_sources():

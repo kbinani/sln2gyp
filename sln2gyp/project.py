@@ -24,8 +24,8 @@ class Project:
 	class VC2012ProjectParser(Parser):
 		def parse(self, xmldom, project):
 			project._tools_version = self._tools_version
-			self._extract_source_files(xmldom, project)
 			self._extract_configurations(xmldom, project)
+			self._extract_source_files(xmldom, project)
 			self._parse_configuration_property_group(xmldom, project)
 			self._parse_item_definition_group(xmldom, project)
 
@@ -38,6 +38,18 @@ class Project:
 					if element.hasAttribute('Include'):
 						file = element.getAttribute('Include')
 						project._sources.append(util.normpath(file))
+
+						precompiled_header_node_list = element.getElementsByTagName('PrecompiledHeader')
+						for node in precompiled_header_node_list:
+							precompiled_source_option = util.xml2obj(node)
+							if precompiled_source_option == 'Create':
+								if node.hasAttribute('Condition'):
+									condition = node.getAttribute('Condition')
+									for config in project.configurations():
+										if config.is_match(condition):
+											project._precompiled_source.set(config, file)
+								else:
+									project._precompiled_source.set_default(file)
 
 			append_file(comp)
 			append_file(incl)
@@ -112,6 +124,8 @@ class Project:
 		# represents the <ClCompile> section under <ItemDefinitionGroup> section
 		self._compile_options = Property({})
 
+		self._precompiled_source = Property(None)
+
 		dom = xml.dom.minidom.parse(file)
 		version = self._detect_project_version(dom)
 
@@ -166,4 +180,6 @@ class Project:
 	@property
 	def compile_options(self):
 		return self._compile_options
-		
+	
+	def precompiled_source(self, configuration):
+		return self._precompiled_source.get(configuration)

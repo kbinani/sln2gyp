@@ -75,7 +75,8 @@ class GeneratorTest(unittest.TestCase):
 								'UsePrecompiledHeader': 2,
 								'WarningLevel': 3,
 							}
-						}
+						},
+						'msvs_precompiled_source': 'stdafx.cpp',
 					}
 				]
 			}
