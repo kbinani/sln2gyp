@@ -60,3 +60,8 @@ class UtilTestCase(unittest.TestCase):
 			}
 		}
 		self.assertEqual(expected, actual)
+
+	def test_extract_hash_diff_with_none_arguments(self):
+		self.assertEqual({}, sln2gyp.extract_hash_diff(None, {}))
+		self.assertEqual({}, sln2gyp.extract_hash_diff({}, None))
+		self.assertEqual({}, sln2gyp.extract_hash_diff(None, None))

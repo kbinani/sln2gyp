@@ -102,6 +102,9 @@ class GeneratorTest(unittest.TestCase):
 						},
 						'msvs_precompiled_source': 'stdafx.cpp',
 						'msbuild_toolset': 'v110',
+						'msvs_configuration_attributes': {
+							'CharacterSet': 1,
+						},
 					}
 				]
 			}

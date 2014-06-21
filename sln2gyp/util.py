@@ -18,6 +18,8 @@ def xml2obj(xml_node):
 		return xml_node.nodeValue
 
 def extract_hash_diff(base, special):
+	if base == None or special == None:
+		return {}
 	obj = {}
 	keys = special.keys()
 	keys.sort()

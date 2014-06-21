@@ -63,18 +63,28 @@ class Generator:
 		common_msbuild_toolset = self._generate_proj_msbuild_toolset(project, project.configurations())
 		if common_msbuild_toolset != None:
 			target['msbuild_toolset'] = common_msbuild_toolset
+		common_msvs_configuration_attributes = self._generate_proj_msvs_configuration_attributes(project, project.configurations())
+		if common_msvs_configuration_attributes != None:
+			target['msvs_configuration_attributes'] = common_msvs_configuration_attributes
 
 		for config in project.configurations():
 			config_msvs_settings = self._generate_proj_msvs_settings(project, [config])
 			extracted_msvs_settings = util.extract_hash_diff(common_msvs_settings, config_msvs_settings)
 			if len(extracted_msvs_settings) > 0:
 				target['configurations'][config.configuration()]['msvs_settings'] = extracted_msvs_settings
+
 			config_msvs_precompiled_source = self._generate_proj_msvs_precompiled_source(project, [config])
 			if config_msvs_precompiled_source != None and config_msvs_precompiled_source != common_msvs_precompiled_source:
 				target['configurations'][config.configuration()]['msvs_precompiled_source'] = config_msvs_precompiled_source
+
 			config_msbuild_toolset = self._generate_proj_msbuild_toolset(project, [config])
 			if config_msbuild_toolset != None and config_msbuild_toolset != common_msbuild_toolset:
 				target['configurations'][config.configuration()]['msbuild_toolset'] = config_msbuild_toolset
+
+			config_msvs_configuration_attributes = self._generate_proj_msvs_configuration_attributes(project, [config])
+			extracted_msvs_configuration_attributes = util.extract_hash_diff(common_msvs_configuration_attributes, config_msvs_configuration_attributes)
+			if len(extracted_msvs_configuration_attributes) > 0:
+				target['configurations'][config.configuration()]['msvs_configuration_attributes'] = extracted_msvs_configuration_attributes
 
 		gyp = {}
 		gyp['targets'] = [target]
@@ -95,6 +105,18 @@ class Generator:
 					rel_gyp_path = os.path.relpath(dep_gyp_path, project.project_dir())
 					dependencies.append(rel_gyp_path + ":" + p.name())
 		return dependencies
+
+	def _generate_proj_msvs_configuration_attributes(self, project, configurations):
+		msvs_configuration_attributes = {}
+
+		character_set = self._get_character_set(project.project_options.get_common_value_for_configurations(configurations, 'CharacterSet'))
+		if character_set != None:
+			msvs_configuration_attributes['CharacterSet'] = character_set
+
+		if len(msvs_configuration_attributes) > 0:
+			return msvs_configuration_attributes
+		else:
+			return None
 
 	def _generate_proj_msbuild_toolset(self, project, configurations):
 		is_first = True
@@ -172,7 +194,7 @@ class Generator:
 
 			preprocessor_defines = compile_options.get_common_value_for_configurations(configurations, 'PreprocessorDefinitions')
 			if preprocessor_defines != None:
-				section['PreprocessorDefinitions'] = self._getPreprocessor_defines(preprocessor_defines)
+				section['PreprocessorDefinitions'] = self._get_preprocessor_defines(preprocessor_defines)
 
 			return section
 
@@ -180,9 +202,20 @@ class Generator:
 		if len(vcclcompilertool) > 0:
 			msvs_settings['VCCLCompilerTool'] = vcclcompilertool
 
-		return msvs_settings
+		if len(msvs_settings) > 0:
+			return msvs_settings
+		else:
+			return None
 
-	def _getPreprocessor_defines(self, preprocessor_defines_string):
+	def _get_character_set(self, character_set_string):
+		if character_set_string == 'Unicode':
+			return 1
+		elif character_set_string == 'MultiByte':
+			return 2
+		else:
+			return None
+
+	def _get_preprocessor_defines(self, preprocessor_defines_string):
 		token_list = preprocessor_defines_string.split(';')
 		if len(token_list) > 0:
 			return token_list
