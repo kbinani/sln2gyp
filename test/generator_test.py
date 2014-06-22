@@ -93,6 +93,7 @@ class GeneratorTest(unittest.TestCase):
 										'GenerateDebugInformation': 'false',
 										'LinkIncremental': 1,
 										'EnableCOMDATFolding': 2,
+										'OptimizeReferences': 2,
 									},
 								},
 							},

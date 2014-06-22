@@ -192,11 +192,15 @@ class Generator:
 				},
 				'LinkIncremental': {
 					'option_source': properties,
-					'converter_func': lambda v: self._get_link_incremental(v),
+					'converter_func': lambda v: self._get_gyp_msvs_boolean_value(v),
 				},
 				'EnableCOMDATFolding': {
 					'option_source': link_options,
-					'converter_func': lambda v: self._get_enable_comdat_folding(v),
+					'converter_func': lambda v: self._get_gyp_msvs_boolean_value(v),
+				},
+				'OptimizeReferences': {
+					'option_source': link_options,
+					'converter_func': lambda v: self._get_gyp_msvs_boolean_value(v),
 				},
 			}
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)
@@ -269,10 +273,10 @@ class Generator:
 		else:
 			return {}
 
-	def _get_enable_comdat_folding(self, enable_comdat_folding_string):
-		if enable_comdat_folding_string == 'false':
+	def _get_gyp_msvs_boolean_value(self, boolean_string):
+		if boolean_string == 'false':
 			return 1
-		elif enable_comdat_folding_string == 'true':
+		elif boolean_string == 'true':
 			return 2
 		else:
 			return None
@@ -306,14 +310,6 @@ class Generator:
 			return 1
 		elif debug_information_format == 'EditAndContinue':
 			return 4
-		else:
-			return None
-
-	def _get_link_incremental(self, link_incremental_string):
-		if link_incremental_string == 'false':
-			return 1
-		elif link_incremental_string == 'true':
-			return 2
 		else:
 			return None
 
