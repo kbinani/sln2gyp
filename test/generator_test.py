@@ -104,6 +104,7 @@ class GeneratorTest(unittest.TestCase):
 										'FavorSizeOrSpeed': 1,
 										'OmitFramePointers': 'true',
 										'EnableFiberSafeOptimizations': 'true',
+										'ExceptionHandling': 1,
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'false',

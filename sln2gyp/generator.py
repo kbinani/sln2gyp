@@ -319,6 +319,16 @@ class Generator:
 			if generate_preprocessed_file != None:
 				section['GeneratePreprocessedFile'] = generate_preprocessed_file
 
+			# workaround for gyp design. gyp does not recognize 'ExceptionHandling' == 'SyncCThrow', so add '/EHsc' option to 'AdditionalOptions'.
+			exception_handling = compile_options.get_common_value_for_configurations(configurations, 'ExceptionHandling')
+			if exception_handling != None:
+				if exception_handling == 'SyncCThrow':
+					if 'AdditionalOptions' not in section:
+						section['AdditionalOptions'] = ''
+					section['AdditionalOptions'] = '/EHsc' if section['AdditionalOptions'] == '' else section['AdditionalOptions'] + ' /EHsc'
+				else:
+					section['ExceptionHandling'] = self._get_exception_handling(exception_handling)
+
 			return section
 
 		vcclcompilertool = generate_vcclcompilertool_section()
@@ -329,6 +339,19 @@ class Generator:
 			return msvs_settings
 		else:
 			return {}
+
+	def _get_exception_handling(self, exception_handling):
+		if exception_handling == 'false':
+			return 0
+		elif exception_handling == 'Async':
+			return 2
+		elif exception_handling == 'Sync':
+			return 1
+		elif exception_handling == 'SyncCThrow':
+			# gyp does not have equivalent value for 'SyncCThrow'
+			return None
+		else:
+			return None
 
 	def _get_generate_preprocessed_file(self, preprocess_to_file, preprocess_suppress_line_numbers):
 		if preprocess_to_file == None or preprocess_suppress_line_numbers == None:
