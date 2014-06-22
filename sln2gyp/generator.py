@@ -261,6 +261,9 @@ class Generator:
 				'WholeProgramOptimization': {
 					'option_source': project_options,
 				},
+				'SuppressStartupBanner': {
+					'option_source': compile_options,
+				},
 			}
 			return self._generate_proj_msvs_settings_part(project, configurations, generate_options)
 
