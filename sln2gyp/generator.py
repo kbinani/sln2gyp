@@ -295,6 +295,9 @@ class Generator:
 					'option_source': compile_options,
 					'msvs_section_name': 'KeepComments',
 				},
+				'MinimalRebuild': {
+					'option_source': compile_options,
+				},
 			}
 
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)
