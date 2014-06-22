@@ -63,7 +63,8 @@ class GeneratorTest(unittest.TestCase):
 											'_DEBUG',
 											'_WINDOWS',
 											'%(PreprocessorDefinitions)',
-										]
+										],
+										'DebugInformationFormat': 3,
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',

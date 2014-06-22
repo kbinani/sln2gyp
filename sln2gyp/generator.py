@@ -221,6 +221,10 @@ class Generator:
 			if preprocessor_defines != None:
 				section['PreprocessorDefinitions'] = preprocessor_defines
 
+			debug_information_format = compile_options.get_common_value_for_configurations(configurations, 'DebugInformationFormat')
+			if debug_information_format != None:
+				section['DebugInformationFormat'] = self._get_debug_information_format(debug_information_format)
+
 			return section
 
 		vcclcompilertool = generate_vcclcompilertool_section()
@@ -231,6 +235,16 @@ class Generator:
 			return msvs_settings
 		else:
 			return {}
+
+	def _get_debug_information_format(self, debug_information_format):
+		if debug_information_format == 'ProgramDatabase':
+			return 3
+		elif debug_information_format == 'OldStyle':
+			return 1
+		elif debug_information_format == 'EditAndContinue':
+			return 4
+		else:
+			return None
 
 	def _get_link_incremental(self, link_incremental_string):
 		if link_incremental_string == 'false':
