@@ -65,6 +65,7 @@ class GeneratorTest(unittest.TestCase):
 											'%(PreprocessorDefinitions)',
 										],
 										'DebugInformationFormat': 3,
+										'RuntimeLibrary': 1,
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',
@@ -83,6 +84,7 @@ class GeneratorTest(unittest.TestCase):
 											'_WINDOWS',
 											'%(PreprocessorDefinitions)',
 										],
+										'RuntimeLibrary': 0,
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'false',

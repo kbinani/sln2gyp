@@ -201,29 +201,43 @@ class Generator:
 			section = {}
 			compile_options = project.compile_options
 
-			use_precompiled_header = compile_options.get_common_value_for_configurations(configurations, 'PrecompiledHeader')
-			if use_precompiled_header != None:
-				section['UsePrecompiledHeader'] = self._get_use_precompiled_header(use_precompiled_header)
+			msvs_settings_map = {
+				'PrecompiledHeader': {
+					'msvs_section_name': 'UsePrecompiledHeader',
+					'converter_func': lambda v: self._get_use_precompiled_header(v),
+				},
+				'WarningLevel': {
+					'msvs_section_name': 'WarningLevel',
+					'converter_func': lambda v: self._get_warning_level(v),
+				},
+				'Optimization': {
+					'msvs_section_name': 'Optimization',
+					'converter_func': lambda v: self._get_optimization(v),
+				},
+				'PreprocessorDefinitions': {
+					'msvs_section_name': 'PreprocessorDefinitions',
+					'converter_func': lambda v: v,
+				},
+				'DebugInformationFormat': {
+					'msvs_section_name': 'DebugInformationFormat',
+					'converter_func': lambda v: self._get_debug_information_format(v),
+				},
+				'RuntimeLibrary': {
+					'msvs_section_name': 'RuntimeLibrary',
+					'converter_func': lambda v: self._get_runtime_library(v),
+				},
+			}
 
-			warning_level = compile_options.get_common_value_for_configurations(configurations, 'WarningLevel')
-			if warning_level != None:
-				section['WarningLevel'] = self._get_warning_level(warning_level)
+			for key, option in msvs_settings_map.items():
+				value = compile_options.get_common_value_for_configurations(configurations, key)
+				if value != None:
+					msvs_section_name = option['msvs_section_name']
+					converter_func = option['converter_func']
+					section[msvs_section_name] = converter_func(value)
 
 			whole_program_optimization = project.project_options.get_common_value_for_configurations(configurations, 'WholeProgramOptimization')
 			if whole_program_optimization != None:
 				section['WholeProgramOptimization'] = whole_program_optimization
-
-			optimization = compile_options.get_common_value_for_configurations(configurations, 'Optimization')
-			if optimization != None:
-				section['Optimization'] = self._get_optimization(optimization)
-
-			preprocessor_defines = compile_options.get_common_value_for_configurations(configurations, 'PreprocessorDefinitions')
-			if preprocessor_defines != None:
-				section['PreprocessorDefinitions'] = preprocessor_defines
-
-			debug_information_format = compile_options.get_common_value_for_configurations(configurations, 'DebugInformationFormat')
-			if debug_information_format != None:
-				section['DebugInformationFormat'] = self._get_debug_information_format(debug_information_format)
 
 			return section
 
@@ -235,6 +249,18 @@ class Generator:
 			return msvs_settings
 		else:
 			return {}
+
+	def _get_runtime_library(self, runtime_library_string):
+		if runtime_library_string == 'MultiThreaded':
+			return 0
+		elif runtime_library_string == 'MultiThreadedDebug':
+			return 1
+		elif runtime_library_string == 'MultiThreadedDLL':
+			return 2
+		elif runtime_library_string == 'MultiThreadedDebugDLL':
+			return 3
+		else:
+			return None
 
 	def _get_debug_information_format(self, debug_information_format):
 		if debug_information_format == 'ProgramDatabase':
