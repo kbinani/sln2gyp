@@ -305,6 +305,13 @@ class Generator:
 				else:
 					section['InlineFunctionExpansion'] = self._get_inline_function_expansion(inline_function_expansion)
 
+			# create 'GeneratePreprocessedFile' section. The value of this option depends on two vcxprojc sections, <PreprocessToFile> and <PreprocessSuppressLineNumbers>.
+			preprocess_to_file = compile_options.get_common_value_for_configurations(configurations, 'PreprocessToFile')
+			preprocess_suppress_line_numbers = compile_options.get_common_value_for_configurations(configurations, 'PreprocessSuppressLineNumbers')
+			generate_preprocessed_file = self._get_generate_preprocessed_file(preprocess_to_file, preprocess_suppress_line_numbers)
+			if generate_preprocessed_file != None:
+				section['GeneratePreprocessedFile'] = generate_preprocessed_file
+
 			return section
 
 		vcclcompilertool = generate_vcclcompilertool_section()
@@ -315,6 +322,22 @@ class Generator:
 			return msvs_settings
 		else:
 			return {}
+
+	def _get_generate_preprocessed_file(self, preprocess_to_file, preprocess_suppress_line_numbers):
+		if preprocess_to_file == None or preprocess_suppress_line_numbers == None:
+			return None
+		if preprocess_to_file != 'true' and preprocess_to_file != 'false':
+			return None
+		if preprocess_suppress_line_numbers != 'true' and preprocess_suppress_line_numbers != 'false':
+			return None
+
+		if preprocess_to_file == 'false':
+			return 0
+		else:
+			if preprocess_suppress_line_numbers == 'true':
+				return 2
+			else:
+				return 1
 
 	def _get_favor_size_or_speed(self, favor_size_or_speed_string):
 		if favor_size_or_speed_string == 'Neither':
