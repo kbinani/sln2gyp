@@ -93,6 +93,7 @@ class GeneratorTest(unittest.TestCase):
 										'InlineFunctionExpansion': 2,
 										'EnableIntrinsicFunctions': 'true',
 										'FavorSizeOrSpeed': 1,
+										'OmitFramePointers': 'true',
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'false',
