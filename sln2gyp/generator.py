@@ -291,6 +291,10 @@ class Generator:
 				'IgnoreStandardIncludePath': {
 					'option_source': compile_options,
 				},
+				'PreprocessKeepComments': {
+					'option_source': compile_options,
+					'msvs_section_name': 'KeepComments',
+				},
 			}
 
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)

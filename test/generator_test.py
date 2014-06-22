@@ -77,6 +77,7 @@ class GeneratorTest(unittest.TestCase):
 										'UndefineAllPreprocessorDefinitions': 'false',
 										'IgnoreStandardIncludePath': 'false',
 										'GeneratePreprocessedFile': 0,
+										'KeepComments': 'true',
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',
