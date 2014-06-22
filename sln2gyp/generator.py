@@ -200,52 +200,68 @@ class Generator:
 		def generate_vcclcompilertool_section():
 			section = {}
 			compile_options = project.compile_options
+			project_options = project.project_options
 
 			msvs_settings_map = {
 				'PrecompiledHeader': {
+					'option_source': compile_options,
 					'msvs_section_name': 'UsePrecompiledHeader',
 					'converter_func': lambda v: self._get_use_precompiled_header(v),
 				},
 				'WarningLevel': {
+					'option_source': compile_options,
 					'msvs_section_name': 'WarningLevel',
 					'converter_func': lambda v: self._get_warning_level(v),
 				},
 				'Optimization': {
+					'option_source': compile_options,
 					'msvs_section_name': 'Optimization',
 					'converter_func': lambda v: self._get_optimization(v),
 				},
 				'PreprocessorDefinitions': {
+					'option_source': compile_options,
 					'msvs_section_name': 'PreprocessorDefinitions',
 					'converter_func': lambda v: v,
 				},
 				'DebugInformationFormat': {
+					'option_source': compile_options,
 					'msvs_section_name': 'DebugInformationFormat',
 					'converter_func': lambda v: self._get_debug_information_format(v),
 				},
 				'RuntimeLibrary': {
+					'option_source': compile_options,
 					'msvs_section_name': 'RuntimeLibrary',
 					'converter_func': lambda v: self._get_runtime_library(v),
 				},
 				'FloatingPointModel': {
+					'option_source': compile_options,
 					'msvs_section_name': 'FloatingPointModel',
 					'converter_func': lambda v: self._get_floating_point_model(v),
 				},
 				'AdditionalOptions': {
+					'option_source': compile_options,
 					'msvs_section_name': 'AdditionalOptions',
+					'converter_func': lambda v: v,
+				},
+				'ForcedIncludeFiles': {
+					'option_source': compile_options,
+					'msvs_section_name': 'ForcedIncludeFiles',
+					'converter_func': lambda v: v,
+				},
+				'WholeProgramOptimization': {
+					'option_source': project_options,
+					'msvs_section_name': 'WholeProgramOptimization',
 					'converter_func': lambda v: v,
 				},
 			}
 
 			for key, option in msvs_settings_map.items():
-				value = compile_options.get_common_value_for_configurations(configurations, key)
+				option_source = option['option_source']
+				value = option_source.get_common_value_for_configurations(configurations, key)
 				if value != None:
 					msvs_section_name = option['msvs_section_name']
 					converter_func = option['converter_func']
 					section[msvs_section_name] = converter_func(value)
-
-			whole_program_optimization = project.project_options.get_common_value_for_configurations(configurations, 'WholeProgramOptimization')
-			if whole_program_optimization != None:
-				section['WholeProgramOptimization'] = whole_program_optimization
 
 			return section
 

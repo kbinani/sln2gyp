@@ -107,6 +107,9 @@ class GeneratorTest(unittest.TestCase):
 							'VCCLCompilerTool': {
 								'UsePrecompiledHeader': 2,
 								'WarningLevel': 3,
+								'ForcedIncludeFiles': [
+									'stdafx.h',
+								],
 							}
 						},
 						'msvs_precompiled_source': 'stdafx.cpp',

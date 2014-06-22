@@ -131,7 +131,8 @@ class Project:
 		def _transform_clcompile_dict_style(self, clcompile_dict):
 			split_with_semicollon = [
 				'PreprocessorDefinitions',
-				'AdditionalIncludeDirectories'
+				'AdditionalIncludeDirectories',
+				'ForcedIncludeFiles',
 			]
 			return self._split_semicollon_separated_string_into_list_in_a_dict(clcompile_dict, split_with_semicollon)
 
