@@ -62,6 +62,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
       <UndefinePreprocessorDefinitions>FOO;%(UndefinePreprocessorDefinitions)</UndefinePreprocessorDefinitions>
+      <UndefineAllPreprocessorDefinitions>false</UndefineAllPreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

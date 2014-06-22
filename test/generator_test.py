@@ -74,6 +74,7 @@ class GeneratorTest(unittest.TestCase):
 											'FOO',
 											'%(UndefinePreprocessorDefinitions)',
 										],
+										'UndefineAllPreprocessorDefinitions': 'false',
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',
