@@ -70,6 +70,10 @@ class GeneratorTest(unittest.TestCase):
 										'AdditionalOptions': '-Zm123 /Ob0',
 										'SuppressStartupBanner': 'false',
 										'WarnAsError': 'true',
+										'UndefinePreprocessorDefinitions': [
+											'FOO',
+											'%(UndefinePreprocessorDefinitions)',
+										],
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',
