@@ -80,6 +80,7 @@ class GeneratorTest(unittest.TestCase):
 										'KeepComments': 'true',
 										'MinimalRebuild': 'false',
 										'SmallerTypeCheck': 'true',
+										'BasicRuntimeChecks': 3,
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',

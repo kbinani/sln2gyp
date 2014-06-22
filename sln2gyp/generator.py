@@ -301,6 +301,10 @@ class Generator:
 				'SmallerTypeCheck': {
 					'option_source': compile_options,
 				},
+				'BasicRuntimeChecks': {
+					'option_source': compile_options,
+					'converter_func': lambda v: self._get_basic_runtime_checks(v),
+				},
 			}
 
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)
@@ -342,6 +346,18 @@ class Generator:
 			return msvs_settings
 		else:
 			return {}
+
+	def _get_basic_runtime_checks(self, basic_runtime_checks):
+		if basic_runtime_checks == 'Default':
+			return 0
+		elif basic_runtime_checks == 'StackFrameRuntimeCheck':
+			return 1
+		elif basic_runtime_checks == 'UninitializedLocalUsageCheck':
+			return 2
+		elif basic_runtime_checks == 'EnableFastChecks':
+			return 3
+		else:
+			return None
 
 	def _get_exception_handling(self, exception_handling):
 		if exception_handling == 'false':
