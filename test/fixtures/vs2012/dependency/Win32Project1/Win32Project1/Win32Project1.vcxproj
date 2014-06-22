@@ -63,6 +63,7 @@
       <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
       <UndefinePreprocessorDefinitions>FOO;%(UndefinePreprocessorDefinitions)</UndefinePreprocessorDefinitions>
       <UndefineAllPreprocessorDefinitions>false</UndefineAllPreprocessorDefinitions>
+      <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
