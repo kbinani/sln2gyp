@@ -309,6 +309,9 @@ class Generator:
 					'option_source': compile_options,
 					'converter_func': lambda v: self._get_struct_member_alignment(v),
 				},
+				'BufferSecurityCheck': {
+					'option_source': compile_options,
+				},
 			}
 
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)
