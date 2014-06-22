@@ -92,6 +92,7 @@ class GeneratorTest(unittest.TestCase):
 										'FloatingPointModel': 2,
 										'InlineFunctionExpansion': 2,
 										'EnableIntrinsicFunctions': 'true',
+										'FavorSizeOrSpeed': 1,
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'false',

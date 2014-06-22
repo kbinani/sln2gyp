@@ -272,6 +272,10 @@ class Generator:
 					'option_source': compile_options,
 					'msvs_section_name': 'EnableIntrinsicFunctions',
 				},
+				'FavorSizeOrSpeed': {
+					'option_source': compile_options,
+					'converter_func': lambda v: self._get_favor_size_or_speed(v),
+				},
 			}
 
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)
@@ -296,6 +300,16 @@ class Generator:
 			return msvs_settings
 		else:
 			return {}
+
+	def _get_favor_size_or_speed(self, favor_size_or_speed_string):
+		if favor_size_or_speed_string == 'Neither':
+			return 0
+		elif favor_size_or_speed_string == 'Speed':
+			return 1
+		elif favor_size_or_speed_string == 'Size':
+			return 2
+		else:
+			return None
 
 	def _get_inline_function_expansion(self, inline_function_expansion_string):
 		if inline_function_expansion_string == 'Disabled':
