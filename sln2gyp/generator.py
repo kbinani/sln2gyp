@@ -182,7 +182,7 @@ class Generator:
 			elif len(additional_dependencies) > 0:
 				section['AdditionalDependencies'] = additional_dependencies
 
-			use_debug_libraries = project_options.get_common_value_for_configurations(configurations, 'UseDebugLibraries')
+			use_debug_libraries = link_options.get_common_value_for_configurations(configurations, 'GenerateDebugInformation')
 			if use_debug_libraries != None:
 				section['GenerateDebugInformation'] = use_debug_libraries
 
