@@ -160,20 +160,46 @@ class Generator:
 					return None
 		return precompiled_source
 
+	def _generate_proj_msvs_settings_part(self, project, configurations, generate_options):
+		section = {}
+
+		for key, option in generate_options.items():
+			option_source = option['option_source']
+			value = option_source.get_common_value_for_configurations(configurations, key)
+			if value != None:
+				msvs_section_name = option['msvs_section_name'] if ('msvs_section_name' in option) else key
+				converter_func = option['converter_func'] if ('converter_func' in option) else None
+				section[msvs_section_name] = value if converter_func == None else converter_func(value)
+
+		return section
+
 	def _generate_proj_msvs_settings(self, project, configurations):
 		msvs_settings = {}
 
 		# VCLinkerTool
 		def generate_vclinkertool_section():
-			section = {}
 			link_options = project.link_options
 			project_options = project.project_options
 			properties = project.properties
 
-			# SubSystem
-			subsystem = link_options.get_common_value_for_configurations(configurations, 'SubSystem')
-			if subsystem != None:
-				section['SubSystem'] = self._get_subsystem(subsystem)
+			generate_options = {
+				'SubSystem': {
+					'option_source': link_options,
+					'converter_func': lambda v: self._get_subsystem(v),
+				},
+				'GenerateDebugInformation': {
+					'option_source': link_options,
+				},
+				'LinkIncremental': {
+					'option_source': properties,
+					'converter_func': lambda v: self._get_link_incremental(v),
+				},
+				'EnableCOMDATFolding': {
+					'option_source': link_options,
+					'converter_func': lambda v: self._get_enable_comdat_folding(v),
+				},
+			}
+			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)
 
 			# AdditionalDependencies
 			additional_dependencies = link_options.get_common_value_for_configurations(configurations, 'AdditionalDependencies')
@@ -181,14 +207,6 @@ class Generator:
 				section['AdditionalDependencies'] = ['%(AdditionalDependencies)']
 			elif len(additional_dependencies) > 0:
 				section['AdditionalDependencies'] = additional_dependencies
-
-			use_debug_libraries = link_options.get_common_value_for_configurations(configurations, 'GenerateDebugInformation')
-			if use_debug_libraries != None:
-				section['GenerateDebugInformation'] = use_debug_libraries
-
-			link_incremental = properties.get_common_value_for_configurations(configurations, 'LinkIncremental')
-			if link_incremental != None:
-				section['LinkIncremental'] = self._get_link_incremental(link_incremental)
 
 			return section
 
@@ -198,11 +216,10 @@ class Generator:
 
 		# VCCLCompilerTool
 		def generate_vcclcompilertool_section():
-			section = {}
 			compile_options = project.compile_options
 			project_options = project.project_options
 
-			msvs_settings_map = {
+			generate_options = {
 				'PrecompiledHeader': {
 					'option_source': compile_options,
 					'msvs_section_name': 'UsePrecompiledHeader',
@@ -210,60 +227,38 @@ class Generator:
 				},
 				'WarningLevel': {
 					'option_source': compile_options,
-					'msvs_section_name': 'WarningLevel',
 					'converter_func': lambda v: self._get_warning_level(v),
 				},
 				'Optimization': {
 					'option_source': compile_options,
-					'msvs_section_name': 'Optimization',
 					'converter_func': lambda v: self._get_optimization(v),
 				},
 				'PreprocessorDefinitions': {
 					'option_source': compile_options,
-					'msvs_section_name': 'PreprocessorDefinitions',
-					'converter_func': lambda v: v,
 				},
 				'DebugInformationFormat': {
 					'option_source': compile_options,
-					'msvs_section_name': 'DebugInformationFormat',
 					'converter_func': lambda v: self._get_debug_information_format(v),
 				},
 				'RuntimeLibrary': {
 					'option_source': compile_options,
-					'msvs_section_name': 'RuntimeLibrary',
 					'converter_func': lambda v: self._get_runtime_library(v),
 				},
 				'FloatingPointModel': {
 					'option_source': compile_options,
-					'msvs_section_name': 'FloatingPointModel',
 					'converter_func': lambda v: self._get_floating_point_model(v),
 				},
 				'AdditionalOptions': {
 					'option_source': compile_options,
-					'msvs_section_name': 'AdditionalOptions',
-					'converter_func': lambda v: v,
 				},
 				'ForcedIncludeFiles': {
 					'option_source': compile_options,
-					'msvs_section_name': 'ForcedIncludeFiles',
-					'converter_func': lambda v: v,
 				},
 				'WholeProgramOptimization': {
 					'option_source': project_options,
-					'msvs_section_name': 'WholeProgramOptimization',
-					'converter_func': lambda v: v,
 				},
 			}
-
-			for key, option in msvs_settings_map.items():
-				option_source = option['option_source']
-				value = option_source.get_common_value_for_configurations(configurations, key)
-				if value != None:
-					msvs_section_name = option['msvs_section_name']
-					converter_func = option['converter_func']
-					section[msvs_section_name] = converter_func(value)
-
-			return section
+			return self._generate_proj_msvs_settings_part(project, configurations, generate_options)
 
 		vcclcompilertool = generate_vcclcompilertool_section()
 		if len(vcclcompilertool) > 0:
@@ -273,6 +268,14 @@ class Generator:
 			return msvs_settings
 		else:
 			return {}
+
+	def _get_enable_comdat_folding(self, enable_comdat_folding_string):
+		if enable_comdat_folding_string == 'false':
+			return 1
+		elif enable_comdat_folding_string == 'true':
+			return 2
+		else:
+			return None
 
 	def _get_floating_point_model(self, floating_point_model_string):
 		if floating_point_model_string == 'Precise':

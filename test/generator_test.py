@@ -92,6 +92,7 @@ class GeneratorTest(unittest.TestCase):
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'false',
 										'LinkIncremental': 1,
+										'EnableCOMDATFolding': 2,
 									},
 								},
 							},
