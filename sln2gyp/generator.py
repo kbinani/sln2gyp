@@ -269,7 +269,20 @@ class Generator:
 					'msvs_section_name': 'WarnAsError',
 				},
 			}
-			return self._generate_proj_msvs_settings_part(project, configurations, generate_options)
+
+			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)
+
+			# workaround for gyp design. gyp does not recognize 'InlineFunctionExpansion' == 'Disabled', so add '/Ob0' option to 'AdditionalOptions'.
+			inline_function_expansion = compile_options.get_common_value_for_configurations(configurations, 'InlineFunctionExpansion')
+			if inline_function_expansion != None:
+				if inline_function_expansion == 'Disabled':
+					if 'AdditionalOptions' not in section:
+						section['AdditionalOptions'] = ''
+					section['AdditionalOptions'] = '/Ob0' if section['AdditionalOptions'] == '' else section['AdditionalOptions'] + ' /Ob0'
+				else:
+					section['InlineFunctionExpansion'] = self._get_inline_function_expansion(inline_function_expansion)
+
+			return section
 
 		vcclcompilertool = generate_vcclcompilertool_section()
 		if len(vcclcompilertool) > 0:
@@ -279,6 +292,17 @@ class Generator:
 			return msvs_settings
 		else:
 			return {}
+
+	def _get_inline_function_expansion(self, inline_function_expansion_string):
+		if inline_function_expansion_string == 'Disabled':
+			# gyp does not have equivalent value for 'Disabled'
+			return None
+		elif inline_function_expansion_string == 'OnlyExplicitInline':
+			return 1
+		elif inline_function_expansion_string == 'AnySuitable':
+			return 2
+		else:
+			return None
 
 	def _get_gyp_msvs_boolean_value(self, boolean_string):
 		if boolean_string == 'false':
