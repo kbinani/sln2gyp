@@ -268,6 +268,10 @@ class Generator:
 					'option_source': compile_options,
 					'msvs_section_name': 'WarnAsError',
 				},
+				'IntrinsicFunctions': {
+					'option_source': compile_options,
+					'msvs_section_name': 'EnableIntrinsicFunctions',
+				},
 			}
 
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)

@@ -91,6 +91,7 @@ class GeneratorTest(unittest.TestCase):
 										'RuntimeLibrary': 0,
 										'FloatingPointModel': 2,
 										'InlineFunctionExpansion': 2,
+										'EnableIntrinsicFunctions': 'true',
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'false',
