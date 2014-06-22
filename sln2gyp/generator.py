@@ -226,6 +226,10 @@ class Generator:
 					'msvs_section_name': 'RuntimeLibrary',
 					'converter_func': lambda v: self._get_runtime_library(v),
 				},
+				'FloatingPointModel': {
+					'msvs_section_name': 'FloatingPointModel',
+					'converter_func': lambda v: self._get_floating_point_model(v),
+				},
 			}
 
 			for key, option in msvs_settings_map.items():
@@ -249,6 +253,16 @@ class Generator:
 			return msvs_settings
 		else:
 			return {}
+
+	def _get_floating_point_model(self, floating_point_model_string):
+		if floating_point_model_string == 'Precise':
+			return 0
+		elif floating_point_model_string == 'Strict':
+			return 1
+		elif floating_point_model_string == 'Fast':
+			return 2
+		else:
+			return None
 
 	def _get_runtime_library(self, runtime_library_string):
 		if runtime_library_string == 'MultiThreaded':

@@ -66,6 +66,7 @@ class GeneratorTest(unittest.TestCase):
 										],
 										'DebugInformationFormat': 3,
 										'RuntimeLibrary': 1,
+										'FloatingPointModel': 0,
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',
@@ -85,6 +86,7 @@ class GeneratorTest(unittest.TestCase):
 											'%(PreprocessorDefinitions)',
 										],
 										'RuntimeLibrary': 0,
+										'FloatingPointModel': 2,
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'false',
