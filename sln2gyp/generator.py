@@ -305,6 +305,10 @@ class Generator:
 					'option_source': compile_options,
 					'converter_func': lambda v: self._get_basic_runtime_checks(v),
 				},
+				'StructMemberAlignment': {
+					'option_source': compile_options,
+					'converter_func': lambda v: self._get_struct_member_alignment(v),
+				},
 			}
 
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)
@@ -346,6 +350,22 @@ class Generator:
 			return msvs_settings
 		else:
 			return {}
+
+	def _get_struct_member_alignment(self, struct_member_alignment):
+		if struct_member_alignment == 'Default':
+			return 0
+		elif struct_member_alignment == '1Byte':
+			return 1
+		elif struct_member_alignment == '2Bytes':
+			return 2
+		elif struct_member_alignment == '4Bytes':
+			return 3
+		elif struct_member_alignment == '8Bytes':
+			return 4
+		elif struct_member_alignment == '16Bytes':
+			return 5
+		else:
+			return None
 
 	def _get_basic_runtime_checks(self, basic_runtime_checks):
 		if basic_runtime_checks == 'Default':

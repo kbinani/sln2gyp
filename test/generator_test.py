@@ -81,6 +81,7 @@ class GeneratorTest(unittest.TestCase):
 										'MinimalRebuild': 'false',
 										'SmallerTypeCheck': 'true',
 										'BasicRuntimeChecks': 3,
+										'StructMemberAlignment': 0,
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',
