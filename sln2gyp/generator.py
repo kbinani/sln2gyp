@@ -264,6 +264,10 @@ class Generator:
 				'SuppressStartupBanner': {
 					'option_source': compile_options,
 				},
+				'TreatWarningAsError': {
+					'option_source': compile_options,
+					'msvs_section_name': 'WarnAsError',
+				},
 			}
 			return self._generate_proj_msvs_settings_part(project, configurations, generate_options)
 

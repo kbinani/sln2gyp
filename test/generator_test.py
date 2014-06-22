@@ -69,6 +69,7 @@ class GeneratorTest(unittest.TestCase):
 										'FloatingPointModel': 0,
 										'AdditionalOptions': '-Zm123',
 										'SuppressStartupBanner': 'false',
+										'WarnAsError': 'true',
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',
