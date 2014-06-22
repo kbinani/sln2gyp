@@ -230,6 +230,10 @@ class Generator:
 					'msvs_section_name': 'FloatingPointModel',
 					'converter_func': lambda v: self._get_floating_point_model(v),
 				},
+				'AdditionalOptions': {
+					'msvs_section_name': 'AdditionalOptions',
+					'converter_func': lambda v: v,
+				},
 			}
 
 			for key, option in msvs_settings_map.items():

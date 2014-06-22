@@ -67,6 +67,7 @@ class GeneratorTest(unittest.TestCase):
 										'DebugInformationFormat': 3,
 										'RuntimeLibrary': 1,
 										'FloatingPointModel': 0,
+										'AdditionalOptions': '-Zm123',
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',
