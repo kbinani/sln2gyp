@@ -18,7 +18,7 @@ class UtilTestCase(unittest.TestCase):
 		}
 		self.assertEqual(expected, actual)
 
-	def test_extract_hash_diff(self):
+	def test_extract_dict_diff(self):
 		base = {
 			'a': {
 				'trivial': 'value_trivial',
@@ -46,7 +46,7 @@ class UtilTestCase(unittest.TestCase):
 				'f': 'value_f',
 			}
 		}
-		actual = sln2gyp.extract_hash_diff(base, special)
+		actual = sln2gyp.extract_dict_diff(base, special)
 		expected = {
 			'a': {
 				'special': {
@@ -62,7 +62,7 @@ class UtilTestCase(unittest.TestCase):
 		}
 		self.assertEqual(expected, actual)
 
-	def test_extract_hash_diff_with_none_arguments(self):
-		self.assertEqual({}, sln2gyp.extract_hash_diff(None, {}))
-		self.assertEqual({}, sln2gyp.extract_hash_diff({}, None))
-		self.assertEqual({}, sln2gyp.extract_hash_diff(None, None))
+	def test_extract_dict_diff_with_none_arguments(self):
+		self.assertEqual({}, sln2gyp.extract_dict_diff(None, {}))
+		self.assertEqual({}, sln2gyp.extract_dict_diff({}, None))
+		self.assertEqual({}, sln2gyp.extract_dict_diff(None, None))

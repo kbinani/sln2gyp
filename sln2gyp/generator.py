@@ -72,7 +72,7 @@ class Generator:
 
 		for config in project.configurations:
 			config_msvs_settings = self._generate_proj_msvs_settings(project, [config])
-			extracted_msvs_settings = util.extract_hash_diff(common_msvs_settings, config_msvs_settings)
+			extracted_msvs_settings = util.extract_dict_diff(common_msvs_settings, config_msvs_settings)
 			if len(extracted_msvs_settings) > 0:
 				target['configurations'][config.configuration()]['msvs_settings'] = extracted_msvs_settings
 
@@ -85,7 +85,7 @@ class Generator:
 				target['configurations'][config.configuration()]['msbuild_toolset'] = config_msbuild_toolset
 
 			config_msvs_configuration_attributes = self._generate_proj_msvs_configuration_attributes(project, [config])
-			extracted_msvs_configuration_attributes = util.extract_hash_diff(common_msvs_configuration_attributes, config_msvs_configuration_attributes)
+			extracted_msvs_configuration_attributes = util.extract_dict_diff(common_msvs_configuration_attributes, config_msvs_configuration_attributes)
 			if len(extracted_msvs_configuration_attributes) > 0:
 				target['configurations'][config.configuration()]['msvs_configuration_attributes'] = extracted_msvs_configuration_attributes
 

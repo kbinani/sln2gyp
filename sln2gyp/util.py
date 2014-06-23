@@ -21,7 +21,7 @@ def xml2obj(xml_node):
 		else:
 			return draft
 
-def extract_hash_diff(base, special):
+def extract_dict_diff(base, special):
 	if base == None or special == None:
 		return {}
 	obj = {}
@@ -32,7 +32,7 @@ def extract_hash_diff(base, special):
 			if type(special[sp_key]) != type(base[sp_key]):
 				obj[sp_key] = special[sp_key]
 			elif isinstance(special[sp_key], dict):
-				draft = extract_hash_diff(base[sp_key], special[sp_key])
+				draft = extract_dict_diff(base[sp_key], special[sp_key])
 				if len(draft) > 0:
 					obj[sp_key] = draft
 			else:
