@@ -101,6 +101,7 @@ class MsvsOptionConverter:
 		'TreatWChar_tAsBuiltInType': None,
 		'ForceConformanceInForLoopScope': None,
 		'RuntimeTypeInfo': None,
+		'OpenMPSupport': None,
 	}
 
 	def convert(self, msvs_name, value):

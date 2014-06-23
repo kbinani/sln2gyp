@@ -140,6 +140,7 @@ class GeneratorTest(unittest.TestCase):
 								'ForcedIncludeFiles': [
 									'stdafx.h',
 								],
+								'OpenMP': 'true',
 							}
 						},
 						'msvs_precompiled_source': 'stdafx.cpp',
