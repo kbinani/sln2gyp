@@ -141,6 +141,7 @@ class GeneratorTest(unittest.TestCase):
 									'stdafx.h',
 								],
 								'OpenMP': 'true',
+								'PrecompiledHeaderThrough': 'stdafx.h',
 							}
 						},
 						'msvs_precompiled_source': 'stdafx.cpp',

@@ -327,6 +327,10 @@ class Generator:
 					'option_source': compile_options,
 					'gyp_section_name': 'OpenMP',
 				},
+				'PrecompiledHeaderFile': {
+					'option_source': compile_options,
+					'gyp_section_name': 'PrecompiledHeaderThrough',
+				},
 			}
 
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)
