@@ -97,6 +97,7 @@ class MsvsOptionConverter:
 		'BufferSecurityCheck': None,
 		'FunctionLevelLinking': None,
 		'FloatingPointExceptions': None,
+		'DisableLanguageExtensions': None,
 	}
 
 	def convert(self, msvs_name, value):

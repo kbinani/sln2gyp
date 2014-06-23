@@ -84,6 +84,7 @@ class GeneratorTest(unittest.TestCase):
 										'StructMemberAlignment': 0,
 										'BufferSecurityCheck': 'true',
 										'FloatingPointExceptions': 'true',
+										'DisableLanguageExtensions': 'false',
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',
