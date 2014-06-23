@@ -87,6 +87,7 @@ class GeneratorTest(unittest.TestCase):
 										'DisableLanguageExtensions': 'false',
 										'TreatWChar_tAsBuiltInType': 'true',
 										'ForceConformanceInForLoopScope': 'true',
+										'RuntimeTypeInfo': 'true',
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',
