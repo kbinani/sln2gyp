@@ -1,7 +1,8 @@
 import xml.dom.minidom
 import os.path
 import util
-from configuration import Configuration, Property
+from configuration import Configuration
+from property import Property
 
 class Project:
 	class ParserFactory:
