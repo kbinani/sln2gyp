@@ -99,6 +99,7 @@ class MsvsOptionConverter:
 		'FloatingPointExceptions': None,
 		'DisableLanguageExtensions': None,
 		'TreatWChar_tAsBuiltInType': None,
+		'ForceConformanceInForLoopScope': None,
 	}
 
 	def convert(self, msvs_name, value):

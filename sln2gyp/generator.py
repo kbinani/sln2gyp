@@ -317,6 +317,9 @@ class Generator:
 				'TreatWChar_tAsBuiltInType': {
 					'option_source': compile_options,
 				},
+				'ForceConformanceInForLoopScope': {
+					'option_source': compile_options,
+				},
 			}
 
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)

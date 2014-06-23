@@ -86,6 +86,7 @@ class GeneratorTest(unittest.TestCase):
 										'FloatingPointExceptions': 'true',
 										'DisableLanguageExtensions': 'false',
 										'TreatWChar_tAsBuiltInType': 'true',
+										'ForceConformanceInForLoopScope': 'true',
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',
