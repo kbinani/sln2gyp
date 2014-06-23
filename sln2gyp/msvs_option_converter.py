@@ -102,6 +102,7 @@ class MsvsOptionConverter:
 		'ForceConformanceInForLoopScope': None,
 		'RuntimeTypeInfo': None,
 		'OpenMPSupport': None,
+		'ExpandAttributedSource': None,
 	}
 
 	def convert(self, msvs_name, value):

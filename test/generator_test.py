@@ -89,6 +89,7 @@ class GeneratorTest(unittest.TestCase):
 										'ForceConformanceInForLoopScope': 'true',
 										'RuntimeTypeInfo': 'true',
 										'PrecompiledHeaderFile': '$(IntDir)$(TargetName).pch',
+										'ExpandAttributedSource': 'true',
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',
