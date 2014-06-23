@@ -110,6 +110,7 @@ class GeneratorTest(unittest.TestCase):
 										'EnableFiberSafeOptimizations': 'true',
 										'ExceptionHandling': 1,
 										'EnableFunctionLevelLinking': 'true',
+										'EnableEnhancedInstructionSet': 2,
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'false',

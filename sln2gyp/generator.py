@@ -305,6 +305,9 @@ class Generator:
 					'option_source': compile_options,
 					'gyp_section_name': 'EnableFunctionLevelLinking',
 				},
+				'EnableEnhancedInstructionSet': {
+					'option_source': compile_options,
+				},
 			}
 
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)

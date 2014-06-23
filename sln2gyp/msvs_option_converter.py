@@ -78,6 +78,13 @@ class MsvsOptionConverter:
 			'StaticLibrary': 'static_library',
 			'DynamicLibrary': 'dynamic_library',
 		},
+		'EnableEnhancedInstructionSet': {
+			'NotSet': 0,
+			'StreamingSIMDExtensions': 1,
+			'StreamingSIMDExtensions2': 2,
+			'AdvancedVectorExtensions': 3,
+			'NoExtensions': 4,
+        },
 	}
 
 	_integer_boolean_msvs_name = {
