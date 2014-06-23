@@ -85,6 +85,7 @@ class GeneratorTest(unittest.TestCase):
 										'BufferSecurityCheck': 'true',
 										'FloatingPointExceptions': 'true',
 										'DisableLanguageExtensions': 'false',
+										'TreatWChar_tAsBuiltInType': 'true',
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',
