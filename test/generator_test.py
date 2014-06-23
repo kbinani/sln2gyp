@@ -83,6 +83,7 @@ class GeneratorTest(unittest.TestCase):
 										'BasicRuntimeChecks': 3,
 										'StructMemberAlignment': 0,
 										'BufferSecurityCheck': 'true',
+										'FloatingPointExceptions': 'true',
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',

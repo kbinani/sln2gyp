@@ -96,6 +96,7 @@ class MsvsOptionConverter:
 	_string_boolean_msvs_name = {
 		'BufferSecurityCheck': None,
 		'FunctionLevelLinking': None,
+		'FloatingPointExceptions': None,
 	}
 
 	def convert(self, msvs_name, value):
