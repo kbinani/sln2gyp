@@ -86,13 +86,21 @@ class MsvsOptionConverter:
 		'OptimizeReferences': None,
 	}
 
+	_string_boolean_msvs_name = {
+		'BufferSecurityCheck': None,
+		'FunctionLevelLinking': None,
+	}
+
 	def convert(self, msvs_name, value):
-		if msvs_name in MsvsOptionConverter._integer_boolean_msvs_name:
+		if msvs_name in self._integer_boolean_msvs_name:
 			return self._convert_boolean_to_integer(value)
 
-		if msvs_name in MsvsOptionConverter._mapping:
-			if value in MsvsOptionConverter._mapping[msvs_name]:
-				return MsvsOptionConverter._mapping[msvs_name][value]
+		if msvs_name in self._string_boolean_msvs_name:
+			return self._convert_boolean_to_string(value)
+
+		if msvs_name in self._mapping:
+			if value in self._mapping[msvs_name]:
+				return self._mapping[msvs_name][value]
 			else:
 				return None
 		else:

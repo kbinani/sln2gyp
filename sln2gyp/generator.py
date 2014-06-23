@@ -301,6 +301,10 @@ class Generator:
 				'BufferSecurityCheck': {
 					'option_source': compile_options,
 				},
+				'FunctionLevelLinking': {
+					'option_source': compile_options,
+					'msvs_section_name': 'EnableFunctionLevelLinking',
+				},
 			}
 
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)
