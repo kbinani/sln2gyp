@@ -3,6 +3,7 @@ import json
 import re
 from project import Project
 import util
+from msvs_option_converter import MsvsOptionConverter
 
 class Generator:
 	def __init__(self):
@@ -45,7 +46,7 @@ class Generator:
 
 		target = {
 			'target_name': project.name,
-			'type': self._get_gyp_type_from_vs_type(self._get_project_type(project)),
+			'type': self._get_project_type(project),
 			'sources': self._generate_proj_sources(project),
 			'configurations': self._generate_proj_configurations(project),
 		}
@@ -124,8 +125,9 @@ class Generator:
 
 	def _generate_proj_msvs_configuration_attributes(self, project, configurations):
 		msvs_configuration_attributes = {}
+		converter = MsvsOptionConverter()
 
-		character_set = self._get_character_set(project.project_options.get_common_value_for_configurations(configurations, 'CharacterSet'))
+		character_set = converter.convert('CharacterSet', project.project_options.get_common_value_for_configurations(configurations, 'CharacterSet'))
 		if character_set != None:
 			msvs_configuration_attributes['CharacterSet'] = character_set
 
@@ -162,14 +164,14 @@ class Generator:
 
 	def _generate_proj_msvs_settings_part(self, project, configurations, generate_options):
 		section = {}
+		converter = MsvsOptionConverter()
 
 		for key, option in generate_options.items():
 			option_source = option['option_source']
 			value = option_source.get_common_value_for_configurations(configurations, key)
 			if value != None:
 				msvs_section_name = option['msvs_section_name'] if ('msvs_section_name' in option) else key
-				converter_func = option['converter_func'] if ('converter_func' in option) else None
-				section[msvs_section_name] = value if converter_func == None else converter_func(value)
+				section[msvs_section_name] = converter.convert(msvs_section_name, value)
 
 		return section
 
@@ -185,22 +187,18 @@ class Generator:
 			generate_options = {
 				'SubSystem': {
 					'option_source': link_options,
-					'converter_func': lambda v: self._get_subsystem(v),
 				},
 				'GenerateDebugInformation': {
 					'option_source': link_options,
 				},
 				'LinkIncremental': {
 					'option_source': properties,
-					'converter_func': lambda v: self._get_gyp_msvs_boolean_value(v),
 				},
 				'EnableCOMDATFolding': {
 					'option_source': link_options,
-					'converter_func': lambda v: self._get_gyp_msvs_boolean_value(v),
 				},
 				'OptimizeReferences': {
 					'option_source': link_options,
-					'converter_func': lambda v: self._get_gyp_msvs_boolean_value(v),
 				},
 			}
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)
@@ -227,30 +225,24 @@ class Generator:
 				'PrecompiledHeader': {
 					'option_source': compile_options,
 					'msvs_section_name': 'UsePrecompiledHeader',
-					'converter_func': lambda v: self._get_use_precompiled_header(v),
 				},
 				'WarningLevel': {
 					'option_source': compile_options,
-					'converter_func': lambda v: self._get_warning_level(v),
 				},
 				'Optimization': {
 					'option_source': compile_options,
-					'converter_func': lambda v: self._get_optimization(v),
 				},
 				'PreprocessorDefinitions': {
 					'option_source': compile_options,
 				},
 				'DebugInformationFormat': {
 					'option_source': compile_options,
-					'converter_func': lambda v: self._get_debug_information_format(v),
 				},
 				'RuntimeLibrary': {
 					'option_source': compile_options,
-					'converter_func': lambda v: self._get_runtime_library(v),
 				},
 				'FloatingPointModel': {
 					'option_source': compile_options,
-					'converter_func': lambda v: self._get_floating_point_model(v),
 				},
 				'AdditionalOptions': {
 					'option_source': compile_options,
@@ -274,7 +266,6 @@ class Generator:
 				},
 				'FavorSizeOrSpeed': {
 					'option_source': compile_options,
-					'converter_func': lambda v: self._get_favor_size_or_speed(v),
 				},
 				'OmitFramePointers': {
 					'option_source': compile_options,
@@ -303,11 +294,9 @@ class Generator:
 				},
 				'BasicRuntimeChecks': {
 					'option_source': compile_options,
-					'converter_func': lambda v: self._get_basic_runtime_checks(v),
 				},
 				'StructMemberAlignment': {
 					'option_source': compile_options,
-					'converter_func': lambda v: self._get_struct_member_alignment(v),
 				},
 				'BufferSecurityCheck': {
 					'option_source': compile_options,
@@ -315,6 +304,8 @@ class Generator:
 			}
 
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)
+
+			converter = MsvsOptionConverter()
 
 			# workaround for gyp design. gyp does not recognize 'InlineFunctionExpansion' == 'Disabled', so add '/Ob0' option to 'AdditionalOptions'.
 			inline_function_expansion = compile_options.get_common_value_for_configurations(configurations, 'InlineFunctionExpansion')
@@ -324,7 +315,7 @@ class Generator:
 						section['AdditionalOptions'] = ''
 					section['AdditionalOptions'] = '/Ob0' if section['AdditionalOptions'] == '' else section['AdditionalOptions'] + ' /Ob0'
 				else:
-					section['InlineFunctionExpansion'] = self._get_inline_function_expansion(inline_function_expansion)
+					section['InlineFunctionExpansion'] = converter.convert('InlineFunctionExpansion', inline_function_expansion)
 
 			# create 'GeneratePreprocessedFile' section. The value of this option depends on two vcxprojc sections, <PreprocessToFile> and <PreprocessSuppressLineNumbers>.
 			preprocess_to_file = compile_options.get_common_value_for_configurations(configurations, 'PreprocessToFile')
@@ -341,7 +332,7 @@ class Generator:
 						section['AdditionalOptions'] = ''
 					section['AdditionalOptions'] = '/EHsc' if section['AdditionalOptions'] == '' else section['AdditionalOptions'] + ' /EHsc'
 				else:
-					section['ExceptionHandling'] = self._get_exception_handling(exception_handling)
+					section['ExceptionHandling'] = converter.convert('ExceptionHandling', exception_handling)
 
 			return section
 
@@ -353,47 +344,6 @@ class Generator:
 			return msvs_settings
 		else:
 			return {}
-
-	def _get_struct_member_alignment(self, struct_member_alignment):
-		if struct_member_alignment == 'Default':
-			return 0
-		elif struct_member_alignment == '1Byte':
-			return 1
-		elif struct_member_alignment == '2Bytes':
-			return 2
-		elif struct_member_alignment == '4Bytes':
-			return 3
-		elif struct_member_alignment == '8Bytes':
-			return 4
-		elif struct_member_alignment == '16Bytes':
-			return 5
-		else:
-			return None
-
-	def _get_basic_runtime_checks(self, basic_runtime_checks):
-		if basic_runtime_checks == 'Default':
-			return 0
-		elif basic_runtime_checks == 'StackFrameRuntimeCheck':
-			return 1
-		elif basic_runtime_checks == 'UninitializedLocalUsageCheck':
-			return 2
-		elif basic_runtime_checks == 'EnableFastChecks':
-			return 3
-		else:
-			return None
-
-	def _get_exception_handling(self, exception_handling):
-		if exception_handling == 'false':
-			return 0
-		elif exception_handling == 'Async':
-			return 2
-		elif exception_handling == 'Sync':
-			return 1
-		elif exception_handling == 'SyncCThrow':
-			# gyp does not have equivalent value for 'SyncCThrow'
-			return None
-		else:
-			return None
 
 	def _get_generate_preprocessed_file(self, preprocess_to_file, preprocess_suppress_line_numbers):
 		if preprocess_to_file == None or preprocess_suppress_line_numbers == None:
@@ -411,122 +361,6 @@ class Generator:
 			else:
 				return 1
 
-	def _get_favor_size_or_speed(self, favor_size_or_speed_string):
-		if favor_size_or_speed_string == 'Neither':
-			return 0
-		elif favor_size_or_speed_string == 'Speed':
-			return 1
-		elif favor_size_or_speed_string == 'Size':
-			return 2
-		else:
-			return None
-
-	def _get_inline_function_expansion(self, inline_function_expansion_string):
-		if inline_function_expansion_string == 'Disabled':
-			# gyp does not have equivalent value for 'Disabled'
-			return None
-		elif inline_function_expansion_string == 'OnlyExplicitInline':
-			return 1
-		elif inline_function_expansion_string == 'AnySuitable':
-			return 2
-		else:
-			return None
-
-	def _get_gyp_msvs_boolean_value(self, boolean_string):
-		if boolean_string == 'false':
-			return 1
-		elif boolean_string == 'true':
-			return 2
-		else:
-			return None
-
-	def _get_floating_point_model(self, floating_point_model_string):
-		if floating_point_model_string == 'Precise':
-			return 0
-		elif floating_point_model_string == 'Strict':
-			return 1
-		elif floating_point_model_string == 'Fast':
-			return 2
-		else:
-			return None
-
-	def _get_runtime_library(self, runtime_library_string):
-		if runtime_library_string == 'MultiThreaded':
-			return 0
-		elif runtime_library_string == 'MultiThreadedDebug':
-			return 1
-		elif runtime_library_string == 'MultiThreadedDLL':
-			return 2
-		elif runtime_library_string == 'MultiThreadedDebugDLL':
-			return 3
-		else:
-			return None
-
-	def _get_debug_information_format(self, debug_information_format):
-		if debug_information_format == 'ProgramDatabase':
-			return 3
-		elif debug_information_format == 'OldStyle':
-			return 1
-		elif debug_information_format == 'EditAndContinue':
-			return 4
-		else:
-			return None
-
-	def _get_character_set(self, character_set_string):
-		if character_set_string == 'Unicode':
-			return 1
-		elif character_set_string == 'MultiByte':
-			return 2
-		else:
-			return None
-
-	def _get_optimization(self, optimization_string):
-		if optimization_string == 'Disabled':
-			return 0
-		elif optimization_string == 'MinSpace':
-			return 1
-		elif optimization_string == 'MaxSpeed':
-			return 2
-		elif optimization_string == 'Full':
-			return 3
-		else:
-			return None
-
-	def _get_subsystem(self, subsystem_string):
-		if subsystem_string == 'Windows':
-			return 2
-		elif subsystem_string == 'Console':
-			return 1
-		elif subsystem_string == 'Native':
-			return 3
-		elif subsystem_string == 'EFI Application':
-			return 4
-		elif subsystem_string == 'EFI Boot Service Driver':
-			return 5
-		elif subsystem_string == 'EFI ROM':
-			return 6
-		elif subsystem_string == 'EFI Runtime':
-			return 7
-		elif subsystem_string == 'POSIX':
-			#TODO(kbinani): gyp does not support 'POSIX' subsystem type
-			return 0
-		else:
-			return 0
-
-	def _get_use_precompiled_header(self, precompiled_header_string):
-		if precompiled_header_string == 'Use':
-			return 2
-		elif precompiled_header_string == 'Create':
-			return 1
-		elif precompiled_header_string == 'NotUsing':
-			return 0
-		else:
-			return None
-
-	def _get_warning_level(self, warning_level):
-		m = re.compile('Level(?P<level>[0-9]*)').search(warning_level)
-		return int(m.group('level'))
-
 	def _generate_proj_sources(self, project):
 		sources = []
 		for source_file in project.sources:
@@ -534,21 +368,16 @@ class Generator:
 		return sources
 
 	def _get_project_type(self, project):
-		value = project.project_options.get_common_value_for_configurations(project.configurations, 'ConfigurationType')
+		converter = MsvsOptionConverter()
+		project_options = project.project_options
+		msvs_section_name = 'ConfigurationType'
+		configuration_type = project_options.get_common_value_for_configurations(project.configurations, msvs_section_name)
+
+		value = converter.convert(msvs_section_name, configuration_type)
 		if value == None:
 			return 'none'
 		else:
 			return value
-
-	def _get_gyp_type_from_vs_type(self, vs_configuration_type):
-		if vs_configuration_type == 'Application':
-			return 'executable'
-		elif vs_configuration_type == 'StaticLibrary':
-			return 'static_library'
-		elif vs_configuration_type == 'DynamicLibrary':
-			return 'dynamic_library'
-		else:
-			return 'none'
 
 	def _generate_proj_configurations(self, project):
 		name_list = set()
