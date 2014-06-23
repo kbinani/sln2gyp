@@ -88,6 +88,7 @@ class GeneratorTest(unittest.TestCase):
 										'TreatWChar_tAsBuiltInType': 'true',
 										'ForceConformanceInForLoopScope': 'true',
 										'RuntimeTypeInfo': 'true',
+										'PrecompiledHeaderFile': '$(IntDir)$(TargetName).pch',
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',
