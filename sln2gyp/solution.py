@@ -62,7 +62,7 @@ class Solution:
 		def _append(self, line):
 			m = self._re_project.search(line)
 			if not m == None:
-				file = util.normpath(self._solution.solution_dir() + '/' + m.group('project_file'))
+				file = util.normpath(self._solution.solution_dir + '/' + m.group('project_file'))
 				classid = m.group('classid')
 				guid = m.group('project_classid')
 				name = m.group('project_name')
@@ -121,7 +121,7 @@ class Solution:
 			elif current_status.status_type() == Solution.Parser.StatusType.kProjectSection:
 				if current_status.name() == 'ProjectDependencies':
 					rhs, lhs = line.split('=')
-					guid = self._project.guid()
+					guid = self._project.guid
 					depends = lhs.strip()
 					self._project._dependencies.append(depends)
 
@@ -132,20 +132,24 @@ class Solution:
 		parser = Solution.Parser(self)
 		parser.parse(file)
 
+	@property
 	def solution_dir(self):
 		return os.path.dirname(self._file)
 
+	@property
 	def solution_file(self):
 		return self._file
 
+	@property
 	def projects(self):
 		return self._projects
 
 	def get_by_guid(self, guid):
 		for p in self._projects:
-			if guid == p.guid():
+			if guid == p.guid:
 				return p
 		return None
 
+	@property
 	def configurations(self):
 		return self._configurations

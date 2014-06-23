@@ -10,11 +10,11 @@ class Generator:
 
 	def generate_gyp(self, solution):
 		self._generate_sln_gyp(solution)
-		for p in solution.projects():
+		for p in solution.projects:
 			self._generate_proj_gyp(solution, p)
 
 	def _generate_sln_gyp(self, solution):
-		abs_gyp_path, _ = os.path.splitext(solution.solution_file())
+		abs_gyp_path, _ = os.path.splitext(solution.solution_file)
 		abs_gyp_path = abs_gyp_path + '.gyp'
 
 		gyp = {
@@ -32,19 +32,19 @@ class Generator:
 
 	def _generate_dependencies(self, solution):
 		includes = []
-		for p in solution.projects():
-			abs_project_file = p.project_file()
+		for p in solution.projects:
+			abs_project_file = p.project_file
 			abs_gyp_file, _ = os.path.splitext(abs_project_file)
-			relative_path_to_sln = util.normpath(os.path.relpath(abs_gyp_file, solution.solution_dir()))
-			includes.append(relative_path_to_sln + ".gyp:" + p.name())
+			relative_path_to_sln = util.normpath(os.path.relpath(abs_gyp_file, solution.solution_dir))
+			includes.append(relative_path_to_sln + ".gyp:" + p.name)
 		return includes
 
 	def _generate_proj_gyp(self, solution, project):
-		abs_gyp_path, _ = os.path.splitext(project.project_file())
+		abs_gyp_path, _ = os.path.splitext(project.project_file)
 		abs_gyp_path = abs_gyp_path + '.gyp'
 
 		target = {
-			'target_name': project.name(),
+			'target_name': project.name,
 			'type': self._get_gyp_type_from_vs_type(self._get_project_type(project)),
 			'sources': self._generate_proj_sources(project),
 			'configurations': self._generate_proj_configurations(project),
@@ -53,23 +53,23 @@ class Generator:
 		dependencies = self._generate_proj_dependencies(solution, project)
 		if len(dependencies) > 0:
 			target['dependencies'] = dependencies
-		common_msvs_settings = self._generate_proj_msvs_settings(project, project.configurations())
+		common_msvs_settings = self._generate_proj_msvs_settings(project, project.configurations)
 		if len(common_msvs_settings) > 0:
 			target['msvs_settings'] = common_msvs_settings
-		common_msvs_precompiled_source = self._generate_proj_msvs_precompiled_source(project, project.configurations())
+		common_msvs_precompiled_source = self._generate_proj_msvs_precompiled_source(project, project.configurations)
 		if common_msvs_precompiled_source != None:
 			target['msvs_precompiled_source'] = common_msvs_precompiled_source
-		common_msbuild_toolset = self._generate_proj_msbuild_toolset(project, project.configurations())
+		common_msbuild_toolset = self._generate_proj_msbuild_toolset(project, project.configurations)
 		if common_msbuild_toolset != None:
 			target['msbuild_toolset'] = common_msbuild_toolset
-		common_msvs_configuration_attributes = self._generate_proj_msvs_configuration_attributes(project, project.configurations())
+		common_msvs_configuration_attributes = self._generate_proj_msvs_configuration_attributes(project, project.configurations)
 		if common_msvs_configuration_attributes != None:
 			target['msvs_configuration_attributes'] = common_msvs_configuration_attributes
-		common_include_dirs = self._generate_proj_include_dirs(project, project.configurations())
+		common_include_dirs = self._generate_proj_include_dirs(project, project.configurations)
 		if common_include_dirs != None:
 			target['include_dirs'] = common_include_dirs
 
-		for config in project.configurations():
+		for config in project.configurations:
 			config_msvs_settings = self._generate_proj_msvs_settings(project, [config])
 			extracted_msvs_settings = util.extract_hash_diff(common_msvs_settings, config_msvs_settings)
 			if len(extracted_msvs_settings) > 0:
@@ -100,16 +100,16 @@ class Generator:
 
 	def _generate_proj_dependencies(self, solution, project):
 		dependencies = []
-		for dep_guid in project.dependencies():
-			for p in solution.projects():
-				if p.guid() == project.guid():
+		for dep_guid in project.dependencies:
+			for p in solution.projects:
+				if p.guid == project.guid:
 					continue
-				if p.guid() == dep_guid:
-					dep_proj_path = p.project_file()
+				if p.guid == dep_guid:
+					dep_proj_path = p.project_file
 					dep_gyp_name, ext = os.path.splitext(dep_proj_path)
 					dep_gyp_path = dep_gyp_name + '.gyp'
-					rel_gyp_path = util.normpath(os.path.relpath(dep_gyp_path, project.project_dir()))
-					dependencies.append(rel_gyp_path + ":" + p.name())
+					rel_gyp_path = util.normpath(os.path.relpath(dep_gyp_path, project.project_dir))
+					dependencies.append(rel_gyp_path + ":" + p.name)
 		return dependencies
 
 	def _generate_proj_include_dirs(self, project, configurations):
@@ -529,12 +529,12 @@ class Generator:
 
 	def _generate_proj_sources(self, project):
 		sources = []
-		for source_file in project.sources():
+		for source_file in project.sources:
 			sources.append(source_file)
 		return sources
 
 	def _get_project_type(self, project):
-		value = project.project_options.get_common_value_for_configurations(project.configurations(), 'ConfigurationType')
+		value = project.project_options.get_common_value_for_configurations(project.configurations, 'ConfigurationType')
 		if value == None:
 			return 'none'
 		else:
@@ -552,7 +552,7 @@ class Generator:
 
 	def _generate_proj_configurations(self, project):
 		name_list = set()
-		for c in project.configurations():
+		for c in project.configurations:
 			name_list.add(c.configuration())
 
 		#TODO: consider the case: same name but difference platform

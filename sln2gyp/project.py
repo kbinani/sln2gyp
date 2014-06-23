@@ -45,7 +45,7 @@ class Project:
 							if precompiled_source_option == 'Create':
 								if node.hasAttribute('Condition'):
 									condition = node.getAttribute('Condition')
-									for config in project.configurations():
+									for config in project.configurations:
 										if config.is_match(condition):
 											project._precompiled_source.set(config, file)
 								else:
@@ -87,7 +87,7 @@ class Project:
 	 			value = util.xml2obj(node)
 				if node.hasAttribute('Condition'):
 				 	condition = node.getAttribute('Condition')
-				 	for config in project.configurations():
+				 	for config in project.configurations:
 				 		if config.is_match(condition):
 				 			project._project_options.set(config, value)
 				else:
@@ -97,7 +97,7 @@ class Project:
 				value = util.xml2obj(node)
 				if node.hasAttribute('Condition'):
 					condition = node.getAttribute('Condition')
-					for config in project.configurations():
+					for config in project.configurations:
 						if config.is_match(condition):
 							project._properties.set(config, value)
 				else:
@@ -117,7 +117,7 @@ class Project:
 				if 'ClCompile' in definition:
 					compile_options = self._transform_clcompile_dict_style(definition['ClCompile'])
 
-				for config in project.configurations():
+				for config in project.configurations:
 					if config.is_match(condition):
 						project._link_options.set(config, link_options)
 						project._compile_options.set(config, compile_options)
@@ -189,24 +189,31 @@ class Project:
 
 		return None
 
+	@property
 	def sources(self):
 		return self._sources
 
+	@property
 	def project_dir(self):
 		return os.path.dirname(self._file)
 
+	@property
 	def project_file(self):
 		return self._file
 
+	@property
 	def name(self):
 		return self._name
 
+	@property
 	def guid(self):
 		return self._guid
 
+	@property
 	def tools_version(self):
 		return self._tools_version
 
+	@property
 	def configurations(self):
 		return self._configurations
 
@@ -214,6 +221,7 @@ class Project:
 	def project_options(self):
 		return self._project_options
 
+	@property
 	def dependencies(self):
 		return self._dependencies
 
