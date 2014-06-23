@@ -69,6 +69,9 @@ class Generator:
 		common_include_dirs = self._generate_proj_include_dirs(project, project.configurations)
 		if common_include_dirs != None:
 			target['include_dirs'] = common_include_dirs
+		common_msbuild_props = self._generate_proj_msbuild_props(project, project.configurations)
+		if common_msbuild_props != None:
+			target['msbuild_props'] = common_msbuild_props
 
 		for config in project.configurations:
 			config_msvs_settings = self._generate_proj_msvs_settings(project, [config])
@@ -92,6 +95,10 @@ class Generator:
 			config_include_dirs = self._generate_proj_include_dirs(project, [config])
 			if config_include_dirs != None and config_include_dirs != common_include_dirs:
 				target['configurations'][config.configuration()]['include_dirs'] = config_include_dirs
+
+			config_msbuild_props = self._generate_proj_msbuild_props(project, [config])
+			if config_msbuild_props != None and config_msbuild_props != common_msbuild_props:
+				target['configurations'][config.configuration()]['msbuild_props'] = config_msbuild_props
 
 		gyp = {}
 		gyp['targets'] = [target]
@@ -381,6 +388,15 @@ class Generator:
 			return msvs_settings
 		else:
 			return {}
+
+	def _generate_proj_msbuild_props(self, project, configurations):
+		msbuild_props = project.user_prop_sheets.get_common_value_for_configurations(configurations)
+		if msbuild_props == None:
+			return None
+		if len(msbuild_props) > 0:
+			return msbuild_props
+		else:
+			return None
 
 	def _get_generate_preprocessed_file(self, preprocess_to_file, preprocess_suppress_line_numbers):
 		if preprocess_to_file == None or preprocess_suppress_line_numbers == None:

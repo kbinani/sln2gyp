@@ -96,6 +96,9 @@ class GeneratorTest(unittest.TestCase):
 										'LinkIncremental': 2,
 									},
 								},
+								'msbuild_props': [
+									'../common.props',
+								],
 							},
 							'Release': {
 								'msvs_settings': {
@@ -177,6 +180,9 @@ class GeneratorTest(unittest.TestCase):
 						],
 						'configurations': {
 							'Debug': {
+								'msbuild_props': [
+									'../common.props',
+								],
 							},
 							'Release': {
 							},

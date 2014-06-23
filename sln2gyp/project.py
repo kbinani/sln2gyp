@@ -29,6 +29,7 @@ class Project:
 			self._extract_source_files(xmldom, project)
 			self._parse_configuration_property_group(xmldom, project)
 			self._parse_item_definition_group(xmldom, project)
+			self._extract_prop_sheets(xmldom, project)
 
 		def _extract_source_files(self, xmldom, project):
 			comp = xmldom.getElementsByTagName('ClCompile')
@@ -123,6 +124,33 @@ class Project:
 						project._link_options.set(config, link_options)
 						project._compile_options.set(config, compile_options)
 
+		def _extract_prop_sheets(self, xmldom, project):
+			node_list = xmldom.getElementsByTagName('ImportGroup')
+			for import_group_node in node_list:
+				if not import_group_node.hasAttribute('Label'):
+					continue
+				if import_group_node.getAttribute('Label') != 'PropertySheets':
+					continue
+				condition = None
+				if import_group_node.hasAttribute('Condition'):
+					condition = import_group_node.getAttribute('Condition')
+
+				for import_node in import_group_node.getElementsByTagName('Import'):
+					if import_node.hasAttribute('Label') and import_node.getAttribute('Label') == 'LocalAppDataPlatform':
+						continue
+					props_file = import_node.getAttribute('Project')
+					if props_file == None:
+						continue
+					props_file = util.normpath(props_file)
+					if condition == None:
+						proejct._user_prop_sheets.get_default().append(props_file)
+					else:
+						for config in project.configurations:
+							if config.is_match(condition):
+								prev = project._user_prop_sheets.get(config)
+								prev.append(props_file)
+								project._user_prop_sheets.set(config, prev)
+
 		def _transform_link_dict_style(self, link_dict):
 			split_with_semicollon = [
 				'AdditionalDependencies',
@@ -170,6 +198,8 @@ class Project:
 
 		# represents the <Property Group> section
 		self._properties = Property({})
+
+		self._user_prop_sheets = Property([])
 
 		dom = xml.dom.minidom.parse(file)
 		version = self._detect_project_version(dom)
@@ -240,3 +270,7 @@ class Project:
 	@property
 	def properties(self):
 		return self._properties
+
+	@property
+	def user_prop_sheets(self):
+		return self._user_prop_sheets

@@ -149,3 +149,12 @@ class SolutionWithDependencyTestCase(unittest.TestCase):
 		self.assertEqual(0, len(depend.dependencies))
 
 		self.assertEqual(depend.guid, win32project.dependencies[0])
+
+		debug = sln2gyp.Configuration.create_from_string('Debug|Win32')
+		release = sln2gyp.Configuration.create_from_string('Release|Win32')
+
+		self.assertEqual(['../common.props'], win32project.user_prop_sheets.get(debug))
+		self.assertEqual([], win32project.user_prop_sheets.get(release))
+
+		self.assertEqual(['../common.props'], depend.user_prop_sheets.get(debug))
+		self.assertEqual([], depend.user_prop_sheets.get(release))

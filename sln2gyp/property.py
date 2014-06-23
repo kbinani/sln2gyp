@@ -1,3 +1,5 @@
+from copy import copy
+
 class Property:
 	def __init__(self, default_value):
 		self._storage = {}
@@ -16,10 +18,13 @@ class Property:
 		if name in self._storage:
 			if platform in self._storage[name]:
 				return self._storage[name][platform]
-		return self._default
+		return copy(self._default)
 
 	def set_default(self, default_value):
 		self._default = default_value
+
+	def get_default(self):
+		return self._default
 
 	def get_common_value_for_configurations(self, configurations, key = None):
 		is_first = True
