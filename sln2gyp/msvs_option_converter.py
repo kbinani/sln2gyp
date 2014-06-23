@@ -42,7 +42,7 @@ class MsvsOptionConverter:
 			'MultiThreadedDLL': 2,
 			'MultiThreadedDebugDLL': 3,
 		},
-		'UsePrecompiledHeader': {
+		'PrecompiledHeader': {
 			'Use': 2,
 			'Create': 1,
 			'NotUsing': 0,

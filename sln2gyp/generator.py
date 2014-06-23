@@ -166,12 +166,12 @@ class Generator:
 		section = {}
 		converter = MsvsOptionConverter()
 
-		for key, option in generate_options.items():
+		for msvs_section_name, option in generate_options.items():
 			option_source = option['option_source']
-			value = option_source.get_common_value_for_configurations(configurations, key)
+			value = option_source.get_common_value_for_configurations(configurations, msvs_section_name)
 			if value != None:
-				msvs_section_name = option['msvs_section_name'] if ('msvs_section_name' in option) else key
-				section[msvs_section_name] = converter.convert(msvs_section_name, value)
+				gyp_section_name = option['gyp_section_name'] if ('gyp_section_name' in option) else msvs_section_name
+				section[gyp_section_name] = converter.convert(msvs_section_name, value)
 
 		return section
 
@@ -224,7 +224,7 @@ class Generator:
 			generate_options = {
 				'PrecompiledHeader': {
 					'option_source': compile_options,
-					'msvs_section_name': 'UsePrecompiledHeader',
+					'gyp_section_name': 'UsePrecompiledHeader',
 				},
 				'WarningLevel': {
 					'option_source': compile_options,
@@ -258,11 +258,11 @@ class Generator:
 				},
 				'TreatWarningAsError': {
 					'option_source': compile_options,
-					'msvs_section_name': 'WarnAsError',
+					'gyp_section_name': 'WarnAsError',
 				},
 				'IntrinsicFunctions': {
 					'option_source': compile_options,
-					'msvs_section_name': 'EnableIntrinsicFunctions',
+					'gyp_section_name': 'EnableIntrinsicFunctions',
 				},
 				'FavorSizeOrSpeed': {
 					'option_source': compile_options,
@@ -284,7 +284,7 @@ class Generator:
 				},
 				'PreprocessKeepComments': {
 					'option_source': compile_options,
-					'msvs_section_name': 'KeepComments',
+					'gyp_section_name': 'KeepComments',
 				},
 				'MinimalRebuild': {
 					'option_source': compile_options,
@@ -303,7 +303,7 @@ class Generator:
 				},
 				'FunctionLevelLinking': {
 					'option_source': compile_options,
-					'msvs_section_name': 'EnableFunctionLevelLinking',
+					'gyp_section_name': 'EnableFunctionLevelLinking',
 				},
 			}
 
