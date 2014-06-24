@@ -95,6 +95,7 @@
       <DisableSpecificWarnings>4995;4996</DisableSpecificWarnings>
       <ForcedUsingFiles>dummyA;dummyB</ForcedUsingFiles>
       <ShowIncludes>true</ShowIncludes>
+      <UseFullPaths>true</UseFullPaths>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

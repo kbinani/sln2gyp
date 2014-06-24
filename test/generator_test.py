@@ -108,6 +108,7 @@ class GeneratorTest(unittest.TestCase):
 											'dummyB',
 										],
 										'ShowIncludes': 'true',
+										'UseFullPaths': 'true',
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',
