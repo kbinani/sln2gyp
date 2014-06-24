@@ -361,6 +361,9 @@ class Generator:
 				'GenerateXMLDocumentationFiles': {
 					'option_source': compile_options,
 				},
+				'XMLDocumentationFileName': {
+					'option_source': compile_options,
+				},
 			}
 
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)
