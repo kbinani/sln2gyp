@@ -142,6 +142,7 @@ class MsvsOptionConverter:
 		'ShowIncludes': None,
 		'UseFullPaths': None,
 		'OmitDefaultLibName': None,
+		'SuppressStartupBanner': None,
 	}
 
 	def convert(self, msvs_name, value):

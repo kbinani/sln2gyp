@@ -117,6 +117,7 @@ class GeneratorTest(unittest.TestCase):
 										'LinkIncremental': 2,
 										'OutputFile': '$(OutDir)$(TargetName)$(TargetExt)',
 										'ShowProgress': 1,
+										'SuppressStartupBanner': 'true',
 									},
 								},
 								'msbuild_props': [

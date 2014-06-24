@@ -215,6 +215,9 @@ class Generator:
 				'Version': {
 					'option_source': link_options,
 				},
+				'SuppressStartupBanner': {
+					'option_source': link_options,
+				},
 			}
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)
 
