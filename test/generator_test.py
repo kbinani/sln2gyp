@@ -92,6 +92,7 @@ class GeneratorTest(unittest.TestCase):
 										'ExpandAttributedSource': 'true',
 										'AssemblerOutput': 1,
 										'AssemblerListingLocation': '$(IntDir)',
+										'ObjectFile': '$(IntDir)',
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',
