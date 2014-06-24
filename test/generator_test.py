@@ -118,6 +118,7 @@ class GeneratorTest(unittest.TestCase):
 										'OutputFile': '$(OutDir)$(TargetName)$(TargetExt)',
 										'ShowProgress': 1,
 										'SuppressStartupBanner': 'true',
+										'IgnoreImportLibrary': 'false',
 									},
 								},
 								'msbuild_props': [

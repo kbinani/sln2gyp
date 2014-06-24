@@ -143,6 +143,7 @@ class MsvsOptionConverter:
 		'UseFullPaths': None,
 		'OmitDefaultLibName': None,
 		'SuppressStartupBanner': None,
+		'IgnoreImportLibrary': None,
 	}
 
 	def convert(self, msvs_name, value):
