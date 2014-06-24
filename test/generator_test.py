@@ -161,6 +161,7 @@ class GeneratorTest(unittest.TestCase):
 									'winmm.lib',
 									'%(AdditionalDependencies)',
 								],
+								'Version': '3.14159',
 							},
 							'VCCLCompilerTool': {
 								'UsePrecompiledHeader': 2,
