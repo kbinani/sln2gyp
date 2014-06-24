@@ -110,6 +110,7 @@ class MsvsOptionConverter:
 		'RuntimeTypeInfo': None,
 		'OpenMPSupport': None,
 		'ExpandAttributedSource': None,
+		'GenerateXMLDocumentationFiles': None,
 	}
 
 	def convert(self, msvs_name, value):

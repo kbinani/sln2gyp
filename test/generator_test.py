@@ -94,6 +94,7 @@ class GeneratorTest(unittest.TestCase):
 										'AssemblerListingLocation': '$(IntDir)',
 										'ObjectFile': '$(IntDir)',
 										'ProgramDataBaseFileName': '$(IntDir)vc$(PlatformToolsetVersion).pdb',
+										'GenerateXMLDocumentationFiles': 'true',
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',
