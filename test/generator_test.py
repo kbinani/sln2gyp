@@ -99,6 +99,7 @@ class GeneratorTest(unittest.TestCase):
 										'BrowseInformation': 1,
 										'BrowseInformationFile': '$(IntDir)',
 										'CallingConvention': 0,
+										'CompileAs': 0,
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',

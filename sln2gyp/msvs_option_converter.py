@@ -101,6 +101,11 @@ class MsvsOptionConverter:
 			'FastCall': 1,
 			'StdCall': 2,
 		},
+		'CompileAs': {
+			'Default': 0,
+			'CompileAsC': 1,
+			'CompileAsCpp': 2,
+		},
 	}
 
 	_integer_boolean_msvs_name = {
