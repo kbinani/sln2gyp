@@ -127,6 +127,7 @@ class MsvsOptionConverter:
 		'GenerateXMLDocumentationFiles': None,
 		'ShowIncludes': None,
 		'UseFullPaths': None,
+		'OmitDefaultLibName': None,
 	}
 
 	def convert(self, msvs_name, value):

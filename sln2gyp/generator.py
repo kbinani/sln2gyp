@@ -388,6 +388,9 @@ class Generator:
 				'UseFullPaths': {
 					'option_source': compile_options,
 				},
+				'OmitDefaultLibName': {
+					'option_source': compile_options,
+				},
 			}
 
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)

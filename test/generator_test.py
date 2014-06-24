@@ -109,6 +109,7 @@ class GeneratorTest(unittest.TestCase):
 										],
 										'ShowIncludes': 'true',
 										'UseFullPaths': 'true',
+										'OmitDefaultLibName': 'false',
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',

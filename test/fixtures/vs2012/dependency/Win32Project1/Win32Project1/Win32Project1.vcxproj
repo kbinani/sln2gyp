@@ -96,6 +96,7 @@
       <ForcedUsingFiles>dummyA;dummyB</ForcedUsingFiles>
       <ShowIncludes>true</ShowIncludes>
       <UseFullPaths>true</UseFullPaths>
+      <OmitDefaultLibName>false</OmitDefaultLibName>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
