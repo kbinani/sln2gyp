@@ -106,6 +106,11 @@ class MsvsOptionConverter:
 			'CompileAsC': 1,
 			'CompileAsCpp': 2,
 		},
+		'ErrorReporting': {
+			'None': 0,
+			'Prompt': 1,
+			'Queue': 2,
+		},
 	}
 
 	_integer_boolean_msvs_name = {

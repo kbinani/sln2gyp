@@ -97,6 +97,7 @@
       <ShowIncludes>true</ShowIncludes>
       <UseFullPaths>true</UseFullPaths>
       <OmitDefaultLibName>false</OmitDefaultLibName>
+      <ErrorReporting>None</ErrorReporting>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
