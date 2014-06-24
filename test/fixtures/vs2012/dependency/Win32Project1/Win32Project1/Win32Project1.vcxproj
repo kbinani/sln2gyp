@@ -108,6 +108,7 @@
       <ShowProgress>LinkVerbose</ShowProgress>
       <Version>3.14159</Version>
       <SuppressStartupBanner>true</SuppressStartupBanner>
+      <RegisterOutput>false</RegisterOutput>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

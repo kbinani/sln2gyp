@@ -119,6 +119,7 @@ class GeneratorTest(unittest.TestCase):
 										'ShowProgress': 1,
 										'SuppressStartupBanner': 'true',
 										'IgnoreImportLibrary': 'false',
+										'RegisterOutput': 'false',
 									},
 								},
 								'msbuild_props': [
