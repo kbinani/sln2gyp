@@ -103,6 +103,10 @@ class GeneratorTest(unittest.TestCase):
 										'DisableSpecificWarnings': [
 											'4995', '4996',
 										],
+										'ForcedUsingFiles': [
+											'dummyA',
+											'dummyB',
+										],
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',

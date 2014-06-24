@@ -93,6 +93,7 @@
       <CallingConvention>Cdecl</CallingConvention>
       <CompileAs>Default</CompileAs>
       <DisableSpecificWarnings>4995;4996</DisableSpecificWarnings>
+      <ForcedUsingFiles>dummyA;dummyB</ForcedUsingFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
