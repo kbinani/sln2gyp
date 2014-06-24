@@ -83,6 +83,7 @@
       <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
       <ExpandAttributedSource>true</ExpandAttributedSource>
       <AssemblerOutput>AssemblyCode</AssemblerOutput>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

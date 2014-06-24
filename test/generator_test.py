@@ -91,6 +91,7 @@ class GeneratorTest(unittest.TestCase):
 										'PrecompiledHeaderFile': '$(IntDir)$(TargetName).pch',
 										'ExpandAttributedSource': 'true',
 										'AssemblerOutput': 1,
+										'AssemblerListingLocation': '$(IntDir)',
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',
