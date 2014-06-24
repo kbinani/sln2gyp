@@ -125,6 +125,7 @@ class MsvsOptionConverter:
 		'OpenMPSupport': None,
 		'ExpandAttributedSource': None,
 		'GenerateXMLDocumentationFiles': None,
+		'ShowIncludes': None,
 	}
 
 	def convert(self, msvs_name, value):

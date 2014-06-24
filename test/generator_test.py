@@ -107,6 +107,7 @@ class GeneratorTest(unittest.TestCase):
 											'dummyA',
 											'dummyB',
 										],
+										'ShowIncludes': 'true',
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',
