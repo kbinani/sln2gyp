@@ -98,6 +98,7 @@ class GeneratorTest(unittest.TestCase):
 										'XMLDocumentationFileName': '$(IntDir)',
 										'BrowseInformation': 1,
 										'BrowseInformationFile': '$(IntDir)',
+										'CallingConvention': 0,
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',

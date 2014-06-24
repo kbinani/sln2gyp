@@ -84,7 +84,7 @@ class MsvsOptionConverter:
 			'StreamingSIMDExtensions2': 2,
 			'AdvancedVectorExtensions': 3,
 			'NoExtensions': 4,
-        },
+		},
 		'AssemblerOutput': {
 			'NoListing': 0,
 			'AssemblyCode': 1,
@@ -95,6 +95,11 @@ class MsvsOptionConverter:
 		'BrowseInformation': {
 			'true': 1,
 			'false': 0,
+		},
+		'CallingConvention': {
+			'Cdecl': 0,
+			'FastCall': 1,
+			'StdCall': 2,
 		},
 	}
 
