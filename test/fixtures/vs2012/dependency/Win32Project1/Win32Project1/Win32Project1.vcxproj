@@ -109,6 +109,7 @@
       <Version>3.14159</Version>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <RegisterOutput>false</RegisterOutput>
+      <PerUserRedirection>false</PerUserRedirection>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

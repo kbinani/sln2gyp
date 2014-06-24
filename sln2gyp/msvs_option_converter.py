@@ -145,6 +145,7 @@ class MsvsOptionConverter:
 		'SuppressStartupBanner': None,
 		'IgnoreImportLibrary': None,
 		'RegisterOutput': None,
+		'PerUserRedirection': None,
 	}
 
 	def convert(self, msvs_name, value):
