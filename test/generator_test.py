@@ -90,6 +90,7 @@ class GeneratorTest(unittest.TestCase):
 										'RuntimeTypeInfo': 'true',
 										'PrecompiledHeaderFile': '$(IntDir)$(TargetName).pch',
 										'ExpandAttributedSource': 'true',
+										'AssemblerOutput': 1,
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',

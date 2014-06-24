@@ -345,6 +345,9 @@ class Generator:
 				'ExpandAttributedSource': {
 					'option_source': compile_options,
 				},
+				'AssemblerOutput': {
+					'option_source': compile_options,
+				},
 			}
 
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)

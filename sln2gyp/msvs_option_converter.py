@@ -85,6 +85,13 @@ class MsvsOptionConverter:
 			'AdvancedVectorExtensions': 3,
 			'NoExtensions': 4,
         },
+		'AssemblerOutput': {
+			'NoListing': 0,
+			'AssemblyCode': 1,
+			'AssemblyAndMachineCode': 3,
+			'AssemblyAndSourceCode': 4,
+			'All': 2,
+		},
 	}
 
 	_integer_boolean_msvs_name = {
