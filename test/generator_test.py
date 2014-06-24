@@ -116,6 +116,7 @@ class GeneratorTest(unittest.TestCase):
 										'GenerateDebugInformation': 'true',
 										'LinkIncremental': 2,
 										'OutputFile': '$(OutDir)$(TargetName)$(TargetExt)',
+										'ShowProgress': 1,
 									},
 								},
 								'msbuild_props': [

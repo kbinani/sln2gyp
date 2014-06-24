@@ -191,6 +191,8 @@ class Generator:
 			project_options = project.project_options
 			properties = project.properties
 
+			converter = MsvsOptionConverter()
+
 			generate_options = {
 				'SubSystem': {
 					'option_source': link_options,
@@ -219,6 +221,28 @@ class Generator:
 				section['AdditionalDependencies'] = ['%(AdditionalDependencies)']
 			elif len(additional_dependencies) > 0:
 				section['AdditionalDependencies'] = additional_dependencies
+
+			# workaround for gyp design. gyp does not recognize 'ShowProgress' == 'LinkVerboseICF', 'LinkVerboseREF', 'LinkVerboseSAFESEH', or 'LinkVerboseCLR'.
+			show_progress = link_options.get_common_value_for_configurations(configurations, 'ShowProgress')
+			if show_progress != None:
+				show_progress_gyp_value = converter.convert('ShowProgress', show_progress)
+				if show_progress_gyp_value == None:
+					mapping = {
+						'LinkVerboseICF': '/VERBOSE:ICF',
+						'LinkVerboseREF': '/VERBOSE:REF',
+						'LinkVerboseSAFESEH': '/VERBOSE:SAFESEH',
+						'LinkVerboseCLR': '/VERBOSE:SAFESEH',
+					}
+					if show_progress in mapping:
+						prev = ''
+						if 'AdditionalOptions' not in section:
+							section['AdditionalOptions'] = ''
+						else:
+							prev = section['AdditionalOptions']
+						prev = (' ' if len(prev) > 0 else '') + mapping[show_progress]
+						section['AdditionalOptions'] = prev
+				else:
+					section['ShowProgress'] = show_progress_gyp_value
 
 			return section
 

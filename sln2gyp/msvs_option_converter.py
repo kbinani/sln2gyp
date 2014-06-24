@@ -111,6 +111,15 @@ class MsvsOptionConverter:
 			'Prompt': 1,
 			'Queue': 2,
 		},
+		'ShowProgress': {
+			'NotSet': 0,
+			'LinkVerbose': 1,
+			'LinkVerboseLib': 2,
+			'LinkVerboseICF': None, #gyp does not have equivalent value for 'LinkVerboseICF'
+			'LinkVerboseREF': None, #gyp does not have equivalent value for 'LinkVerboseREF'
+			'LinkVerboseSAFESEH': None, #gyp does not have equivalent value for 'LinkVerboseSAFESEH'
+			'LinkVerboseCLR': None, #gyp does not have equivalent value for 'LinkVerboseCLR'
+		},
 	}
 
 	_integer_boolean_msvs_name = {
