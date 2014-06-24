@@ -367,6 +367,9 @@ class Generator:
 				'BrowseInformation': {
 					'option_source': compile_options,
 				},
+				'BrowseInformationFile': {
+					'option_source': compile_options,
+				},
 			}
 
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)
