@@ -115,6 +115,7 @@ class GeneratorTest(unittest.TestCase):
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',
 										'LinkIncremental': 2,
+										'OutputFile': '$(OutDir)$(TargetName)$(TargetExt)',
 									},
 								},
 								'msbuild_props': [
