@@ -92,6 +92,10 @@ class MsvsOptionConverter:
 			'AssemblyAndSourceCode': 4,
 			'All': 2,
 		},
+		'BrowseInformation': {
+			'true': 1,
+			'false': 0,
+		},
 	}
 
 	_integer_boolean_msvs_name = {

@@ -88,6 +88,7 @@
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
       <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
       <XMLDocumentationFileName>$(IntDir)</XMLDocumentationFileName>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
