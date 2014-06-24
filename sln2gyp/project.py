@@ -163,6 +163,7 @@ class Project:
 				'AdditionalIncludeDirectories',
 				'ForcedIncludeFiles',
 				'UndefinePreprocessorDefinitions',
+				'DisableSpecificWarnings',
 			]
 			return self._split_semicollon_separated_string_into_list_in_a_dict(clcompile_dict, split_with_semicollon)
 

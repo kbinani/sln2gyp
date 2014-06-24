@@ -100,6 +100,9 @@ class GeneratorTest(unittest.TestCase):
 										'BrowseInformationFile': '$(IntDir)',
 										'CallingConvention': 0,
 										'CompileAs': 0,
+										'DisableSpecificWarnings': [
+											'4995', '4996',
+										],
 									},
 									'VCLinkerTool': {
 										'GenerateDebugInformation': 'true',
