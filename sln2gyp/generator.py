@@ -242,13 +242,23 @@ class Generator:
 				'IgnoreAllDefaultLibraries': {
 					'option_source': link_options,
 				},
+				'IgnoreSpecificDefaultLibraries': {
+					'option_source': link_options,
+					'gyp_section_name': 'IgnoreDefaultLibraryNames',
+				},
 			}
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)
 
 			# AdditionalDependencies
 			additional_dependencies = link_options.get_common_value_for_configurations(configurations, 'AdditionalDependencies')
 			if additional_dependencies == None:
-				section['AdditionalDependencies'] = ['%(AdditionalDependencies)']
+				all_none = True
+				for config in configurations:
+					if link_options.get(config) != None:
+						all_none = False
+						break
+				if all_none:
+					section['AdditionalDependencies'] = ['%(AdditionalDependencies)']
 			elif len(additional_dependencies) > 0:
 				section['AdditionalDependencies'] = additional_dependencies
 

@@ -124,6 +124,14 @@ class GeneratorTest(unittest.TestCase):
 										'LinkLibraryDependencies': 'true',
 										'UseLibraryDependencyInputs': 'false',
 										'IgnoreAllDefaultLibraries': 'false',
+										'AdditionalDependencies': [
+											'libcmtd.lib',
+											'winmm.lib',
+											'%(AdditionalDependencies)',
+										],
+										'IgnoreDefaultLibraryNames': [
+											'libcmtd.lib',
+										],
 									},
 								},
 								'msbuild_props': [
@@ -157,6 +165,10 @@ class GeneratorTest(unittest.TestCase):
 										'LinkIncremental': 1,
 										'EnableCOMDATFolding': 2,
 										'OptimizeReferences': 2,
+										'AdditionalDependencies': [
+											'winmm.lib',
+											'%(AdditionalDependencies)',
+										],
 									},
 								},
 							},
@@ -164,10 +176,6 @@ class GeneratorTest(unittest.TestCase):
 						'msvs_settings': {
 							'VCLinkerTool': {
 								'SubSystem': 2,
-								'AdditionalDependencies': [
-									'winmm.lib',
-									'%(AdditionalDependencies)',
-								],
 								'Version': '3.14159',
 								'AdditionalLibraryDirectories': [
 									'..\depend\$(Configuration)',
