@@ -122,6 +122,7 @@ class GeneratorTest(unittest.TestCase):
 										'RegisterOutput': 'false',
 										'PerUserRedirection': 'false',
 										'LinkLibraryDependencies': 'true',
+										'UseLibraryDependencyInputs': 'false',
 									},
 								},
 								'msbuild_props': [

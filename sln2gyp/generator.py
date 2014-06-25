@@ -236,6 +236,9 @@ class Generator:
 				'LinkLibraryDependencies': {
 					'option_source': project_reference,
 				},
+				'UseLibraryDependencyInputs': {
+					'option_source': project_reference,
+				},
 			}
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)
 
