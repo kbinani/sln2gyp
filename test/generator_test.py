@@ -133,6 +133,10 @@ class GeneratorTest(unittest.TestCase):
 											'libcmtd.lib',
 										],
 										'ModuleDefinitionFile': 'Win32Project1.def',
+										'AddModuleNamesToAssembly': [
+											'dummyA',
+											'dummyB',
+										],
 									},
 								},
 								'msbuild_props': [

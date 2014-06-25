@@ -250,6 +250,9 @@ class Generator:
 				'ModuleDefinitionFile': {
 					'option_source': lib_options if self._get_project_type(project) == 'static_library' else link_options
 				},
+				'AddModuleNamesToAssembly': {
+					'option_source': link_options,
+				},
 			}
 
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)

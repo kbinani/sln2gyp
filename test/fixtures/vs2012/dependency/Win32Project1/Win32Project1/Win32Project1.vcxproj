@@ -114,6 +114,7 @@
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <IgnoreSpecificDefaultLibraries>libcmtd.lib</IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>Win32Project1.def</ModuleDefinitionFile>
+      <AddModuleNamesToAssembly>dummyA;dummyB</AddModuleNamesToAssembly>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
