@@ -178,7 +178,9 @@ class Generator:
 			value = option_source.get_common_value_for_configurations(configurations, msvs_section_name)
 			if value != None:
 				gyp_section_name = option['gyp_section_name'] if ('gyp_section_name' in option) else msvs_section_name
-				section[gyp_section_name] = converter.convert(msvs_section_name, value)
+				converted_value = converter.convert(msvs_section_name, value)
+				if converted_value != None:
+					section[gyp_section_name] = converted_value
 
 		return section
 
