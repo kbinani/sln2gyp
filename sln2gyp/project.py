@@ -119,10 +119,15 @@ class Project:
 				if 'ClCompile' in definition:
 					compile_options = self._transform_clcompile_dict_style(definition['ClCompile'])
 
+				project_reference = {}
+				if 'ProjectReference' in definition:
+					project_reference = definition['ProjectReference']
+
 				for config in project.configurations:
 					if config.is_match(condition):
 						project._link_options.set(config, link_options)
 						project._compile_options.set(config, compile_options)
+						project._project_reference.set(config, project_reference)
 
 		def _extract_prop_sheets(self, xmldom, project):
 			node_list = xmldom.getElementsByTagName('ImportGroup')
@@ -202,6 +207,9 @@ class Project:
 		# represents the <Property Group> section
 		self._properties = Property({})
 
+		# represents the <ProjectReference> section under <ItemDefinitionGroup> section
+		self._project_reference = Property({})
+
 		self._user_prop_sheets = Property([])
 
 		dom = xml.dom.minidom.parse(file)
@@ -277,3 +285,7 @@ class Project:
 	@property
 	def user_prop_sheets(self):
 		return self._user_prop_sheets
+
+	@property
+	def project_reference(self):
+		return self._project_reference

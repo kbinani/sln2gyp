@@ -121,6 +121,7 @@ class GeneratorTest(unittest.TestCase):
 										'IgnoreImportLibrary': 'false',
 										'RegisterOutput': 'false',
 										'PerUserRedirection': 'false',
+										'LinkLibraryDependencies': 'true',
 									},
 								},
 								'msbuild_props': [

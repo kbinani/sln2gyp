@@ -192,6 +192,7 @@ class Generator:
 			link_options = project.link_options
 			project_options = project.project_options
 			properties = project.properties
+			project_reference = project.project_reference
 
 			converter = MsvsOptionConverter()
 
@@ -231,6 +232,9 @@ class Generator:
 				},
 				'AdditionalLibraryDirectories': {
 					'option_source': link_options,
+				},
+				'LinkLibraryDependencies': {
+					'option_source': project_reference,
 				},
 			}
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)
