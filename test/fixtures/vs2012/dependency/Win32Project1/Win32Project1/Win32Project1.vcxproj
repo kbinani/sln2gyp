@@ -116,6 +116,7 @@
       <ModuleDefinitionFile>Win32Project1.def</ModuleDefinitionFile>
       <AddModuleNamesToAssembly>dummyA;dummyB</AddModuleNamesToAssembly>
       <EmbedManagedResourceFile>dummyC;dummyD</EmbedManagedResourceFile>
+      <ForceSymbolReferences>_dummy_symbol_1;_dummy_symbol_2</ForceSymbolReferences>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>

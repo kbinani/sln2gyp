@@ -141,6 +141,10 @@ class GeneratorTest(unittest.TestCase):
 											'dummyC',
 											'dummyD',
 										],
+										'ForceSymbolReferences': [
+											'_dummy_symbol_1',
+											'_dummy_symbol_2',
+										],
 									},
 								},
 								'msbuild_props': [
@@ -235,6 +239,13 @@ class GeneratorTest(unittest.TestCase):
 								'msbuild_props': [
 									'../common.props',
 								],
+								'msvs_settings': {
+									'VCLinkerTool': {
+										'ForceSymbolReferences': [
+											'_exported_function',
+										],
+									},
+								},
 							},
 							'Release': {
 							},

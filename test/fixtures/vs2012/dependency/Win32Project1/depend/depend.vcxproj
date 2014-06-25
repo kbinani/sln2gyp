@@ -44,6 +44,7 @@
     <Lib>
       <OutputFile>$(OutDir)lib\$(ProjectName)$(TargetExt)</OutputFile>
       <ModuleDefinitionFile>depend.def</ModuleDefinitionFile>
+      <ForceSymbolReferences>_exported_function</ForceSymbolReferences>
     </Lib>
     <Link>
       <AdditionalDependencies>

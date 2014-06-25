@@ -197,6 +197,8 @@ class Generator:
 
 			converter = MsvsOptionConverter()
 
+			is_static_library = self._get_project_type(project) == 'static_library'
+
 			generate_options = {
 				'SubSystem': {
 					'option_source': link_options,
@@ -248,13 +250,16 @@ class Generator:
 					'gyp_section_name': 'IgnoreDefaultLibraryNames',
 				},
 				'ModuleDefinitionFile': {
-					'option_source': lib_options if self._get_project_type(project) == 'static_library' else link_options
+					'option_source': lib_options if is_static_library else link_options,
 				},
 				'AddModuleNamesToAssembly': {
 					'option_source': link_options,
 				},
 				'EmbedManagedResourceFile': {
 					'option_source': link_options,
+				},
+				'ForceSymbolReferences': {
+					'option_source': lib_options if is_static_library else link_options,
 				},
 			}
 

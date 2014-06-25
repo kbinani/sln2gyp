@@ -180,3 +180,9 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 	}
 	return (INT_PTR)FALSE;
 }
+
+extern "C" void dummy_symbol_1()
+{}
+
+extern "C" void dummy_symbol_2()
+{}
