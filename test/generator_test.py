@@ -137,6 +137,10 @@ class GeneratorTest(unittest.TestCase):
 											'dummyA',
 											'dummyB',
 										],
+										'EmbedManagedResourceFile': [
+											'dummyC',
+											'dummyD',
+										],
 									},
 								},
 								'msbuild_props': [
