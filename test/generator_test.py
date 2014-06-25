@@ -166,6 +166,10 @@ class GeneratorTest(unittest.TestCase):
 									'%(AdditionalDependencies)',
 								],
 								'Version': '3.14159',
+								'AdditionalLibraryDirectories': [
+									'..\depend\$(Configuration)',
+									'%(AdditionalLibraryDirectories)',
+								],
 							},
 							'VCCLCompilerTool': {
 								'UsePrecompiledHeader': 2,
