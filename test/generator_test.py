@@ -240,10 +240,11 @@ class GeneratorTest(unittest.TestCase):
 									'../common.props',
 								],
 								'msvs_settings': {
-									'VCLinkerTool': {
+									'VCLibrarianTool': {
 										'ForceSymbolReferences': [
 											'_exported_function',
 										],
+										'SuppressStartupBanner': 'false',
 									},
 								},
 							},
@@ -251,8 +252,9 @@ class GeneratorTest(unittest.TestCase):
 							},
 						},
 						'msvs_settings': {
-							'VCLinkerTool': {
+							'VCLibrarianTool': {
 								'ModuleDefinitionFile': 'depend.def',
+								'OutputFile': '$(OutDir)lib\$(ProjectName)$(TargetExt)',
 							},
 						},
 					}

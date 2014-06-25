@@ -186,6 +186,7 @@ class Generator:
 
 	def _generate_proj_msvs_settings(self, project, configurations):
 		msvs_settings = {}
+		is_static_library = self._get_project_type(project) == 'static_library'
 
 		# VCLinkerTool
 		def generate_vclinkertool_section():
@@ -193,11 +194,8 @@ class Generator:
 			project_options = project.project_options
 			properties = project.properties
 			project_reference = project.project_reference
-			lib_options = project.lib_options
 
 			converter = MsvsOptionConverter()
-
-			is_static_library = self._get_project_type(project) == 'static_library'
 
 			generate_options = {
 				'SubSystem': {
@@ -250,7 +248,7 @@ class Generator:
 					'gyp_section_name': 'IgnoreDefaultLibraryNames',
 				},
 				'ModuleDefinitionFile': {
-					'option_source': lib_options if is_static_library else link_options,
+					'option_source': link_options,
 				},
 				'AddModuleNamesToAssembly': {
 					'option_source': link_options,
@@ -259,7 +257,7 @@ class Generator:
 					'option_source': link_options,
 				},
 				'ForceSymbolReferences': {
-					'option_source': lib_options if is_static_library else link_options,
+					'option_source': link_options,
 				},
 			}
 
@@ -304,7 +302,8 @@ class Generator:
 
 		vclinkertool = generate_vclinkertool_section()
 		if len(vclinkertool) > 0:
-			msvs_settings['VCLinkerTool'] = vclinkertool
+			link_option_section_name = 'VCLibrarianTool' if is_static_library else 'VCLinkerTool'
+			msvs_settings[link_option_section_name] = vclinkertool
 
 		# VCCLCompilerTool
 		def generate_vcclcompilertool_section():
