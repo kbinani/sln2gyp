@@ -123,6 +123,7 @@ class GeneratorTest(unittest.TestCase):
 										'PerUserRedirection': 'false',
 										'LinkLibraryDependencies': 'true',
 										'UseLibraryDependencyInputs': 'false',
+										'IgnoreAllDefaultLibraries': 'false',
 									},
 								},
 								'msbuild_props': [

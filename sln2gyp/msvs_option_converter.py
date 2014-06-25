@@ -148,6 +148,7 @@ class MsvsOptionConverter:
 		'PerUserRedirection': None,
 		'LinkLibraryDependencies': None,
 		'UseLibraryDependencyInputs': None,
+		'IgnoreAllDefaultLibraries': None,
 	}
 
 	def convert(self, msvs_name, value):
