@@ -6,3 +6,14 @@
 
 // TODO: このファイルではなく、STDAFX.H で必要な
 // 追加ヘッダーを参照してください。
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+extern void exported_function()
+{}
+
+#ifdef __cplusplus
+} // extern "C"
+#endif

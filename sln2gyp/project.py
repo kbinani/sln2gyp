@@ -123,11 +123,16 @@ class Project:
 				if 'ProjectReference' in definition:
 					project_reference = definition['ProjectReference']
 
+				lib_options = {}
+				if 'Lib' in definition:
+					lib_options = definition['Lib']
+
 				for config in project.configurations:
 					if config.is_match(condition):
 						project._link_options.set(config, link_options)
 						project._compile_options.set(config, compile_options)
 						project._project_reference.set(config, project_reference)
+						project._lib_options.set(config, lib_options)
 
 		def _extract_prop_sheets(self, xmldom, project):
 			node_list = xmldom.getElementsByTagName('ImportGroup')
@@ -211,6 +216,9 @@ class Project:
 		# represents the <ProjectReference> section under <ItemDefinitionGroup> section
 		self._project_reference = Property({})
 
+		# represents the <Lib> section under <ItemDefinitionGroup> section
+		self._lib_options = Property({})
+
 		self._user_prop_sheets = Property([])
 
 		dom = xml.dom.minidom.parse(file)
@@ -290,3 +298,7 @@ class Project:
 	@property
 	def project_reference(self):
 		return self._project_reference
+
+	@property
+	def lib_options(self):
+		return self._lib_options

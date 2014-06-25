@@ -193,6 +193,7 @@ class Generator:
 			project_options = project.project_options
 			properties = project.properties
 			project_reference = project.project_reference
+			lib_options = project.lib_options
 
 			converter = MsvsOptionConverter()
 
@@ -246,7 +247,11 @@ class Generator:
 					'option_source': link_options,
 					'gyp_section_name': 'IgnoreDefaultLibraryNames',
 				},
+				'ModuleDefinitionFile': {
+					'option_source': lib_options if self._get_project_type(project) == 'static_library' else link_options
+				},
 			}
+
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)
 
 			# AdditionalDependencies

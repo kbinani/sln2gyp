@@ -113,6 +113,7 @@
       <AdditionalLibraryDirectories>..\depend\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <IgnoreSpecificDefaultLibraries>libcmtd.lib</IgnoreSpecificDefaultLibraries>
+      <ModuleDefinitionFile>Win32Project1.def</ModuleDefinitionFile>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
@@ -173,6 +174,9 @@
   <ItemGroup>
     <Image Include="small.ico" />
     <Image Include="Win32Project1.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Win32Project1.def" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

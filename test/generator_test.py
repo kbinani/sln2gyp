@@ -132,6 +132,7 @@ class GeneratorTest(unittest.TestCase):
 										'IgnoreDefaultLibraryNames': [
 											'libcmtd.lib',
 										],
+										'ModuleDefinitionFile': 'Win32Project1.def',
 									},
 								},
 								'msbuild_props': [
@@ -228,6 +229,11 @@ class GeneratorTest(unittest.TestCase):
 								],
 							},
 							'Release': {
+							},
+						},
+						'msvs_settings': {
+							'VCLinkerTool': {
+								'ModuleDefinitionFile': 'depend.def',
 							},
 						},
 					}
