@@ -171,6 +171,7 @@ class GeneratorTest(unittest.TestCase):
 										'AssemblyDebug': 1,
 										'HeapReserveSize': '1048576',
 										'HeapCommitSize': '4096',
+										'StackReserveSize': '2097152',
 									},
 								},
 								'msbuild_props': [

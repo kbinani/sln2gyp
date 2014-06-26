@@ -134,6 +134,7 @@
       <AssemblyDebug>true</AssemblyDebug>
       <HeapReserveSize>1048576</HeapReserveSize>
       <HeapCommitSize>4096</HeapCommitSize>
+      <StackReserveSize>2097152</StackReserveSize>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
