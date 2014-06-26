@@ -259,6 +259,9 @@ class Generator:
 				'ForceSymbolReferences': {
 					'option_source': link_options,
 				},
+				'DelayLoadDLLs': {
+					'option_source': link_options,
+				},
 			}
 
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)

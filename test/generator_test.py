@@ -145,6 +145,10 @@ class GeneratorTest(unittest.TestCase):
 											'_dummy_symbol_1',
 											'_dummy_symbol_2',
 										],
+										'DelayLoadDLLs': [
+											'd3d9.dll',
+											'd3dx9d.dll',
+										],
 									},
 								},
 								'msbuild_props': [

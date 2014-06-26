@@ -117,7 +117,7 @@ class Project:
 
 				raw_lib_options = {}
 				if 'Lib' in definition:
-					raw_lib_options = self._transform_lib_dict_style(definition['Lib'])
+					raw_lib_options = self._transform_link_dict_style(definition['Lib'])
 
 				compile_options = {}
 				if 'ClCompile' in definition:
@@ -170,12 +170,6 @@ class Project:
 								prev.append(props_file)
 								project._user_prop_sheets.set(config, prev)
 
-		def _transform_lib_dict_style(self, lib_dict):
-			split_with_semicollon = [
-				'ForceSymbolReferences',
-			]
-			return self._split_semicollon_separated_string_into_list_in_a_dict(lib_dict, split_with_semicollon)
-
 		def _transform_link_dict_style(self, link_dict):
 			split_with_semicollon = [
 				'AdditionalDependencies',
@@ -184,6 +178,7 @@ class Project:
 				'AddModuleNamesToAssembly',
 				'EmbedManagedResourceFile',
 				'ForceSymbolReferences',
+				'DelayLoadDLLs',
 			]
 			return self._split_semicollon_separated_string_into_list_in_a_dict(link_dict, split_with_semicollon)
 
