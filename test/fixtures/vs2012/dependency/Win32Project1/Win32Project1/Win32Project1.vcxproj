@@ -128,7 +128,8 @@
       <UACUIAccess>false</UACUIAccess>
       <ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
       <StripPrivateSymbols>$(OutDir)$(TargetName).stripped.pdb</StripPrivateSymbols>
-      <GenerateMapFile>false</GenerateMapFile>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapFileName>$(OutDir)$(TargetName).map</MapFileName>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>

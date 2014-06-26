@@ -165,7 +165,8 @@ class GeneratorTest(unittest.TestCase):
 										'UACUIAccess': 'false',
 										'ProgramDatabaseFile': '$(OutDir)$(TargetName).pdb',
 										'StripPrivateSymbols': '$(OutDir)$(TargetName).stripped.pdb',
-										'GenerateMapFile': 'false',
+										'GenerateMapFile': 'true',
+										'MapFileName': '$(OutDir)$(TargetName).map',
 									},
 								},
 								'msbuild_props': [
