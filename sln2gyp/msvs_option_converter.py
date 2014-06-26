@@ -120,6 +120,11 @@ class MsvsOptionConverter:
 			'LinkVerboseSAFESEH': None, #gyp does not have equivalent value for 'LinkVerboseSAFESEH'
 			'LinkVerboseCLR': None, #gyp does not have equivalent value for 'LinkVerboseCLR'
 		},
+		'UACExecutionLevel': {
+			'AsInvoker': 0,
+			'HighestAvailable': 1,
+			'RequireAdministrator': 2,
+		},
 	}
 
 	_integer_boolean_msvs_name = {
