@@ -155,6 +155,10 @@ class GeneratorTest(unittest.TestCase):
 										],
 										'GenerateManifest': 'true',
 										'ManifestFile': '$(IntDir)$(TargetName)$(TargetExt).intermediate.manifest',
+										'AdditionalManifestDependencies': [
+											'"type=\'win32\' name=\'Microsoft.Windows.Common-Controls\' version=\'6.0.0.0\' processorArchitecture=\'x86\' publicKeyToken=\'6595b64144ccf1df\' language=\'*\'"',
+											'"type=\'win32\' name=\'Microsoft.Windows.Common-Controls\' version=\'6.0.0.0\' processorArchitecture=\'x86\' publicKeyToken=\'6595b64144ccf1df\' language=\'neutral\'"',
+										],
 									},
 								},
 								'msbuild_props': [

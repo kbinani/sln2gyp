@@ -180,6 +180,7 @@ class Project:
 				'ForceSymbolReferences',
 				'DelayLoadDLLs',
 				'AssemblyLinkResource',
+				'AdditionalManifestDependencies',
 			]
 			return self._split_semicollon_separated_string_into_list_in_a_dict(link_dict, split_with_semicollon)
 
