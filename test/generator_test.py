@@ -153,6 +153,7 @@ class GeneratorTest(unittest.TestCase):
 											'dummyE',
 											'dummyF',
 										],
+										'GenerateManifest': 'true',
 									},
 								},
 								'msbuild_props': [
