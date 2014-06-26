@@ -154,6 +154,7 @@ class GeneratorTest(unittest.TestCase):
 											'dummyF',
 										],
 										'GenerateManifest': 'true',
+										'ManifestFile': '$(IntDir)$(TargetName)$(TargetExt).intermediate.manifest',
 									},
 								},
 								'msbuild_props': [

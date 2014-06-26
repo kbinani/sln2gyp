@@ -120,6 +120,7 @@
       <ForceSymbolReferences>_dummy_symbol_1;_dummy_symbol_2</ForceSymbolReferences>
       <DelayLoadDLLs>d3d9.dll;d3dx9d.dll</DelayLoadDLLs>
       <AssemblyLinkResource>dummyE;dummyF</AssemblyLinkResource>
+      <ManifestFile>$(IntDir)$(TargetName)$(TargetExt).intermediate.manifest</ManifestFile>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
