@@ -119,9 +119,6 @@ class Project:
 				if 'Lib' in definition:
 					raw_lib_options = self._transform_lib_dict_style(definition['Lib'])
 
-				link_options = raw_link_options.copy()
-				link_options.update(raw_lib_options)
-
 				compile_options = {}
 				if 'ClCompile' in definition:
 					compile_options = self._transform_clcompile_dict_style(definition['ClCompile'])
@@ -132,6 +129,16 @@ class Project:
 
 				for config in project.configurations:
 					if config.is_match(condition):
+						configuration_type = project._project_options.get(config)['ConfigurationType']
+
+						link_options = None
+						if configuration_type == 'StaticLibrary':
+							link_options = raw_link_options.copy()
+							link_options.update(raw_lib_options)
+						else:
+							link_options = raw_lib_options.copy()
+							link_options.update(raw_link_options)
+
 						project._link_options.set(config, link_options)
 						project._compile_options.set(config, compile_options)
 						project._project_reference.set(config, project_reference)
