@@ -191,6 +191,7 @@ class GeneratorTest(unittest.TestCase):
 										'RandomizedBaseAddress': 2,
 										'FixedBaseAddress': 1,
 										'DataExecutionPrevention': 2,
+										'TurnOffAssemblyGeneration': 'false',
 									},
 								},
 								'msbuild_props': [

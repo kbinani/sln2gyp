@@ -192,6 +192,7 @@ class MsvsOptionConverter:
 		'SwapRunFromNet': None,
 		'IgnoreEmbeddedIDL': None,
 		'SetChecksum': None,
+		'TurnOffAssemblyGeneration': None,
 	}
 
 	def convert(self, msvs_name, value):
