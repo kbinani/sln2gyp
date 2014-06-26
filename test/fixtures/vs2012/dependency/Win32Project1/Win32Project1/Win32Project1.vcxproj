@@ -130,6 +130,7 @@
       <StripPrivateSymbols>$(OutDir)$(TargetName).stripped.pdb</StripPrivateSymbols>
       <GenerateMapFile>true</GenerateMapFile>
       <MapFileName>$(OutDir)$(TargetName).map</MapFileName>
+      <MapExports>false</MapExports>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>

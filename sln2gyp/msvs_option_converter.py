@@ -159,6 +159,7 @@ class MsvsOptionConverter:
 		'EnableUAC': None,
 		'UACUIAccess': None,
 		'GenerateMapFile': None,
+		'MapExports': None,
 	}
 
 	def convert(self, msvs_name, value):

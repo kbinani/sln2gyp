@@ -167,6 +167,7 @@ class GeneratorTest(unittest.TestCase):
 										'StripPrivateSymbols': '$(OutDir)$(TargetName).stripped.pdb',
 										'GenerateMapFile': 'true',
 										'MapFileName': '$(OutDir)$(TargetName).map',
+										'MapExports': 'false',
 									},
 								},
 								'msbuild_props': [
