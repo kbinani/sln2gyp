@@ -190,169 +190,83 @@ class Generator:
 
 		# VCLinkerTool
 		def generate_vclinkertool_section():
+			generate_options = {}
+
+			link_options_sourced_parameters = [
+				'SubSystem',
+				'GenerateDebugInformation',
+				'EnableCOMDATFolding',
+				'OptimizeReferences',
+				'OutputFile',
+				'Version',
+				'SuppressStartupBanner',
+				'RegisterOutput',
+				'PerUserRedirection',
+				'AdditionalLibraryDirectories',
+				'IgnoreAllDefaultLibraries',
+				'ModuleDefinitionFile',
+				'AddModuleNamesToAssembly',
+				'EmbedManagedResourceFile',
+				'ForceSymbolReferences',
+				'DelayLoadDLLs',
+				'AssemblyLinkResource',
+				'ManifestFile',
+				'AdditionalManifestDependencies',
+				'AllowIsolation',
+				'EnableUAC',
+				'UACExecutionLevel',
+				'UACUIAccess',
+				'ProgramDatabaseFile',
+				'StripPrivateSymbols',
+				'GenerateMapFile',
+				'MapFileName',
+				'MapExports',
+				'AssemblyDebug',
+				'HeapReserveSize',
+				'HeapCommitSize',
+				'StackReserveSize',
+				'StackCommitSize',
+				'LargeAddressAware',
+				'TerminalServerAware',
+				'SwapRunFromCD',
+				'Driver',
+				'FunctionOrder',
+				'ProfileGuidedDatabase',
+				'LinkTimeCodeGeneration',
+				'MidlCommandFile',
+				'IgnoreEmbeddedIDL',
+				'MergedIDLBaseFileName',
+				'TypeLibraryFile',
+			]
 			link_options = project.link_options
-			project_options = project.project_options
+			for msvs_section_name in link_options_sourced_parameters:
+				generate_options[msvs_section_name] = { 'option_source': link_options }
+
+			properties_sourced_parameters = [
+				'LinkIncremental',
+				'IgnoreImportLibrary',
+				'GenerateManifest',
+			]
 			properties = project.properties
+			for msvs_section_name in properties_sourced_parameters:
+				generate_options[msvs_section_name] = { 'option_source': properties }
+
+
+			project_reference_sourced_parameters = [
+				'LinkLibraryDependencies',
+				'UseLibraryDependencyInputs',
+			]
 			project_reference = project.project_reference
+			for msvs_section_name in project_reference_sourced_parameters:
+				generate_options[msvs_section_name] = { 'option_source': project_reference }
 
-			converter = MsvsOptionConverter()
-
-			generate_options = {
-				'SubSystem': {
-					'option_source': link_options,
-				},
-				'GenerateDebugInformation': {
-					'option_source': link_options,
-				},
-				'LinkIncremental': {
-					'option_source': properties,
-				},
-				'EnableCOMDATFolding': {
-					'option_source': link_options,
-				},
-				'OptimizeReferences': {
-					'option_source': link_options,
-				},
-				'OutputFile': {
-					'option_source': link_options,
-				},
-				'Version': {
-					'option_source': link_options,
-				},
-				'SuppressStartupBanner': {
-					'option_source': link_options,
-				},
-				'IgnoreImportLibrary': {
-					'option_source': properties,
-				},
-				'RegisterOutput': {
-					'option_source': link_options,
-				},
-				'PerUserRedirection': {
-					'option_source': link_options,
-				},
-				'AdditionalLibraryDirectories': {
-					'option_source': link_options,
-				},
-				'LinkLibraryDependencies': {
-					'option_source': project_reference,
-				},
-				'UseLibraryDependencyInputs': {
-					'option_source': project_reference,
-				},
-				'IgnoreAllDefaultLibraries': {
-					'option_source': link_options,
-				},
-				'IgnoreSpecificDefaultLibraries': {
-					'option_source': link_options,
-					'gyp_section_name': 'IgnoreDefaultLibraryNames',
-				},
-				'ModuleDefinitionFile': {
-					'option_source': link_options,
-				},
-				'AddModuleNamesToAssembly': {
-					'option_source': link_options,
-				},
-				'EmbedManagedResourceFile': {
-					'option_source': link_options,
-				},
-				'ForceSymbolReferences': {
-					'option_source': link_options,
-				},
-				'DelayLoadDLLs': {
-					'option_source': link_options,
-				},
-				'AssemblyLinkResource': {
-					'option_source': link_options,
-				},
-				'GenerateManifest': {
-					'option_source': properties,
-				},
-				'ManifestFile': {
-					'option_source': link_options,
-				},
-				'AdditionalManifestDependencies': {
-					'option_source': link_options,
-				},
-				'AllowIsolation': {
-					'option_source': link_options,
-				},
-				'EnableUAC': {
-					'option_source': link_options,
-				},
-				'UACExecutionLevel': {
-					'option_source': link_options,
-				},
-				'UACUIAccess': {
-					'option_source': link_options,
-				},
-				'ProgramDatabaseFile': {
-					'option_source': link_options,
-				},
-				'StripPrivateSymbols': {
-					'option_source': link_options,
-				},
-				'GenerateMapFile': {
-					'option_source': link_options,
-				},
-				'MapFileName': {
-					'option_source': link_options,
-				},
-				'MapExports': {
-					'option_source': link_options,
-				},
-				'AssemblyDebug': {
-					'option_source': link_options,
-				},
-				'HeapReserveSize': {
-					'option_source': link_options,
-				},
-				'HeapCommitSize': {
-					'option_source': link_options,
-				},
-				'StackReserveSize': {
-					'option_source': link_options,
-				},
-				'StackCommitSize': {
-					'option_source': link_options,
-				},
-				'LargeAddressAware': {
-					'option_source': link_options,
-				},
-				'TerminalServerAware': {
-					'option_source': link_options,
-				},
-				'SwapRunFromCD': {
-					'option_source': link_options,
-				},
-				'SwapRunFromNET': {
-					'option_source': link_options,
-					'gyp_section_name': 'SwapRunFromNet',
-				},
-				'Driver': {
-					'option_source': link_options,
-				},
-				'FunctionOrder': {
-					'option_source': link_options,
-				},
-				'ProfileGuidedDatabase': {
-					'option_source': link_options,
-				},
-				'LinkTimeCodeGeneration': {
-					'option_source': link_options,
-				},
-				'MidlCommandFile': {
-					'option_source': link_options,
-				},
-				'IgnoreEmbeddedIDL': {
-					'option_source': link_options,
-				},
-				'MergedIDLBaseFileName': {
-					'option_source': link_options,
-				},
-				'TypeLibraryFile': {
-					'option_source': link_options,
-				},
+			generate_options['IgnoreSpecificDefaultLibraries'] = {
+				'option_source': link_options,
+				'gyp_section_name': 'IgnoreDefaultLibraryNames'
+			}
+			generate_options['SwapRunFromNET'] = {
+				'option_source': link_options,
+				'gyp_section_name': 'SwapRunFromNet',
 			}
 
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)
@@ -373,6 +287,7 @@ class Generator:
 			# workaround for gyp design. gyp does not recognize 'ShowProgress' == 'LinkVerboseICF', 'LinkVerboseREF', 'LinkVerboseSAFESEH', or 'LinkVerboseCLR'.
 			show_progress = link_options.get_common_value_for_configurations(configurations, 'ShowProgress')
 			if show_progress != None:
+				converter = MsvsOptionConverter()
 				show_progress_gyp_value = converter.convert('ShowProgress', show_progress)
 				if show_progress_gyp_value == None:
 					mapping = {
@@ -401,176 +316,75 @@ class Generator:
 
 		# VCCLCompilerTool
 		def generate_vcclcompilertool_section():
-			compile_options = project.compile_options
-			project_options = project.project_options
+			generate_options = {}
 
-			generate_options = {
-				'PrecompiledHeader': {
-					'option_source': compile_options,
-					'gyp_section_name': 'UsePrecompiledHeader',
-				},
-				'WarningLevel': {
-					'option_source': compile_options,
-				},
-				'Optimization': {
-					'option_source': compile_options,
-				},
-				'PreprocessorDefinitions': {
-					'option_source': compile_options,
-				},
-				'DebugInformationFormat': {
-					'option_source': compile_options,
-				},
-				'RuntimeLibrary': {
-					'option_source': compile_options,
-				},
-				'FloatingPointModel': {
-					'option_source': compile_options,
-				},
-				'AdditionalOptions': {
-					'option_source': compile_options,
-				},
-				'ForcedIncludeFiles': {
-					'option_source': compile_options,
-				},
-				'WholeProgramOptimization': {
-					'option_source': project_options,
-				},
-				'SuppressStartupBanner': {
-					'option_source': compile_options,
-				},
-				'TreatWarningAsError': {
-					'option_source': compile_options,
-					'gyp_section_name': 'WarnAsError',
-				},
-				'IntrinsicFunctions': {
-					'option_source': compile_options,
-					'gyp_section_name': 'EnableIntrinsicFunctions',
-				},
-				'FavorSizeOrSpeed': {
-					'option_source': compile_options,
-				},
-				'OmitFramePointers': {
-					'option_source': compile_options,
-				},
-				'EnableFiberSafeOptimizations': {
-					'option_source': compile_options,
-				},
-				'UndefinePreprocessorDefinitions': {
-					'option_source': compile_options,
-				},
-				'UndefineAllPreprocessorDefinitions': {
-					'option_source': compile_options,
-				},
-				'IgnoreStandardIncludePath': {
-					'option_source': compile_options,
-				},
-				'PreprocessKeepComments': {
-					'option_source': compile_options,
-					'gyp_section_name': 'KeepComments',
-				},
-				'MinimalRebuild': {
-					'option_source': compile_options,
-				},
-				'SmallerTypeCheck': {
-					'option_source': compile_options,
-				},
-				'BasicRuntimeChecks': {
-					'option_source': compile_options,
-				},
-				'StructMemberAlignment': {
-					'option_source': compile_options,
-				},
-				'BufferSecurityCheck': {
-					'option_source': compile_options,
-				},
-				'FunctionLevelLinking': {
-					'option_source': compile_options,
-					'gyp_section_name': 'EnableFunctionLevelLinking',
-				},
-				'EnableEnhancedInstructionSet': {
-					'option_source': compile_options,
-				},
-				'FloatingPointExceptions': {
-					'option_source': compile_options,
-				},
-				'DisableLanguageExtensions': {
-					'option_source': compile_options,
-				},
-				'TreatWChar_tAsBuiltInType': {
-					'option_source': compile_options,
-				},
-				'ForceConformanceInForLoopScope': {
-					'option_source': compile_options,
-				},
-				'RuntimeTypeInfo': {
-					'option_source': compile_options,
-				},
-				'OpenMPSupport': {
-					'option_source': compile_options,
-					'gyp_section_name': 'OpenMP',
-				},
-				'PrecompiledHeaderFile': {
-					'option_source': compile_options,
-					'gyp_section_name': 'PrecompiledHeaderThrough',
-				},
-				'PrecompiledHeaderOutputFile': {
-					'option_source': compile_options,
-					'gyp_section_name': 'PrecompiledHeaderFile',	
-				},
-				'ExpandAttributedSource': {
-					'option_source': compile_options,
-				},
-				'AssemblerOutput': {
-					'option_source': compile_options,
-				},
-				'AssemblerListingLocation': {
-					'option_source': compile_options,
-				},
-				'ObjectFileName': {
-					'option_source': compile_options,
-					'gyp_section_name': 'ObjectFile',
-				},
-				'ProgramDataBaseFileName': {
-					'option_source': compile_options,
-				},
-				'GenerateXMLDocumentationFiles': {
-					'option_source': compile_options,
-				},
-				'XMLDocumentationFileName': {
-					'option_source': compile_options,
-				},
-				'BrowseInformation': {
-					'option_source': compile_options,
-				},
-				'BrowseInformationFile': {
-					'option_source': compile_options,
-				},
-				'CallingConvention': {
-					'option_source': compile_options,
-				},
-				'CompileAs': {
-					'option_source': compile_options,
-				},
-				'DisableSpecificWarnings': {
-					'option_source': compile_options,
-				},
-				'ForcedUsingFiles': {
-					'option_source': compile_options,
-				},
-				'ShowIncludes': {
-					'option_source': compile_options,
-				},
-				'UseFullPaths': {
-					'option_source': compile_options,
-				},
-				'OmitDefaultLibName': {
-					'option_source': compile_options,
-				},
-				'ErrorReporting': {
-					'option_source': compile_options,
-				},
+			compile_options_sourced_parameters = [
+				'WarningLevel',
+				'Optimization',
+				'PreprocessorDefinitions',
+				'DebugInformationFormat',
+				'RuntimeLibrary',
+				'FloatingPointModel',
+				'AdditionalOptions',
+				'ForcedIncludeFiles',
+				'SuppressStartupBanner',
+				'FavorSizeOrSpeed',
+				'OmitFramePointers',
+				'EnableFiberSafeOptimizations',
+				'UndefinePreprocessorDefinitions',
+				'UndefineAllPreprocessorDefinitions',
+				'IgnoreStandardIncludePath',
+				'MinimalRebuild',
+				'SmallerTypeCheck',
+				'BasicRuntimeChecks',
+				'StructMemberAlignment',
+				'BufferSecurityCheck',
+				'EnableEnhancedInstructionSet',
+				'FloatingPointExceptions',
+				'DisableLanguageExtensions',
+				'TreatWChar_tAsBuiltInType',
+				'ForceConformanceInForLoopScope',
+				'RuntimeTypeInfo',
+				'ExpandAttributedSource',
+				'AssemblerOutput',
+				'AssemblerListingLocation',
+				'ProgramDataBaseFileName',
+				'GenerateXMLDocumentationFiles',
+				'XMLDocumentationFileName',
+				'BrowseInformation',
+				'BrowseInformationFile',
+				'CallingConvention',
+				'CompileAs',
+				'DisableSpecificWarnings',
+				'ForcedUsingFiles',
+				'ShowIncludes',
+				'UseFullPaths',
+				'OmitDefaultLibName',
+				'ErrorReporting',
+			]
+			compile_options = project.compile_options
+			for msvs_section_name in compile_options_sourced_parameters:
+				generate_options[msvs_section_name] = { 'option_source': compile_options }
+
+			compile_options_sourced_parameters_with_gyp_section_name = {
+				'PrecompiledHeader': 'UsePrecompiledHeader',
+				'TreatWarningAsError': 'WarnAsError',
+				'IntrinsicFunctions': 'EnableIntrinsicFunctions',
+				'PreprocessKeepComments': 'KeepComments',
+				'FunctionLevelLinking': 'EnableFunctionLevelLinking',
+				'OpenMPSupport': 'OpenMP',
+				'PrecompiledHeaderFile': 'PrecompiledHeaderThrough',
+				'PrecompiledHeaderOutputFile': 'PrecompiledHeaderFile',	
+				'ObjectFileName': 'ObjectFile',
 			}
+			for msvs_section_name, gyp_section_name in compile_options_sourced_parameters_with_gyp_section_name.items():
+				generate_options[msvs_section_name] = {
+					'option_source': compile_options,
+					'gyp_section_name': gyp_section_name,
+				}
+
+			project_options = project.project_options
+			generate_options['WholeProgramOptimization'] = { 'option_source': project_options }
 
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)
 
