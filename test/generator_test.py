@@ -168,6 +168,7 @@ class GeneratorTest(unittest.TestCase):
 										'GenerateMapFile': 'true',
 										'MapFileName': '$(OutDir)$(TargetName).map',
 										'MapExports': 'false',
+										'AssemblyDebug': 1,
 									},
 								},
 								'msbuild_props': [

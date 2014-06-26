@@ -125,6 +125,10 @@ class MsvsOptionConverter:
 			'HighestAvailable': 1,
 			'RequireAdministrator': 2,
 		},
+		'AssemblyDebug': {
+			'true': 1,
+			'false': 2,
+		},
 	}
 
 	_integer_boolean_msvs_name = {
