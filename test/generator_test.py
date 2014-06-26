@@ -193,6 +193,7 @@ class GeneratorTest(unittest.TestCase):
 										'DataExecutionPrevention': 2,
 										'TurnOffAssemblyGeneration': 'false',
 										'SupportUnloadOfDelayLoadedDLL': 'true',
+										'ImportLibrary': 'dummyG',
 									},
 								},
 								'msbuild_props': [

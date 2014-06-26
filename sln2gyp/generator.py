@@ -246,6 +246,7 @@ class Generator:
 				'DataExecutionPrevention',
 				'TurnOffAssemblyGeneration',
 				'SupportUnloadOfDelayLoadedDLL',
+				'ImportLibrary',
 			]
 			link_options = project.link_options
 			for msvs_section_name in link_options_sourced_parameters:
