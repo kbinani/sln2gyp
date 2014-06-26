@@ -172,6 +172,7 @@ class GeneratorTest(unittest.TestCase):
 										'HeapReserveSize': '1048576',
 										'HeapCommitSize': '4096',
 										'StackReserveSize': '2097152',
+										'StackCommitSize': '8192',
 									},
 								},
 								'msbuild_props': [
