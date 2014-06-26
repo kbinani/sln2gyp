@@ -183,6 +183,7 @@ class GeneratorTest(unittest.TestCase):
 										'MidlCommandFile': 'Win32Project1.midl',
 										'IgnoreEmbeddedIDL': 'false',
 										'MergedIDLBaseFileName': '$(OutDir)$(TargetName).idl',
+										'TypeLibraryFile': '$(OutDir)$(TargetName).tbl',
 									},
 								},
 								'msbuild_props': [

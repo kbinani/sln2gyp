@@ -146,6 +146,7 @@
       <MidlCommandFile>Win32Project1.midl</MidlCommandFile>
       <IgnoreEmbeddedIDL>false</IgnoreEmbeddedIDL>
       <MergedIDLBaseFileName>$(OutDir)$(TargetName).idl</MergedIDLBaseFileName>
+      <TypeLibraryFile>$(OutDir)$(TargetName).tbl</TypeLibraryFile>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
