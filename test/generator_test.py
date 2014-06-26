@@ -179,6 +179,7 @@ class GeneratorTest(unittest.TestCase):
 										'SwapRunFromNet': 'false',
 										'Driver': 0,
 										'FunctionOrder': 'Win32Project1.order',
+										'ProfileGuidedDatabase': '$(OutDir)$(TargetName).pgd',
 									},
 								},
 								'msbuild_props': [
