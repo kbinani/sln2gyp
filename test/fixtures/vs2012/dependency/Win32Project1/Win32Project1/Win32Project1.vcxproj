@@ -152,6 +152,7 @@
       <SetChecksum>false</SetChecksum>
       <BaseAddress>0x400000</BaseAddress>
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <FixedBaseAddress>false</FixedBaseAddress>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>

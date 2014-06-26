@@ -189,6 +189,7 @@ class GeneratorTest(unittest.TestCase):
 										'SetChecksum': 'false',
 										'BaseAddress': '0x400000',
 										'RandomizedBaseAddress': 2,
+										'FixedBaseAddress': 1,
 									},
 								},
 								'msbuild_props': [
