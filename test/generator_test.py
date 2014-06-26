@@ -192,6 +192,7 @@ class GeneratorTest(unittest.TestCase):
 										'FixedBaseAddress': 1,
 										'DataExecutionPrevention': 2,
 										'TurnOffAssemblyGeneration': 'false',
+										'SupportUnloadOfDelayLoadedDLL': 'true',
 									},
 								},
 								'msbuild_props': [

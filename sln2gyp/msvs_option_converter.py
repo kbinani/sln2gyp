@@ -193,6 +193,7 @@ class MsvsOptionConverter:
 		'IgnoreEmbeddedIDL': None,
 		'SetChecksum': None,
 		'TurnOffAssemblyGeneration': None,
+		'SupportUnloadOfDelayLoadedDLL': None,
 	}
 
 	def convert(self, msvs_name, value):
