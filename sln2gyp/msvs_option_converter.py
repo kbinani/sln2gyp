@@ -137,6 +137,12 @@ class MsvsOptionConverter:
 			'false': 1,
 			'true': 2,
 		},
+		'Driver': {
+			'NotSet': 0,
+			'Driver': 1,
+			'UpOnly': 2,
+			'WDM': 3,
+		},
 	}
 
 	_integer_boolean_msvs_name = {

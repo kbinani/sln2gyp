@@ -140,6 +140,7 @@
       <TerminalServerAware>false</TerminalServerAware>
       <SwapRunFromCD>false</SwapRunFromCD>
       <SwapRunFromNET>false</SwapRunFromNET>
+      <Driver>NotSet</Driver>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>

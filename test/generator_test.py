@@ -177,6 +177,7 @@ class GeneratorTest(unittest.TestCase):
 										'TerminalServerAware': 1,
 										'SwapRunFromCD': 'false',
 										'SwapRunFromNet': 'false',
+										'Driver': 0,
 									},
 								},
 								'msbuild_props': [
