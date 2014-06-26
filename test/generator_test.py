@@ -188,6 +188,7 @@ class GeneratorTest(unittest.TestCase):
 										'EntryPointSymbol': 'wWinMainCRTStartup',
 										'SetChecksum': 'false',
 										'BaseAddress': '0x400000',
+										'RandomizedBaseAddress': 2,
 									},
 								},
 								'msbuild_props': [

@@ -241,6 +241,7 @@ class Generator:
 				'EntryPointSymbol',
 				'SetChecksum',
 				'BaseAddress',
+				'RandomizedBaseAddress',
 			]
 			link_options = project.link_options
 			for msvs_section_name in link_options_sourced_parameters:

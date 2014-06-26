@@ -156,6 +156,7 @@ class MsvsOptionConverter:
 		'LinkIncremental': None,
 		'EnableCOMDATFolding': None,
 		'OptimizeReferences': None,
+		'RandomizedBaseAddress': None,
 	}
 
 	_string_boolean_msvs_name = {
