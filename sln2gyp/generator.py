@@ -292,6 +292,9 @@ class Generator:
 				'StripPrivateSymbols': {
 					'option_source': link_options,
 				},
+				'GenerateMapFile': {
+					'option_source': link_options,
+				},
 			}
 
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)
