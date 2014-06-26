@@ -157,6 +157,7 @@
       <TurnOffAssemblyGeneration>false</TurnOffAssemblyGeneration>
       <SupportUnloadOfDelayLoadedDLL>true</SupportUnloadOfDelayLoadedDLL>
       <ImportLibrary>dummyG</ImportLibrary>
+      <MergeSections>.rdata=.text</MergeSections>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>

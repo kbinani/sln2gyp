@@ -194,6 +194,7 @@ class GeneratorTest(unittest.TestCase):
 										'TurnOffAssemblyGeneration': 'false',
 										'SupportUnloadOfDelayLoadedDLL': 'true',
 										'ImportLibrary': 'dummyG',
+										'MergeSections': '.rdata=.text',
 									},
 								},
 								'msbuild_props': [
