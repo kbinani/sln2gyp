@@ -118,6 +118,7 @@
       <EmbedManagedResourceFile>dummyC;dummyD</EmbedManagedResourceFile>
       <ForceSymbolReferences>_dummy_symbol_1;_dummy_symbol_2</ForceSymbolReferences>
       <DelayLoadDLLs>d3d9.dll;d3dx9d.dll</DelayLoadDLLs>
+      <AssemblyLinkResource>dummyE;dummyF</AssemblyLinkResource>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>

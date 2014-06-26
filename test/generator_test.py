@@ -149,6 +149,10 @@ class GeneratorTest(unittest.TestCase):
 											'd3d9.dll',
 											'd3dx9d.dll',
 										],
+										'AssemblyLinkResource': [
+											'dummyE',
+											'dummyF',
+										],
 									},
 								},
 								'msbuild_props': [
