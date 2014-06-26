@@ -132,6 +132,7 @@
       <MapFileName>$(OutDir)$(TargetName).map</MapFileName>
       <MapExports>false</MapExports>
       <AssemblyDebug>true</AssemblyDebug>
+      <HeapReserveSize>1048576</HeapReserveSize>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>

@@ -169,6 +169,7 @@ class GeneratorTest(unittest.TestCase):
 										'MapFileName': '$(OutDir)$(TargetName).map',
 										'MapExports': 'false',
 										'AssemblyDebug': 1,
+										'HeapReserveSize': '1048576',
 									},
 								},
 								'msbuild_props': [

@@ -304,6 +304,9 @@ class Generator:
 				'AssemblyDebug': {
 					'option_source': link_options,
 				},
+				'HeapReserveSize': {
+					'option_source': link_options,
+				},
 			}
 
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)
