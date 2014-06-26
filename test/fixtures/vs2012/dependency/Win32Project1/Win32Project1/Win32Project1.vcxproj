@@ -145,6 +145,7 @@
       <ProfileGuidedDatabase>$(OutDir)$(TargetName).pgd</ProfileGuidedDatabase>
       <MidlCommandFile>Win32Project1.midl</MidlCommandFile>
       <IgnoreEmbeddedIDL>false</IgnoreEmbeddedIDL>
+      <MergedIDLBaseFileName>$(OutDir)$(TargetName).idl</MergedIDLBaseFileName>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>

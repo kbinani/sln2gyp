@@ -182,6 +182,7 @@ class GeneratorTest(unittest.TestCase):
 										'ProfileGuidedDatabase': '$(OutDir)$(TargetName).pgd',
 										'MidlCommandFile': 'Win32Project1.midl',
 										'IgnoreEmbeddedIDL': 'false',
+										'MergedIDLBaseFileName': '$(OutDir)$(TargetName).idl',
 									},
 								},
 								'msbuild_props': [
