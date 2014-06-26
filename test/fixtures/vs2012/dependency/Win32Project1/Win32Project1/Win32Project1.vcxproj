@@ -133,6 +133,7 @@
       <MapExports>false</MapExports>
       <AssemblyDebug>true</AssemblyDebug>
       <HeapReserveSize>1048576</HeapReserveSize>
+      <HeapCommitSize>4096</HeapCommitSize>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>

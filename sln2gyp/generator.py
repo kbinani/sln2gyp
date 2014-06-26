@@ -307,6 +307,9 @@ class Generator:
 				'HeapReserveSize': {
 					'option_source': link_options,
 				},
+				'HeapCommitSize': {
+					'option_source': link_options,
+				},
 			}
 
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)

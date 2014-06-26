@@ -170,6 +170,7 @@ class GeneratorTest(unittest.TestCase):
 										'MapExports': 'false',
 										'AssemblyDebug': 1,
 										'HeapReserveSize': '1048576',
+										'HeapCommitSize': '4096',
 									},
 								},
 								'msbuild_props': [
