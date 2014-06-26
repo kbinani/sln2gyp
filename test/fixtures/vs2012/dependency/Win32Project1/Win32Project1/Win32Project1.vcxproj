@@ -150,6 +150,7 @@
       <TypeLibraryResourceID>1</TypeLibraryResourceID>
       <EntryPointSymbol>wWinMainCRTStartup</EntryPointSymbol>
       <SetChecksum>false</SetChecksum>
+      <BaseAddress>0x400000</BaseAddress>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>

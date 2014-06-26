@@ -240,6 +240,7 @@ class Generator:
 				'TypeLibraryResourceID',
 				'EntryPointSymbol',
 				'SetChecksum',
+				'BaseAddress',
 			]
 			link_options = project.link_options
 			for msvs_section_name in link_options_sourced_parameters:

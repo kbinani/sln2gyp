@@ -187,6 +187,7 @@ class GeneratorTest(unittest.TestCase):
 										'TypeLibraryResourceID': '1',
 										'EntryPointSymbol': 'wWinMainCRTStartup',
 										'SetChecksum': 'false',
+										'BaseAddress': '0x400000',
 									},
 								},
 								'msbuild_props': [
