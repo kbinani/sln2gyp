@@ -217,6 +217,7 @@ class GeneratorTest(unittest.TestCase):
 											'winmm.lib',
 											'%(AdditionalDependencies)',
 										],
+										'LinkTimeCodeGeneration': 3,
 									},
 								},
 							},

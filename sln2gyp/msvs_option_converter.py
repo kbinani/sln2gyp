@@ -143,6 +143,13 @@ class MsvsOptionConverter:
 			'UpOnly': 2,
 			'WDM': 3,
 		},
+		'LinkTimeCodeGeneration': {
+			'Default': 0,
+			'UseLinkTimeCodeGeneration': 1,
+			'PGInstrument': 2,
+			'PGOptimization': 3,
+			'PGUpdate': 4,
+		},
 	}
 
 	_integer_boolean_msvs_name = {
