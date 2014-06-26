@@ -173,6 +173,7 @@ class GeneratorTest(unittest.TestCase):
 										'HeapCommitSize': '4096',
 										'StackReserveSize': '2097152',
 										'StackCommitSize': '8192',
+										'LargeAddressAware': 1,
 									},
 								},
 								'msbuild_props': [

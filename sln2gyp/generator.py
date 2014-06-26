@@ -316,6 +316,9 @@ class Generator:
 				'StackCommitSize': {
 					'option_source': link_options,
 				},
+				'LargeAddressAware': {
+					'option_source': link_options,
+				},
 			}
 
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)

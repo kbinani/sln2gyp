@@ -136,6 +136,7 @@
       <HeapCommitSize>4096</HeapCommitSize>
       <StackReserveSize>2097152</StackReserveSize>
       <StackCommitSize>8192</StackCommitSize>
+      <LargeAddressAware>false</LargeAddressAware>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>

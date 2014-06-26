@@ -129,6 +129,10 @@ class MsvsOptionConverter:
 			'true': 1,
 			'false': 2,
 		},
+		'LargeAddressAware': {
+			'false': 1,
+			'true': 2,
+		},
 	}
 
 	_integer_boolean_msvs_name = {
