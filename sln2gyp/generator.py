@@ -325,6 +325,10 @@ class Generator:
 				'SwapRunFromCD': {
 					'option_source': link_options,
 				},
+				'SwapRunFromNET': {
+					'option_source': link_options,
+					'gyp_section_name': 'SwapRunFromNet',
+				},
 			}
 
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)

@@ -176,6 +176,7 @@ class GeneratorTest(unittest.TestCase):
 										'LargeAddressAware': 1,
 										'TerminalServerAware': 1,
 										'SwapRunFromCD': 'false',
+										'SwapRunFromNet': 'false',
 									},
 								},
 								'msbuild_props': [

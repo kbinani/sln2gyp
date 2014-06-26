@@ -173,6 +173,7 @@ class MsvsOptionConverter:
 		'GenerateMapFile': None,
 		'MapExports': None,
 		'SwapRunFromCD': None,
+		'SwapRunFromNet': None,
 	}
 
 	def convert(self, msvs_name, value):

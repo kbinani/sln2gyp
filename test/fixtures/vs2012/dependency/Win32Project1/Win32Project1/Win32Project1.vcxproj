@@ -139,6 +139,7 @@
       <LargeAddressAware>false</LargeAddressAware>
       <TerminalServerAware>false</TerminalServerAware>
       <SwapRunFromCD>false</SwapRunFromCD>
+      <SwapRunFromNET>false</SwapRunFromNET>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
