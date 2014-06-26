@@ -197,6 +197,7 @@ class GeneratorTest(unittest.TestCase):
 										'MergeSections': '.rdata=.text',
 										'Profile': 'false',
 										'CLRThreadAttribute': 0,
+										'CLRImageType': 0,
 									},
 								},
 								'msbuild_props': [

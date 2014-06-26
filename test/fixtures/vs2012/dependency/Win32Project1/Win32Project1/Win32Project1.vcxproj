@@ -161,6 +161,7 @@
       <TargetMachine>MachineX86</TargetMachine>
       <Profile>false</Profile>
       <CLRThreadAttribute>DefaultThreadingAttribute</CLRThreadAttribute>
+      <CLRImageType>Default</CLRImageType>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>

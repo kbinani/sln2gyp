@@ -169,6 +169,12 @@ class MsvsOptionConverter:
 			'MTAThreadingAttribute': 1,
 			'STAThreadingAttribute': 2,
 		},
+		'CLRImageType': {
+			'Default': 0,
+			'ForceIJWImage': 1,
+			'ForcePureILImage': 2,
+			'ForceSafeILImage': 3,
+		},
 	}
 
 	_integer_boolean_msvs_name = {
