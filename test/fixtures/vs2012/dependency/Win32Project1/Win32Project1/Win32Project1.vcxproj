@@ -158,6 +158,7 @@
       <SupportUnloadOfDelayLoadedDLL>true</SupportUnloadOfDelayLoadedDLL>
       <ImportLibrary>dummyG</ImportLibrary>
       <MergeSections>.rdata=.text</MergeSections>
+      <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
@@ -195,6 +196,7 @@
       <Version>3.14159</Version>
       <AdditionalLibraryDirectories>..\depend\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <LinkTimeCodeGeneration>PGOptimization</LinkTimeCodeGeneration>
+      <TargetMachine>MachineX86</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

@@ -150,6 +150,20 @@ class MsvsOptionConverter:
 			'PGOptimization': 3,
 			'PGUpdate': 4,
 		},
+		'TargetMachine': {
+			'NotSet': 0,
+			'MachineX86': 1,
+			'MachineARM': 3,
+			'MachineEBC': 4,
+			'MachineIA64': 5,
+			'MachineMIPS': 7,
+			'MachineMIPS16': 8,
+			'MachineMIPSFPU': 9,
+			'MachineMIPSFPU16': 10,
+			'MachineSH4': 14,
+			'MachineTHUMB': 16,
+			'MachineX64': 17,
+		},
 	}
 
 	_integer_boolean_msvs_name = {

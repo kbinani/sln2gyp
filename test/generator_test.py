@@ -245,6 +245,7 @@ class GeneratorTest(unittest.TestCase):
 									'..\depend\$(Configuration)',
 									'%(AdditionalLibraryDirectories)',
 								],
+								'TargetMachine': 1,
 							},
 							'VCCLCompilerTool': {
 								'UsePrecompiledHeader': 2,
