@@ -190,6 +190,7 @@ class GeneratorTest(unittest.TestCase):
 										'BaseAddress': '0x400000',
 										'RandomizedBaseAddress': 2,
 										'FixedBaseAddress': 1,
+										'DataExecutionPrevention': 2,
 									},
 								},
 								'msbuild_props': [

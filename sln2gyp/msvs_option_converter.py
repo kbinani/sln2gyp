@@ -158,6 +158,7 @@ class MsvsOptionConverter:
 		'OptimizeReferences': None,
 		'RandomizedBaseAddress': None,
 		'FixedBaseAddress': None,
+		'DataExecutionPrevention': None,
 	}
 
 	_string_boolean_msvs_name = {

@@ -153,6 +153,7 @@
       <BaseAddress>0x400000</BaseAddress>
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
       <FixedBaseAddress>false</FixedBaseAddress>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
