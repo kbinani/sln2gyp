@@ -162,6 +162,7 @@
       <Profile>false</Profile>
       <CLRThreadAttribute>DefaultThreadingAttribute</CLRThreadAttribute>
       <CLRImageType>Default</CLRImageType>
+      <KeyContainer>dummyH</KeyContainer>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
