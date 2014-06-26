@@ -319,6 +319,9 @@ class Generator:
 				'LargeAddressAware': {
 					'option_source': link_options,
 				},
+				'TerminalServerAware': {
+					'option_source': link_options,
+				},
 			}
 
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)

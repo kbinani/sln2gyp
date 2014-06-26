@@ -174,6 +174,7 @@ class GeneratorTest(unittest.TestCase):
 										'StackReserveSize': '2097152',
 										'StackCommitSize': '8192',
 										'LargeAddressAware': 1,
+										'TerminalServerAware': 1,
 									},
 								},
 								'msbuild_props': [

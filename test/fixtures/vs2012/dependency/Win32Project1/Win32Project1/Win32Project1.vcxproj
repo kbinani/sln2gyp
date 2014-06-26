@@ -137,6 +137,7 @@
       <StackReserveSize>2097152</StackReserveSize>
       <StackCommitSize>8192</StackCommitSize>
       <LargeAddressAware>false</LargeAddressAware>
+      <TerminalServerAware>false</TerminalServerAware>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>

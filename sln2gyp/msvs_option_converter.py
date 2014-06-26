@@ -133,6 +133,10 @@ class MsvsOptionConverter:
 			'false': 1,
 			'true': 2,
 		},
+		'TerminalServerAware': {
+			'false': 1,
+			'true': 2,
+		},
 	}
 
 	_integer_boolean_msvs_name = {
