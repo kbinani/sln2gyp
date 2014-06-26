@@ -185,6 +185,7 @@ class GeneratorTest(unittest.TestCase):
 										'MergedIDLBaseFileName': '$(OutDir)$(TargetName).idl',
 										'TypeLibraryFile': '$(OutDir)$(TargetName).tbl',
 										'TypeLibraryResourceID': '1',
+										'EntryPointSymbol': 'wWinMainCRTStartup',
 									},
 								},
 								'msbuild_props': [

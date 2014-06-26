@@ -148,6 +148,7 @@
       <MergedIDLBaseFileName>$(OutDir)$(TargetName).idl</MergedIDLBaseFileName>
       <TypeLibraryFile>$(OutDir)$(TargetName).tbl</TypeLibraryFile>
       <TypeLibraryResourceID>1</TypeLibraryResourceID>
+      <EntryPointSymbol>wWinMainCRTStartup</EntryPointSymbol>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
