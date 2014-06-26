@@ -163,6 +163,7 @@ class GeneratorTest(unittest.TestCase):
 										'EnableUAC': 'true',
 										'UACExecutionLevel': 0,
 										'UACUIAccess': 'false',
+										'ProgramDatabaseFile': '$(OutDir)$(TargetName).pdb',
 									},
 								},
 								'msbuild_props': [
