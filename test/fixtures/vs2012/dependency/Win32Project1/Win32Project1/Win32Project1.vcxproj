@@ -147,6 +147,7 @@
       <IgnoreEmbeddedIDL>false</IgnoreEmbeddedIDL>
       <MergedIDLBaseFileName>$(OutDir)$(TargetName).idl</MergedIDLBaseFileName>
       <TypeLibraryFile>$(OutDir)$(TargetName).tbl</TypeLibraryFile>
+      <TypeLibraryResourceID>1</TypeLibraryResourceID>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>

@@ -184,6 +184,7 @@ class GeneratorTest(unittest.TestCase):
 										'IgnoreEmbeddedIDL': 'false',
 										'MergedIDLBaseFileName': '$(OutDir)$(TargetName).idl',
 										'TypeLibraryFile': '$(OutDir)$(TargetName).tbl',
+										'TypeLibraryResourceID': '1',
 									},
 								},
 								'msbuild_props': [
