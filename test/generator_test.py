@@ -195,6 +195,7 @@ class GeneratorTest(unittest.TestCase):
 										'SupportUnloadOfDelayLoadedDLL': 'true',
 										'ImportLibrary': 'dummyG',
 										'MergeSections': '.rdata=.text',
+										'Profile': 'false',
 									},
 								},
 								'msbuild_props': [

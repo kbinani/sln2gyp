@@ -208,6 +208,7 @@ class MsvsOptionConverter:
 		'SetChecksum': None,
 		'TurnOffAssemblyGeneration': None,
 		'SupportUnloadOfDelayLoadedDLL': None,
+		'Profile': None,
 	}
 
 	def convert(self, msvs_name, value):
