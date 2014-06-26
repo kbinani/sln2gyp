@@ -157,6 +157,7 @@ class MsvsOptionConverter:
 		'GenerateManifest': None,
 		'AllowIsolation': None,
 		'EnableUAC': None,
+		'UACUIAccess': None,
 	}
 
 	def convert(self, msvs_name, value):

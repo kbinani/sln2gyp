@@ -162,6 +162,7 @@ class GeneratorTest(unittest.TestCase):
 										'AllowIsolation': 'true',
 										'EnableUAC': 'true',
 										'UACExecutionLevel': 0,
+										'UACUIAccess': 'false',
 									},
 								},
 								'msbuild_props': [
