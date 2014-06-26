@@ -143,6 +143,7 @@
       <Driver>NotSet</Driver>
       <FunctionOrder>Win32Project1.order</FunctionOrder>
       <ProfileGuidedDatabase>$(OutDir)$(TargetName).pgd</ProfileGuidedDatabase>
+      <MidlCommandFile>Win32Project1.midl</MidlCommandFile>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>

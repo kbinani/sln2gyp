@@ -180,6 +180,7 @@ class GeneratorTest(unittest.TestCase):
 										'Driver': 0,
 										'FunctionOrder': 'Win32Project1.order',
 										'ProfileGuidedDatabase': '$(OutDir)$(TargetName).pgd',
+										'MidlCommandFile': 'Win32Project1.midl',
 									},
 								},
 								'msbuild_props': [
