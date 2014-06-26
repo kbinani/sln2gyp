@@ -175,6 +175,7 @@ class GeneratorTest(unittest.TestCase):
 										'StackCommitSize': '8192',
 										'LargeAddressAware': 1,
 										'TerminalServerAware': 1,
+										'SwapRunFromCD': 'false',
 									},
 								},
 								'msbuild_props': [

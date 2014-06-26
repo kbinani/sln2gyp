@@ -138,6 +138,7 @@
       <StackCommitSize>8192</StackCommitSize>
       <LargeAddressAware>false</LargeAddressAware>
       <TerminalServerAware>false</TerminalServerAware>
+      <SwapRunFromCD>false</SwapRunFromCD>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
