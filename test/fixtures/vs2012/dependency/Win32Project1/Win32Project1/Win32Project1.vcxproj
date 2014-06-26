@@ -164,6 +164,7 @@
       <CLRImageType>Default</CLRImageType>
       <KeyContainer>dummyH</KeyContainer>
       <CLRUnmanagedCodeCheck>false</CLRUnmanagedCodeCheck>
+      <LinkErrorReporting>PromptImmediately</LinkErrorReporting>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>

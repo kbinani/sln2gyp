@@ -175,6 +175,12 @@ class MsvsOptionConverter:
 			'ForcePureILImage': 2,
 			'ForceSafeILImage': 3,
 		},
+		'LinkErrorReporting': {
+			'NoErrorReport': 0,
+			'PromptImmediately': 1,
+			'QueueForNextLogin': 2,
+			'SendErrorReport': None, #gyp does not have equivalent value for 'SendErrorReport'
+		},
 	}
 
 	_integer_boolean_msvs_name = {

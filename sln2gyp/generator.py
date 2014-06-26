@@ -277,16 +277,19 @@ class Generator:
 			for msvs_section_name in project_reference_sourced_parameters:
 				generate_options[msvs_section_name] = { 'option_source': project_reference }
 
-			generate_options['IgnoreSpecificDefaultLibraries'] = {
-				'option_source': link_options,
-				'gyp_section_name': 'IgnoreDefaultLibraryNames'
+			link_options_sourced_parameters_with_gyp_section_name = {
+				'IgnoreSpecificDefaultLibraries': 'IgnoreDefaultLibraryNames',
+				'SwapRunFromNET': 'SwapRunFromNet',
 			}
-			generate_options['SwapRunFromNET'] = {
-				'option_source': link_options,
-				'gyp_section_name': 'SwapRunFromNet',
-			}
+			for msvs_section_name, gyp_section_name in link_options_sourced_parameters_with_gyp_section_name.items():
+				generate_options[msvs_section_name] = {
+					'option_source': link_options,
+					'gyp_section_name': gyp_section_name,
+				}
 
 			section = self._generate_proj_msvs_settings_part(project, configurations, generate_options)
+
+			converter = MsvsOptionConverter()
 
 			# AdditionalDependencies
 			additional_dependencies = link_options.get_common_value_for_configurations(configurations, 'AdditionalDependencies')
@@ -304,7 +307,6 @@ class Generator:
 			# workaround for gyp design. gyp does not recognize 'ShowProgress' == 'LinkVerboseICF', 'LinkVerboseREF', 'LinkVerboseSAFESEH', or 'LinkVerboseCLR'.
 			show_progress = link_options.get_common_value_for_configurations(configurations, 'ShowProgress')
 			if show_progress != None:
-				converter = MsvsOptionConverter()
 				show_progress_gyp_value = converter.convert('ShowProgress', show_progress)
 				if show_progress_gyp_value == None:
 					mapping = {
@@ -323,6 +325,22 @@ class Generator:
 						section['AdditionalOptions'] = prev
 				else:
 					section['ShowProgress'] = show_progress_gyp_value
+
+			# workaround for gyp design. gyp does not recognize 'LinkErrorReporting' == 'SendErrorReport'.
+			link_error_reporting = link_options.get_common_value_for_configurations(configurations, 'LinkErrorReporting')
+			if link_error_reporting != None:
+				draft_link_error_reporting = converter.convert('LinkErrorReporting', link_error_reporting)
+				if draft_link_error_reporting == None:
+					if link_error_reporting == 'SendErrorReport':
+						prev = ''
+						if 'AdditionalOptions' not in section:
+							section['AdditionalOptions'] = ''
+						else:
+							prev = section['AdditionalOptions']
+						prev = (' ' if len(prev) > 0 else '') +  '/ERRORREPORT:SEND'
+						section['AdditionalOptions'] = prev
+				else:
+					section['ErrorReporting'] = draft_link_error_reporting
 
 			return section
 

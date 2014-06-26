@@ -200,6 +200,7 @@ class GeneratorTest(unittest.TestCase):
 										'CLRImageType': 0,
 										'KeyContainer': 'dummyH',
 										'CLRUnmanagedCodeCheck': 'false',
+										'ErrorReporting': 1,
 									},
 								},
 								'msbuild_props': [
