@@ -178,6 +178,7 @@ class GeneratorTest(unittest.TestCase):
 										'SwapRunFromCD': 'false',
 										'SwapRunFromNet': 'false',
 										'Driver': 0,
+										'FunctionOrder': 'Win32Project1.order',
 									},
 								},
 								'msbuild_props': [

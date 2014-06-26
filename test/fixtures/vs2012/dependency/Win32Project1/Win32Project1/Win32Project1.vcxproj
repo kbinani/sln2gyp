@@ -141,6 +141,7 @@
       <SwapRunFromCD>false</SwapRunFromCD>
       <SwapRunFromNET>false</SwapRunFromNET>
       <Driver>NotSet</Driver>
+      <FunctionOrder>Win32Project1.order</FunctionOrder>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
