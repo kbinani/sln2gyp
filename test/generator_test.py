@@ -186,6 +186,7 @@ class GeneratorTest(unittest.TestCase):
 										'TypeLibraryFile': '$(OutDir)$(TargetName).tbl',
 										'TypeLibraryResourceID': '1',
 										'EntryPointSymbol': 'wWinMainCRTStartup',
+										'SetChecksum': 'false',
 									},
 								},
 								'msbuild_props': [

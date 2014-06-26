@@ -149,6 +149,7 @@
       <TypeLibraryFile>$(OutDir)$(TargetName).tbl</TypeLibraryFile>
       <TypeLibraryResourceID>1</TypeLibraryResourceID>
       <EntryPointSymbol>wWinMainCRTStartup</EntryPointSymbol>
+      <SetChecksum>false</SetChecksum>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>

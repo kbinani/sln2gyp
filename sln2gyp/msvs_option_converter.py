@@ -188,6 +188,7 @@ class MsvsOptionConverter:
 		'SwapRunFromCD': None,
 		'SwapRunFromNet': None,
 		'IgnoreEmbeddedIDL': None,
+		'SetChecksum': None,
 	}
 
 	def convert(self, msvs_name, value):
