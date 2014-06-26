@@ -187,6 +187,7 @@ class MsvsOptionConverter:
 		'MapExports': None,
 		'SwapRunFromCD': None,
 		'SwapRunFromNet': None,
+		'IgnoreEmbeddedIDL': None,
 	}
 
 	def convert(self, msvs_name, value):

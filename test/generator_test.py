@@ -181,6 +181,7 @@ class GeneratorTest(unittest.TestCase):
 										'FunctionOrder': 'Win32Project1.order',
 										'ProfileGuidedDatabase': '$(OutDir)$(TargetName).pgd',
 										'MidlCommandFile': 'Win32Project1.midl',
+										'IgnoreEmbeddedIDL': 'false',
 									},
 								},
 								'msbuild_props': [

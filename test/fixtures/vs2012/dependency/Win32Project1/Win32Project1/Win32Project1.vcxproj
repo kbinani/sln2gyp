@@ -144,6 +144,7 @@
       <FunctionOrder>Win32Project1.order</FunctionOrder>
       <ProfileGuidedDatabase>$(OutDir)$(TargetName).pgd</ProfileGuidedDatabase>
       <MidlCommandFile>Win32Project1.midl</MidlCommandFile>
+      <IgnoreEmbeddedIDL>false</IgnoreEmbeddedIDL>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
