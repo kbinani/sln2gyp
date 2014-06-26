@@ -220,6 +220,7 @@ class MsvsOptionConverter:
 		'TurnOffAssemblyGeneration': None,
 		'SupportUnloadOfDelayLoadedDLL': None,
 		'Profile': None,
+		'CLRUnmanagedCodeCheck': None,
 	}
 
 	def convert(self, msvs_name, value):

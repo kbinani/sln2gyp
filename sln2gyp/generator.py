@@ -253,6 +253,7 @@ class Generator:
 				'CLRThreadAttribute',
 				'CLRImageType',
 				'KeyContainer',
+				'CLRUnmanagedCodeCheck',
 			]
 			link_options = project.link_options
 			for msvs_section_name in link_options_sourced_parameters:
