@@ -160,6 +160,7 @@
       <MergeSections>.rdata=.text</MergeSections>
       <TargetMachine>MachineX86</TargetMachine>
       <Profile>false</Profile>
+      <CLRThreadAttribute>DefaultThreadingAttribute</CLRThreadAttribute>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>

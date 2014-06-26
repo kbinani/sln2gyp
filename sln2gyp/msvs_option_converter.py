@@ -164,6 +164,11 @@ class MsvsOptionConverter:
 			'MachineTHUMB': 16,
 			'MachineX64': 17,
 		},
+		'CLRThreadAttribute': {
+			'DefaultThreadingAttribute': 0,
+			'MTAThreadingAttribute': 1,
+			'STAThreadingAttribute': 2,
+		},
 	}
 
 	_integer_boolean_msvs_name = {

@@ -196,6 +196,7 @@ class GeneratorTest(unittest.TestCase):
 										'ImportLibrary': 'dummyG',
 										'MergeSections': '.rdata=.text',
 										'Profile': 'false',
+										'CLRThreadAttribute': 0,
 									},
 								},
 								'msbuild_props': [
