@@ -164,6 +164,7 @@ class GeneratorTest(unittest.TestCase):
 										'UACExecutionLevel': 0,
 										'UACUIAccess': 'false',
 										'ProgramDatabaseFile': '$(OutDir)$(TargetName).pdb',
+										'StripPrivateSymbols': '$(OutDir)$(TargetName).stripped.pdb',
 									},
 								},
 								'msbuild_props': [
