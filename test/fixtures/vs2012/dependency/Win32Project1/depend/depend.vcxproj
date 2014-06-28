@@ -47,6 +47,7 @@
       <ForceSymbolReferences>_exported_function</ForceSymbolReferences>
       <SuppressStartupBanner>false</SuppressStartupBanner>
       <ExportNamedFunctions>exported_function_1;exported_function_2</ExportNamedFunctions>
+      <IgnoreSpecificDefaultLibraries>libcmtd.lib</IgnoreSpecificDefaultLibraries>
     </Lib>
     <Link>
       <AdditionalDependencies>

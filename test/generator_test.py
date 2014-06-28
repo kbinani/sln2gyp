@@ -307,6 +307,9 @@ class GeneratorTest(unittest.TestCase):
 											'exported_function_1',
 											'exported_function_2',
 										],
+										'IgnoreSpecificDefaultLibraries': [
+											'libcmtd.lib',
+										],
 									},
 								},
 							},

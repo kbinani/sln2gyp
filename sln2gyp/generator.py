@@ -279,7 +279,7 @@ class Generator:
 				generate_options[msvs_section_name] = { 'option_source': project_reference }
 
 			link_options_sourced_parameters_with_gyp_section_name = {
-				'IgnoreSpecificDefaultLibraries': 'IgnoreDefaultLibraryNames',
+				'IgnoreSpecificDefaultLibraries': ('IgnoreSpecificDefaultLibraries' if is_static_library else 'IgnoreDefaultLibraryNames'),
 				'SwapRunFromNET': 'SwapRunFromNet',
 			}
 			for msvs_section_name, gyp_section_name in link_options_sourced_parameters_with_gyp_section_name.items():
