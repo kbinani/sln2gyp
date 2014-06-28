@@ -14,6 +14,12 @@ extern "C" {
 extern void exported_function()
 {}
 
+extern void exported_function_1()
+{}
+
+extern void exported_function_2()
+{}
+
 #ifdef __cplusplus
 } // extern "C"
 #endif

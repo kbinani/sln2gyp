@@ -254,6 +254,7 @@ class Generator:
 				'CLRImageType',
 				'KeyContainer',
 				'CLRUnmanagedCodeCheck',
+				'ExportNamedFunctions',
 			]
 			link_options = project.link_options
 			for msvs_section_name in link_options_sourced_parameters:

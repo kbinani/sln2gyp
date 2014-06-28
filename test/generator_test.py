@@ -303,6 +303,10 @@ class GeneratorTest(unittest.TestCase):
 											'_exported_function',
 										],
 										'SuppressStartupBanner': 'false',
+										'ExportNamedFunctions': [
+											'exported_function_1',
+											'exported_function_2',
+										],
 									},
 								},
 							},
